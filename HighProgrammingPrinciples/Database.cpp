@@ -13,7 +13,7 @@ class Database {
 	public:
 		Database()
 		{
-			query = "SELECT * FROM subject WHERE id = ?";	
+			
 		}
 
 		void Open_database()
@@ -28,19 +28,14 @@ class Database {
 			else
 			{
 				cout << "The database has been opened succesfully";
-				sqlite3_prepare_v2(db, query, -1, &result, 0);
-				//const int index = sqlite3_bind_parameter_index(result, "id");
-				//sqlite3_bind_int(result, index, )
-				sqlite3_bind_int(result, 1, 2);
-
-				int step = sqlite3_step(result);
-
-				if (step == SQLITE_ROW)
-				{
-					cout << "The parameter is " << sqlite3_column_text(result, 1);
-				}
-				sqlite3_finalize(result);//
 			}
+		}
+		void Get_missing_ist()
+		{
+			query = "SELECT * FROM subject WHERE id = ?";
+			Open_database();
+			sqlite3_prepare_v2(db, query, -1, &result, 0);
+
 		}
 
 		void Close_database()
@@ -51,5 +46,27 @@ class Database {
 		void Print_query_results()
 		{
 
+		}
+
+		sqlite3_stmt *GetNextResult()
+		{
+			sqlite3_step(result);
+			return result;
+		}
+		void SetUpStatement()
+		{
+			query = "SELECT * FROM measuredat";
+			sqlite3_prepare_v2(db, query, -1, &result, 0);
+			//const int index = sqlite3_bind_parameter_index(result, "id");
+			//sqlite3_bind_int(result, index, )
+			sqlite3_bind_int(result, 1, 2);
+
+			int step = sqlite3_step(result);
+
+			if (step == SQLITE_ROW)
+			{
+				cout << "The parameter is " << sqlite3_column_text(result, 1);
+			}
+			sqlite3_finalize(result);
 		}
 };
