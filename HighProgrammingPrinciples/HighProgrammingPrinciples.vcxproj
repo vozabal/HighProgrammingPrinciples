@@ -77,12 +77,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MeasuredValue.cpp" />
+    <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Record.cpp" />
+    <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="Simplex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Database.h" />
+    <ClInclude Include="MeasuredValue.h" />
     <ClInclude Include="Resources\sqlite3.h" />
+    <ClInclude Include="Segment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
