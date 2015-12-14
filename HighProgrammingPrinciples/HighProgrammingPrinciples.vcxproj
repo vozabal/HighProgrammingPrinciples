@@ -79,8 +79,10 @@
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
+    <ClCompile Include="IntervalLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeasuredValue.cpp" />
+    <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Record.cpp" />
     <ClCompile Include="Segment.cpp" />
@@ -88,7 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h" />
+    <ClInclude Include="IntervalLoader.h" />
     <ClInclude Include="MeasuredValue.h" />
+    <ClInclude Include="Parameters.h" />
     <ClInclude Include="Resources\sqlite3.h" />
     <ClInclude Include="Segment.h" />
   </ItemGroup>

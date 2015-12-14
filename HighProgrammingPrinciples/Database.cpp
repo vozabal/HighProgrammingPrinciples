@@ -11,6 +11,27 @@
 
 	}
 
+	void Database::PushCoefficients(vector<double> coefficients)
+	{
+		Open_database();		
+		query = "INSERT INTO difuse2params (p, cg, c, dt, h, k, s, segmentid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		sqlite3_prepare_v2(db, query, -1, &stmt, 0);
+
+		if (sqlite3_bind_double(stmt, 0, coefficients[0]) != SQLITE_OK) cout << "nejdes";
+		sqlite3_bind_double(stmt, 1, coefficients[1]);
+		sqlite3_bind_double(stmt, 2, coefficients[2]);
+		sqlite3_bind_double(stmt, 3, coefficients[3]);
+		sqlite3_bind_double(stmt, 4, coefficients[4]);
+		sqlite3_bind_double(stmt, 5, coefficients[5]);
+		sqlite3_bind_double(stmt, 6, coefficients[6]);
+		sqlite3_bind_double(stmt, 7, coefficients[7]);
+		sqlite3_bind_double(stmt, 8, coefficients[8]);
+
+		sqlite3_step(stmt);
+		sqlite3_finalize(stmt);
+		Close_database();
+	}
+
 	vector<Segment*> Database::GetSegments()
 	{
 		//Positions of the values of the row
@@ -32,24 +53,24 @@
 			
 		Open_database();
 		query = "SELECT * FROM measuredvalue";
-		sqlite3_prepare_v2(db, query, -1, &result, &pzTail);
+		sqlite3_prepare_v2(db, query, -1, &stmt, &pzTail);
 
-		while (sqlite3_step(result) == SQLITE_ROW)
+		while (sqlite3_step(stmt) == SQLITE_ROW)
 		{
 			int segment = 0;
 			actual_measuredat = "";
 
-			actual_blood = sqlite3_column_double(result, blood_position);
+			actual_blood = sqlite3_column_double(stmt, blood_position);
 			if (actual_blood == 0)
 			{
 				continue;
 			}
 			MeasuredValue *p_measuredValue = new MeasuredValue(); // TODO: new				
 
-			actual_id = sqlite3_column_int(result, id_position);
-			actual_ist = sqlite3_column_double(result, ist_position);
-			actual_measuredat.append((char *)sqlite3_column_text(result, measuredat_position));				
-			new_segment_number = sqlite3_column_double(result, segment_position);
+			actual_id = sqlite3_column_int(stmt, id_position);
+			actual_ist = sqlite3_column_double(stmt, ist_position);
+			actual_measuredat.append((char *)sqlite3_column_text(stmt, measuredat_position));				
+			new_segment_number = sqlite3_column_double(stmt, segment_position);
 				
 			p_measuredValue->id = actual_id;
 			p_measuredValue->ist = actual_ist;
@@ -73,12 +94,12 @@
 					Segment *p_segment = new Segment(new_segment_number);
 					segments.push_back(p_segment);
 					segments.back()->measuredValues.push_back(p_measuredValue);
-					actual_segment_number_number = sqlite3_column_double(result, segment_position);
+					actual_segment_number_number = sqlite3_column_double(stmt, segment_position);
 				}
 			}
 			
 		}
-		sqlite3_finalize(result);
+		sqlite3_finalize(stmt);
 		Close_database();
 
 		return segments;
@@ -110,29 +131,29 @@
 	{
 		query = "SELECT * FROM subject WHERE id = ?";
 		Open_database();
-		sqlite3_prepare_v2(db, query, -1, &result, 0);
+		sqlite3_prepare_v2(db, query, -1, &stmt, 0);
 
 	}	
 
 	sqlite3_stmt* Database::GetNextResult()
 	{
-		sqlite3_step(result);
-		return result;
+		sqlite3_step(stmt);
+		return stmt;
 	}
 
 	void Database::SetUpStatement()
 	{
 		query = "SELECT * FROM measuredat";
-		sqlite3_prepare_v2(db, query, -1, &result, 0);
-		//const int index = sqlite3_bind_parameter_index(result, "id");
-		//sqlite3_bind_int(result, index, )
-		sqlite3_bind_int(result, 1, 2);
+		sqlite3_prepare_v2(db, query, -1, &stmt, 0);
+		//const int index = sqlite3_bind_parameter_index(stmt, "id");
+		//sqlite3_bind_int(stmt, index, )
+		sqlite3_bind_int(stmt, 1, 2);
 
-		int step = sqlite3_step(result);
+		int step = sqlite3_step(stmt);
 
 		if (step == SQLITE_ROW)
 		{
-			cout << "The parameter is " << sqlite3_column_text(result, 1);
+			cout << "The parameter is " << sqlite3_column_text(stmt, 1);
 		}
-		sqlite3_finalize(result);
+		sqlite3_finalize(stmt);
 	}

@@ -15,7 +15,7 @@ class Database
 		sqlite3 *db;            /* Database handle */
 		const char *query;       /* SQL statement, UTF-8 encoded */
 		int nByte;              /* Maximum length of zSql in bytes. */
-		sqlite3_stmt *result;  /* OUT: Statement handle */
+		sqlite3_stmt *stmt;  /* OUT: Statement handle */
 		const char *pzTail;     /* OUT: Pointer to unused portion of zSql */
 
 		Database();
@@ -23,7 +23,8 @@ class Database
 
 		vector<Segment*> GetSegments();
 		void Open_database();
-		void Close_database(); 
+		void Close_database();
+		void PushCoefficients(vector<double> coefficients);
 		void Print_query_results(); // k nicemu
 		sqlite3_stmt *GetNextResult(); // k nicemu
 		void Get_missing_ist(); // K nicemu

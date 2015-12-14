@@ -19,9 +19,6 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Source Files\Structure">
-      <UniqueIdentifier>{f4bd78e3-6637-47d5-b3fc-6cc8a13fc74b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +48,12 @@
     <ClCompile Include="Segment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IntervalLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\sqlite3.h">
@@ -63,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IntervalLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
