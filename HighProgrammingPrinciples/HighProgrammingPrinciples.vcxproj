@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Fitness.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="IntervalLoader.cpp" />
@@ -90,11 +91,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h" />
+    <ClInclude Include="Fitness.h" />
+    <ClInclude Include="Functions.h" />
+    <ClInclude Include="Interpolation.h" />
     <ClInclude Include="IntervalLoader.h" />
     <ClInclude Include="MeasuredValue.h" />
     <ClInclude Include="Parameters.h" />
+    <ClInclude Include="RandomVectorGenerator.h" />
     <ClInclude Include="Resources\sqlite3.h" />
     <ClInclude Include="Segment.h" />
+    <ClInclude Include="Simplex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

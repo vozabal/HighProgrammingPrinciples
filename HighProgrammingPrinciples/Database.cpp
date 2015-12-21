@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include "Database.h"
 
 	Database::Database()
@@ -61,10 +61,11 @@
 			actual_measuredat = "";
 
 			actual_blood = sqlite3_column_double(stmt, blood_position);
-			if (actual_blood == 0)
+			/*if (actual_blood == 0)
 			{
-				continue;
+				continue; //chyba nenacita neistovy
 			}
+			*/
 			MeasuredValue *p_measuredValue = new MeasuredValue(); // TODO: new				
 
 			actual_id = sqlite3_column_int(stmt, id_position);
@@ -75,7 +76,7 @@
 			p_measuredValue->id = actual_id;
 			p_measuredValue->ist = actual_ist;
 			p_measuredValue->blood = actual_blood;				
-			p_measuredValue->measuredate += actual_measuredat;
+			p_measuredValue->measuredate = GetTimeFromDB(QString::fromStdString(actual_measuredat));
 				
 
 			if (segments.size() == 0)
@@ -156,4 +157,21 @@
 			cout << "The parameter is " << sqlite3_column_text(stmt, 1);
 		}
 		sqlite3_finalize(stmt);
+	}
+
+	double Database::QDateTime2RatTime(const QDateTime *qdt) {
+		const qint64 diffFrom1970To1900 = 2209161600000;
+		const double MSecsPerDay = 24.0*60.0*60.0*1000.0;
+		const double InvMSecsPerDay = 1.0 / MSecsPerDay;
+
+		qint64 diff = qdt->toMSecsSinceEpoch() + diffFrom1970To1900;
+		return ((double)diff)*InvMSecsPerDay;
+	}
+
+	double Database::GetTimeFromDB(const QString time)
+	{
+		QDateTime q_time = QDateTime::fromString(time, Qt::ISODate);
+		double d_time = QDateTime2RatTime(&q_time);
+
+		return d_time;
 	}

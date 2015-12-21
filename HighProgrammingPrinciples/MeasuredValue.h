@@ -10,7 +10,7 @@ public:
 	~MeasuredValue();
 
 	int id;
-	string measuredate;
+	double measuredate;
 	double blood;
 	double ist;
 

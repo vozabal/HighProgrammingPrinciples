@@ -2,8 +2,10 @@
 
 #include <iostream>
 #include <sqlite3.h>
+#include <iostream>
 #include <vector>
 #include <string>
+#include <QDateTime>
 #include "Segment.h"
 #include "MeasuredValue.h"
 using namespace std;
@@ -25,6 +27,9 @@ class Database
 		void Open_database();
 		void Close_database();
 		void PushCoefficients(vector<double> coefficients);
+		double QDateTime2RatTime(const QDateTime *qdt);
+		double GetTimeFromDB(const QString time);
+
 		void Print_query_results(); // k nicemu
 		sqlite3_stmt *GetNextResult(); // k nicemu
 		void Get_missing_ist(); // K nicemu

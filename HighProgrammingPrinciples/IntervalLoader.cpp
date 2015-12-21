@@ -2,11 +2,13 @@
 
 IntervalLoader::IntervalLoader()
 {
+	loadValues();
 }
 
 
 IntervalLoader::~IntervalLoader()
 {
+	
 }
 
 Parameters IntervalLoader::loadValues()

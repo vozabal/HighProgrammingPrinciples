@@ -11,9 +11,8 @@ class IntervalLoader
 public:
 	IntervalLoader();
 	~IntervalLoader();
-	Parameters loadValues();
-	void AssignValues(string entry);
-
+	Parameters parameters;
+	
 private:
 	// Patterns of finding values
 	const string P_MIN = "pmin=";
@@ -29,7 +28,7 @@ private:
 	const string K_MIN = "kmin=";
 	const string K_MAX = "kmax=";
 
-	Parameters parameters;
-
+	void AssignValues(string entry);
+	Parameters loadValues();
 };
 
