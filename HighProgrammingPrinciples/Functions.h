@@ -11,10 +11,12 @@ public:
 	Functions();
 	~Functions();
 
-	void FillAtributes(vector<double> coefficients, double t);
+	void SetUpAttributes(Segment *segment ,vector<double> coefficients);
+	double Blood(double t);
 
 private:
 	Interpolation interpolation;
+	Segment *segment;
 
 	double p, cg, c, dt, h, k; // Coefficients
 	double t;
@@ -25,6 +27,5 @@ private:
 	double Beta();
 	double Gama();
 	double Discriminant();
-	double B(double t);
 };
 

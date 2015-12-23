@@ -1,4 +1,5 @@
 #include "Functions.h"
+#include <float.h>
 
 
 Functions::Functions()
@@ -11,7 +12,7 @@ Functions::~Functions()
 }
 
 
-void Functions::FillAtributes(vector<double> coefficients, double t)
+void Functions::SetUpAttributes(Segment *segment,vector<double> coefficients)
 {
 	this->p = coefficients[0];
 	this->cg = coefficients[1];
@@ -19,7 +20,7 @@ void Functions::FillAtributes(vector<double> coefficients, double t)
 	this->dt = coefficients[3];
 	this->h = coefficients[4];
 	this->k = coefficients[5];
-	this->t = t;
+	this->segment = segment;
 }
 double Functions::Phi(double t)
 {
@@ -30,7 +31,8 @@ double Functions::Phi(double t)
 
 double Functions::I(double argument)//TODO: predavani se zhora, komunikace s db
 {
-	double result = 0;
+	double result = interpolation.getInterpolatedValue(segment, argument);
+	
 	return result;
 }
 
@@ -60,9 +62,17 @@ double Functions::Discriminant()
 	return result;
 }
 
-double Functions::B(double t)
+double Functions::Blood(double t)
 {
-	double result = (-Beta() + sqrt(Discriminant())) / 2 * Alfa();
+	this->t = t;
+	double result;
+	double discriminant = Discriminant();
+	if (discriminant < 0)
+		result = DBL_MAX;
+	else
+	{
+		result = (-Beta() + sqrt(discriminant)) / 2 * Alfa();
+	}
 
 	return result;
 }

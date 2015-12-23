@@ -7,6 +7,7 @@
 #include "RandomVectorGenerator.h"
 #include "Segment.h"
 #include "IntervalLoader.h"
+#include "Fitness.h"
 
 using namespace std;
 
@@ -15,10 +16,15 @@ int main(int argc, char *argv[])
 	QCoreApplication a(argc, argv);
 	char *test;
 	RandomVectorGenerator randVectGener;
-
-	randVectGener.GenarateMatrix();
-	
 	Database db;
+
+	vector<vector<double>> coefficients = randVectGener.GenarateMatrix();
+	vector<Segment*> segments = db.GetSegments();
+	Fitness fitness;
+	fitness.GetFitness(segments.front(), coefficients.front());
+
+
+	
 
 	//vector<Segment*> segments = db.GetSegments();
 	/*

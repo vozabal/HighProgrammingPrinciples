@@ -26,7 +26,7 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 		for (int i = 0; i < segment->measuredValues.size(); i++)
 		{
 			actual = segment->measuredValues[i];
-			if (actual->measuredate == time)
+			if (actual->measuredate == time && actual->ist != 0)
 			{
 				result_ist = segment->measuredValues[i]->ist;
 				return result_ist;

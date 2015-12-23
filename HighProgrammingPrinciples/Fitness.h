@@ -5,14 +5,15 @@
 class Fitness
 {
 public:
-	Fitness(Segment *segment, vector<double> coefficients);
+	Fitness();
 	~Fitness();
 
-	double GetFitness();
+	double GetFitness(Segment *segment, vector<double> coefficients);
 
 private:
 	Functions functions;
 	Segment *segment;
 	vector<double> coefficients;
+	vector<double> relativeErrors;
 };
 
