@@ -16,8 +16,10 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 
 	MeasuredValue *previous;
 	MeasuredValue *actual;
+	
 
 	double result_ist;
+	
 
 	if (time < START_TIME)	return -1;	//SPECIAl
 	else if (time > END_TIME) return -1; //SPECIAl
@@ -26,6 +28,7 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 		for (int i = 0; i < segment->measuredValues.size(); i++)
 		{
 			actual = segment->measuredValues[i];
+			// if the actual time is bigger than the output time
 			if (actual->measuredate == time && actual->ist != 0)
 			{
 				result_ist = segment->measuredValues[i]->ist;
@@ -48,6 +51,25 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 				*/
 				if (actual->ist != 0)
 				{
+					/*
+					if (time == 36526.750000 && actual->id == 840 && previous->id == 838)
+					{
+						test = test + 1;
+						if (test == 33)
+						{
+							int cus;
+							cus = 2;
+
+						}
+					}					
+					cout << "===========================" << fixed;
+					cout << "Previous id = "  << previous->id << endl;
+					cout << "time = " << previous->measuredate << endl;
+					cout << "Actual id = " << actual->id << endl;
+					cout << "time = " << actual->measuredate << endl;
+					cout << "Output time" << time;
+					*/
+
 					return InterpolatePoint(previous->ist, actual->ist, previous->measuredate, actual->measuredate, time);
 						
 				}					

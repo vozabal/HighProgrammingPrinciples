@@ -12,6 +12,7 @@ public:
 	~Interpolation();
 
 	double getInterpolatedValue(Segment *segment, double time);
+	int test = 0;
 
 
 private:

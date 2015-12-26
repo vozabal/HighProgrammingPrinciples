@@ -18,7 +18,7 @@ vector<vector<double>> RandomVectorGenerator::GenarateMatrix()
 {
 	vector<vector<double>> matrix(COLUMNS, vector<double>(ROWS));
 
-	for (int i = 0; i < ROWS; i++)
+	for (int i = 0; i < COLUMNS; i++)
 	{
 		matrix[i][0] = FRand(intervalLoader.parameters.p_min, intervalLoader.parameters.p_max);
 		matrix[i][1] = FRand(intervalLoader.parameters.cg_min, intervalLoader.parameters.cg_max);

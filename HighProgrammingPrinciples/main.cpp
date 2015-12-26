@@ -14,7 +14,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
-	char *test;
+	/*char *test;
 	RandomVectorGenerator randVectGener;
 	Database db;
 
@@ -22,6 +22,10 @@ int main(int argc, char *argv[])
 	vector<Segment*> segments = db.GetSegments();
 	Fitness fitness;
 	fitness.GetFitness(segments.front(), coefficients.front());
+	*/
+
+	Simplex simplex;
+	simplex.Compute();
 
 
 	
