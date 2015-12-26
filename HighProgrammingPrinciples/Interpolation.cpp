@@ -8,21 +8,21 @@ Interpolation::Interpolation()
 Interpolation::~Interpolation()
 {
 }
-
+// Retruns -1 when the start point of segment doesn't have the value.
 double Interpolation::getInterpolatedValue(Segment *segment, double time)
 {
 	double START_TIME = segment->measuredValues.front()->measuredate;
 	double END_TIME = segment->measuredValues.back()->measuredate;
 
-	MeasuredValue *previous;
-	MeasuredValue *actual;
+	MeasuredValue *previous = NULL;
+	MeasuredValue *actual = NULL;
 	
 
 	double result_ist;
 	
 
-	if (time < START_TIME)	return -1;	//SPECIAl
-	else if (time > END_TIME) return -1; //SPECIAl
+	if (time < START_TIME)	DBL_MAX;	//SPECIAl
+	else if (time > END_TIME) DBL_MAX; //SPECIAl
 	else
 	{
 		for (int i = 0; i < segment->measuredValues.size(); i++)
@@ -70,13 +70,34 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 					cout << "Output time" << time;
 					*/
 
-					return InterpolatePoint(previous->ist, actual->ist, previous->measuredate, actual->measuredate, time);
-						
+					if (previous == NULL)
+					{
+						return DBL_MAX;
+					}
+					else
+					{
+						if (actual->id == 9437)
+						{
+							double ahoj;
+							ahoj = 1;
+						}
+						/*if (segment->segmentNumber == 10)
+						{
+							cout << "===========================" << fixed << endl;
+							cout << "Previous id = " << previous->id << endl;
+							cout << "time = " << previous->measuredate << endl;
+							cout << "Actual id = " << actual->id << endl;
+							cout << "time = " << actual->measuredate << endl;
+							cout << "Output time" << time;
+						}
+						*/
+						return InterpolatePoint(previous->ist, actual->ist, previous->measuredate, actual->measuredate, time);
+					}						
 				}					
 			}
 		}			
 	}
-	return -1;
+	return DBL_MAX;
 }
 
 

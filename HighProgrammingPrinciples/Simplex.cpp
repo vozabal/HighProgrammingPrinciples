@@ -14,6 +14,7 @@ void Simplex::Compute()
 	vector<double> fitnesses;
 	vector<double> xg, xr, xc, xe, xk;
 	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;
+	double actual_fitness;
 		
 		for each (Segment* seg in segments) //segmenty
 		{
@@ -21,15 +22,19 @@ void Simplex::Compute()
 
 			for each (vector<double> coeff in coefficients)
 			{
-				fitnesses.push_back(fitness.GetFitness(seg, coeff));
+				actual_fitness = fitness.GetFitness(seg, coeff);
+				if (actual_fitness != DBL_MAX)
+				{
+					fitnesses.push_back(actual_fitness);// leze tam minus 
+				}
 			}						
 
 			for (size_t i = 0; i < ITERATION_NUMBER; i++)
 			{			
 				// Relfection
 				GetComparismIndexes(fitnesses);
-				GetCentroid(&xg, MAX_FITNESS_INDEX);
-				GetReflection(xr, xg, MAX_FITNESS_INDEX);
+				xg = GetCentroid(MAX_FITNESS_INDEX);
+				xr = GetReflection(xg, MAX_FITNESS_INDEX);// pada
 
 				xr_fitness = fitness.GetFitness(seg, xr);
 
@@ -38,11 +43,11 @@ void Simplex::Compute()
 					coefficients[MAX2_FITNESS_INDEX].swap(xr);
 				}
 				else
-				{//
+				{
 					if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness)
 					{
 						// Contraction
-						GetContraction(xc, xg, MAX2_FITNESS_INDEX);
+						xc = GetContraction(xg, MAX2_FITNESS_INDEX);
 						xc_fitness = fitness.GetFitness(seg, xc);
 
 						if (xc_fitness < fitnesses[MAX_FITNESS_INDEX])
@@ -67,7 +72,7 @@ void Simplex::Compute()
 					else
 					{
 						// Expansion
-						GetExpansion(xe, xg, xr);
+						xe = GetExpansion(xg, xr);
 						xe_fitness = fitness.GetFitness(seg, xe);
 
 						if (xe_fitness < xr_fitness)
@@ -81,61 +86,69 @@ void Simplex::Compute()
 					}
 				}
 			}
+			cout << "Segment counted = " << seg->segmentNumber << endl;
 		}
 }//	
 //zkontrolovat
 
 
 // Vytvori xg, ze vsech vektoru, krome vektoru s maximalni fitness.
-void Simplex::GetCentroid(vector<double> *xg, int max_position)
+vector<double> Simplex::GetCentroid(int max_position)
 {
 	// Inicializace centroidu
-	*xg = { 0, 0, 0, 0, 0, 0 };
+	vector<double> xg = { 0, 0, 0, 0, 0, 0 };
 
 	// Scitani vektoru (krome vektoru n+1)
 	for (size_t i = 0; i < coefficients.size(); i++)
 	{
 		if (i != max_position)
 		{
-			for (size_t j = 0; j < (*xg).size(); j++)
+			for (size_t j = 0; j < xg.size(); j++)
 			{
-				(*xg)[j] += coefficients[i][j];
+				xg[j] += coefficients[i][j];
 			}
 		}
 	}
 	// Deleni poctem scitanych vektoru
-	for each (double item in *xg)
+	for each (double item in xg)
 	{
 		item /= coefficients.size() - 1;
 	}
+	return xg;
 }
 
-void Simplex::GetExpansion(vector<double> xe, vector<double> xg, vector<double> xr)
+vector<double> Simplex::GetExpansion(vector<double> xg, vector<double> xr)
 {
+	vector<double> xe = { 0, 0, 0, 0, 0, 0 };
 
 	for (size_t j = 0; j < xg.size(); j++)
 	{
 		xe[j] = B * (xr[j] - xg[j]) + xr[j];
 	}
+	return xe;
 }
 
-void Simplex::GetContraction(vector<double> xc, vector<double> xg, int max_position)
+vector<double> Simplex::GetContraction(vector<double> xg, int max_position)
 {
+	vector<double> xc = { 0, 0, 0, 0, 0, 0 };
 
 	for (size_t j = 0; j < xg.size(); j++)
 	{
 		xc[j] = G * (coefficients[max_position][j] - xg[j]) + xg[j];
 	}
+	return xc;
 }
 
 
-void Simplex::GetReflection(vector<double> xr, vector<double> xg, int max_position)
+vector<double> Simplex::GetReflection(vector<double> xg, int max_position)
 {
-	
+	vector<double> xr = { 0, 0, 0, 0, 0, 0 };
+
 	for (size_t j = 0; j < xg.size(); j++)
 	{
 		xr[j] = A * (xg[j] - coefficients[max_position][j]) + xg[j];
 	}
+	return xr;
 }
 
 void Simplex::GetComparismIndexes(vector<double> fitnesses)

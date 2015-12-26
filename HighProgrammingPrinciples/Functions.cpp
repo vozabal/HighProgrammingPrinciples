@@ -24,7 +24,18 @@ void Functions::SetUpAttributes(Segment *segment,vector<double> coefficients)
 }
 double Functions::Phi(double t)
 {
-	double result = t + dt + k * (I(t) - I(t - h)) / h;
+	double result;
+	double it = I(t);
+	double ith = I(t - h);
+
+	if (it == DBL_MAX || ith == DBL_MAX)
+	{
+		result = DBL_MAX;
+	}
+	else
+	{
+		result = t + dt + k * (it - ith) / h;
+	}
 
 	return result;
 }
@@ -43,35 +54,77 @@ double Functions::Alfa()
 
 double Functions::Beta()
 {
-	double result = p - cg * I(t);
+	double result;
+	double i = I(t);
 
+	if (i == DBL_MAX)
+	{
+		result = DBL_MAX;
+	}
+	else
+	{
+		result = p - cg * i;
+	}
 	return result;
 }
 
 double Functions::Gama()
 {
-	double result = c - I(Phi(t));
+	double result;
+	double phi = Phi(t);
+	
+
+	if (phi == DBL_MAX)
+	{
+		result = DBL_MAX;
+	}
+	else
+	{
+		double i = I(phi);
+
+		if (i == DBL_MAX)
+		{
+			result = DBL_MAX;
+		}
+		else
+		{
+			result = c - i;
+		}
+	}
 
 	return result;
 }
 
 double Functions::Discriminant()
 {
-	double result = pow(Beta(), 2) - 4 * Alfa() * Gama();
+	double result;
+	double beta = Beta();
+	double gama = Gama();
+
+	if (beta == DBL_MAX || gama == DBL_MAX)
+	{
+		result = DBL_MAX;
+	}
+	else
+	{
+		result = pow(beta, 2) - 4 * Alfa() * gama;
+	}
 
 	return result;
 }
 
 double Functions::Blood(double t)
 {
-	this->t = t;
+	this->t = t;	// setting of the time to the Functions property.
 	double result;
 	double discriminant = Discriminant();
-	if (discriminant < 0)
+	double beta = Beta();
+
+	if (discriminant < 0 || discriminant == DBL_MAX || beta == DBL_MAX)
 		result = DBL_MAX;
 	else
 	{
-		result = (-Beta() + sqrt(discriminant)) / 2 * Alfa();
+		result = (-beta + sqrt(discriminant)) / 2 * Alfa();
 	}
 
 	return result;

@@ -40,9 +40,9 @@ private:
 
 	void GetComparismIndexes(vector<double> fitnesses);
 
-	void GetCentroid(vector<double> *xg, int max_position);
-	void GetReflection(vector<double> xr, vector<double> xg, int max_position);
-	void GetContraction(vector<double> xc, vector<double> xg, int max_position);
-	void GetExpansion(vector<double> xe, vector<double> xg, vector<double> xr);
+	vector<double> GetCentroid(int max_position);
+	vector<double> GetReflection(vector<double> xg, int max_position);
+	vector<double> GetContraction(vector<double> xg, int max_position);
+	vector<double> GetExpansion(vector<double> xg, vector<double> xr);
 
 };
