@@ -19,14 +19,12 @@ void Simplex::Compute()
 		for each (Segment* seg in segments) //segmenty
 		{
 			coefficients = randVectGener.GenarateMatrix();
+			fitnesses.clear();
 
 			for each (vector<double> coeff in coefficients)
-			{
-				actual_fitness = fitness.GetFitness(seg, coeff);
-				if (actual_fitness != DBL_MAX)
-				{
-					fitnesses.push_back(actual_fitness);// leze tam minus 
-				}
+			{				
+				actual_fitness = fitness.GetFitness(seg, coeff); // dbl max vcetne
+				fitnesses.push_back(actual_fitness);// leze tam minus 
 			}						
 
 			for (size_t i = 0; i < ITERATION_NUMBER; i++)

@@ -18,7 +18,7 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejs
 	double standard_deviation = 0;
 	double relative_errors_averrage = 0;
 	double result = 0;
-	double theory_blood;
+	double theory_blood = 0;
 
 	relativeErrors.clear(); // Erases the previous vector of relative errors
 	functions.SetUpAttributes(segment ,coefficients);	// Sets up a new segment and coefficients for Functions
@@ -30,25 +30,33 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejs
 			theory_blood = functions.Blood(item->measuredate);
 			if (theory_blood != DBL_MAX)
 			{
+				theory_blood = functions.Blood(item->measuredate);
 				relative_error = abs(item->blood - theory_blood) / item->blood;
 				relativeErrors.push_back(relative_error);
 			}			
 		}
 	}
 
-	for each (double item in relativeErrors)
+	if (relativeErrors.size() != 0)
 	{
-		relative_errors_averrage += item; //Definovat na nulu
-	}	
-	relative_errors_averrage /= relativeErrors.size();
+		for each (double item in relativeErrors)
+		{
+			relative_errors_averrage += item; //Definovat na nulu
+		}	
+		relative_errors_averrage /= relativeErrors.size();
 
-	for each (double item in relativeErrors)
-	{
-		standard_deviation += pow(relative_errors_averrage - item, 2);
+		for each (double item in relativeErrors)
+		{
+			standard_deviation += pow(relative_errors_averrage - item, 2);
+		}
+		standard_deviation = sqrt(standard_deviation / relativeErrors.size());
+
+		result = relative_errors_averrage + standard_deviation;
 	}
-	standard_deviation = sqrt (standard_deviation / relativeErrors.size());
-
-	result = relative_errors_averrage + standard_deviation;
+	else
+	{
+		result = DBL_MAX;
+	}
 
 	return result;
 }
