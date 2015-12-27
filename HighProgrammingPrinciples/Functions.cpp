@@ -34,13 +34,20 @@ double Functions::Phi(double t)
 	}
 	else
 	{
-		result = t + dt + k * (it - ith) / h;
-	}
+		if (h == 0)
+		{
+			result = DBL_MAX;
+		}
+		else
+		{
+			result = t + dt + k * (it - ith) / h;
+		}
+	}	
 
 	return result;
 }
 
-double Functions::I(double argument)//TODO: predavani se zhora, komunikace s db
+double Functions::I(double argument)
 {
 	double result = interpolation.getInterpolatedValue(segment, argument);
 	
@@ -49,7 +56,14 @@ double Functions::I(double argument)//TODO: predavani se zhora, komunikace s db
 
 double Functions::Alfa()
 {
-	return cg;
+	if (cg == 0)
+	{
+		return DBL_MAX;
+	}
+	else
+	{
+		return cg;
+	}
 }
 
 double Functions::Beta()
@@ -65,6 +79,7 @@ double Functions::Beta()
 	{
 		result = p - cg * i;
 	}
+
 	return result;
 }
 
@@ -100,14 +115,19 @@ double Functions::Discriminant()
 	double result;
 	double beta = Beta();
 	double gama = Gama();
+	double alfa = Alfa();
 
-	if (beta == DBL_MAX || gama == DBL_MAX)
+	if (beta == DBL_MAX || gama == DBL_MAX || alfa == DBL_MAX) //suspicious
 	{
 		result = DBL_MAX;
 	}
 	else
 	{
-		result = pow(beta, 2) - 4 * Alfa() * gama;
+		result = pow(beta, 2) - 4 * alfa * gama;
+		if (result < 0)
+		{
+			result = DBL_MAX;
+		}
 	}
 
 	return result;
@@ -119,12 +139,15 @@ double Functions::Blood(double t)
 	double result;
 	double discriminant = Discriminant();
 	double beta = Beta();
+	double alfa = Alfa();
 
-	if (discriminant < 0 || discriminant == DBL_MAX || beta == DBL_MAX)
+	if (discriminant == DBL_MAX || beta == DBL_MAX || alfa == DBL_MAX)
+	{
 		result = DBL_MAX;
+	}
 	else
 	{
-		result = (-beta + sqrt(discriminant)) / 2 * Alfa();
+		result = (-beta + sqrt(discriminant)) / 2 * alfa;
 	}
 
 	return result;

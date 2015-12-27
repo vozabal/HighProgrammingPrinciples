@@ -12,7 +12,6 @@ public:
 
 private:
 	Functions functions;
-	Segment *segment;
 	vector<double> coefficients;
 	vector<double> relativeErrors;
 };

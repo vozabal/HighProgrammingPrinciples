@@ -43,33 +43,8 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 			}
 			else
 			{
-				/*int j = i;
-				while (segment.measuredValues[j] == 0 )
-				{
-					j++;
-				}
-				*/
 				if (actual->ist != 0)
 				{
-					/*
-					if (time == 36526.750000 && actual->id == 840 && previous->id == 838)
-					{
-						test = test + 1;
-						if (test == 33)
-						{
-							int cus;
-							cus = 2;
-
-						}
-					}					
-					cout << "===========================" << fixed;
-					cout << "Previous id = "  << previous->id << endl;
-					cout << "time = " << previous->measuredate << endl;
-					cout << "Actual id = " << actual->id << endl;
-					cout << "time = " << actual->measuredate << endl;
-					cout << "Output time" << time;
-					*/
-
 					if (previous == NULL)
 					{
 						return DBL_MAX;

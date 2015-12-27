@@ -86,6 +86,20 @@ void Simplex::Compute()
 					}
 				}
 			}
+			//moznost vylepsit - pocitani koeficientu pouze pro jeden vektor a pak prohodit (vlozit na prislusne misto v stromu rozhodovani)
+			
+			//pocitani fitness
+			/*fitnesses.clear();
+			for each (vector<double> coeff in coefficients)
+			{
+				actual_fitness = fitness.GetFitness(seg, coeff);
+				if (actual_fitness != DBL_MAX)
+				{
+					fitnesses.push_back(actual_fitness);// leze tam minus 
+				}
+			}
+			*/
+			db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
 			cout << "Segment counted = " << seg->segmentNumber << endl;
 		}
 }//	

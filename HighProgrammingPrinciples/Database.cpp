@@ -11,21 +11,22 @@
 
 	}
 
-	void Database::PushCoefficients(vector<double> coefficients)
+	void Database::PushCoefficients(vector<double> coefficients, int segment_id)
 	{
+		stmt = NULL;
 		Open_database();		
 		query = "INSERT INTO difuse2params (p, cg, c, dt, h, k, s, segmentid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		sqlite3_prepare_v2(db, query, -1, &stmt, 0);
 
-		if (sqlite3_bind_double(stmt, 0, coefficients[0]) != SQLITE_OK) cout << "nejdes";
-		sqlite3_bind_double(stmt, 1, coefficients[1]);
-		sqlite3_bind_double(stmt, 2, coefficients[2]);
-		sqlite3_bind_double(stmt, 3, coefficients[3]);
-		sqlite3_bind_double(stmt, 4, coefficients[4]);
-		sqlite3_bind_double(stmt, 5, coefficients[5]);
-		sqlite3_bind_double(stmt, 6, coefficients[6]);
-		sqlite3_bind_double(stmt, 7, coefficients[7]);
-		sqlite3_bind_double(stmt, 8, coefficients[8]);
+		//if (sqlite3_bind_double(stmt, 0, 1.0) != SQLITE_OK) cout << "nejdes";   DEMENCE indexovani parametru od 1
+		sqlite3_bind_double(stmt, 1, coefficients[0]);
+		sqlite3_bind_double(stmt, 2, coefficients[1]);
+		sqlite3_bind_double(stmt, 3, coefficients[2]);
+		sqlite3_bind_double(stmt, 4, coefficients[3]);
+		sqlite3_bind_double(stmt, 5, coefficients[4]);
+		sqlite3_bind_double(stmt, 6, coefficients[5]);
+		sqlite3_bind_double(stmt, 7, 1);
+		sqlite3_bind_double(stmt, 8, segment_id);
 
 		sqlite3_step(stmt);
 		sqlite3_finalize(stmt);

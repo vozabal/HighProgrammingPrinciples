@@ -24,9 +24,8 @@ class Database
 		~Database();
 
 		vector<Segment*> GetSegments();
-		void Open_database();
-		void Close_database();
-		void PushCoefficients(vector<double> coefficients);
+
+		void PushCoefficients(vector<double> coefficients, int segment_id);
 		double QDateTime2RatTime(const QDateTime *qdt);
 		double GetTimeFromDB(const QString time);
 
@@ -34,5 +33,10 @@ class Database
 		sqlite3_stmt *GetNextResult(); // k nicemu
 		void Get_missing_ist(); // K nicemu
 		void SetUpStatement(); // K nicemu
+
+	private:
+		void Open_database();
+		void Close_database();
+
 };
 

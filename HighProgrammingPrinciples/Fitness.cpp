@@ -13,17 +13,15 @@ Fitness::~Fitness()
 }
 //Vypocita fitnes jednoho segmentu pro jeden vektor parametru. Nejprve je nutne nastavit atributy (vektor a segment).
 double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejspis odstinit parametry ze tridy segment + coefficients
-{
-	// Erase the errors from the previous computation
-
+{	
 	double relative_error = 0;
 	double standard_deviation = 0;
 	double relative_errors_averrage = 0;
 	double result = 0;
 	double theory_blood;
 
-	relativeErrors.clear();
-	functions.SetUpAttributes(segment ,coefficients);
+	relativeErrors.clear(); // Erases the previous vector of relative errors
+	functions.SetUpAttributes(segment ,coefficients);	// Sets up a new segment and coefficients for Functions
 
 	for each (MeasuredValue *item in segment->measuredValues)
 	{
@@ -32,7 +30,7 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejs
 			theory_blood = functions.Blood(item->measuredate);
 			if (theory_blood != DBL_MAX)
 			{
-				relative_error = abs(item->blood - functions.Blood(item->measuredate)) / item->blood;
+				relative_error = abs(item->blood - theory_blood) / item->blood;
 				relativeErrors.push_back(relative_error);
 			}			
 		}
