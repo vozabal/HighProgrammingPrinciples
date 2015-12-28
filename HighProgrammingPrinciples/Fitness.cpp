@@ -47,7 +47,7 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejs
 
 		for each (double item in relativeErrors)
 		{
-			standard_deviation += pow(relative_errors_averrage - item, 2);
+			standard_deviation += pow(item - relative_errors_averrage, 2);
 		}
 		standard_deviation = sqrt(standard_deviation / relativeErrors.size());
 

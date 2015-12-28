@@ -21,7 +21,7 @@ public:
 protected:
 private:
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5; // Koeficienty Simplex algoritmu
-	const int ITERATION_NUMBER = 50;				// Iterace po ktere algoritmus skonci
+	const int ITERATION_NUMBER = 1000;				// Iterace po ktere algoritmus skonci
 
 	//indexes of compared coefficients
 	int MAX_FITNESS_INDEX;

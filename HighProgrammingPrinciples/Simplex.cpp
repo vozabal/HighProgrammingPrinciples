@@ -39,14 +39,7 @@ void Simplex::Compute()
 				if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX])
 				{
 					coefficients[MAX2_FITNESS_INDEX].swap(xr);
-					//pocitani fitness
-					fitnesses.clear();
-					for each (vector<double> coeff in coefficients)
-					{
-						actual_fitness = fitness.GetFitness(seg, coeff);
-						fitnesses.push_back(actual_fitness);// leze tam minus 
-
-					}
+					fitnesses[MAX2_FITNESS_INDEX] = xr_fitness;					
 				}
 				else
 				{
@@ -59,14 +52,8 @@ void Simplex::Compute()
 						if (xc_fitness < fitnesses[MAX_FITNESS_INDEX])
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xc);
-							//pocitani fitness
-							fitnesses.clear();
-							for each (vector<double> coeff in coefficients)
-							{
-								actual_fitness = fitness.GetFitness(seg, coeff);
-								fitnesses.push_back(actual_fitness);// leze tam minus 
-
-							}
+							fitnesses[MAX_FITNESS_INDEX] = xc_fitness;
+							
 						}
 						else
 						{
@@ -78,16 +65,15 @@ void Simplex::Compute()
 									for (size_t j = 0; j < coefficients[i].size(); j++)
 									{
 										coefficients[i][j] = H * (coefficients[i][j] - coefficients[MIN_FITNESS_INDEX][j]) + coefficients[MIN_FITNESS_INDEX][j];
-									}
-									//pocitani fitness
-									fitnesses.clear();
-									for each (vector<double> coeff in coefficients)
-									{
-										actual_fitness = fitness.GetFitness(seg, coeff);
-										fitnesses.push_back(actual_fitness);// leze tam minus 
-
-									}
+									}								
 								}
+							}
+							// Update fitnesses
+							fitnesses.clear();
+							for each (vector<double> coeff in coefficients)
+							{
+								actual_fitness = fitness.GetFitness(seg, coeff);
+								fitnesses.push_back(actual_fitness);
 							}
 						}
 					}
@@ -100,26 +86,13 @@ void Simplex::Compute()
 						if (xe_fitness < xr_fitness)
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xe);
-							//pocitani fitness
-							fitnesses.clear();
-							for each (vector<double> coeff in coefficients)
-							{
-								actual_fitness = fitness.GetFitness(seg, coeff);
-								fitnesses.push_back(actual_fitness);// leze tam minus 
-
-							}
+							fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
+							
 						}
 						else
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xr);
-							//pocitani fitness
-							fitnesses.clear();
-							for each (vector<double> coeff in coefficients)
-							{
-								actual_fitness = fitness.GetFitness(seg, coeff);
-								fitnesses.push_back(actual_fitness);// leze tam minus 
-
-							}
+							fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
 						}
 					}
 				}
