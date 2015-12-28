@@ -15,6 +15,8 @@ void Simplex::Compute()
 	vector<double> xg, xr, xc, xe, xk;
 	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;
 	double actual_fitness;
+	int regenerate_count = 10000;
+	int generated_tries = 0;
 		
 		for each (Segment* seg in segments) //segmenty
 		{
@@ -23,7 +25,13 @@ void Simplex::Compute()
 
 			for each (vector<double> coeff in coefficients)
 			{				
-				actual_fitness = fitness.GetFitness(seg, coeff); // dbl max vcetne
+				actual_fitness = fitness.GetFitness(seg, coeff);
+				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count)
+				{
+					coeff = randVectGener.GenerateVector();
+					actual_fitness = fitness.GetFitness(seg, coeff);
+					generated_tries++;
+				}
 				fitnesses.push_back(actual_fitness);// leze tam minus 
 			}						
 
@@ -92,7 +100,7 @@ void Simplex::Compute()
 						else
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xr);
-							fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
+							fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
 						}
 					}
 				}
@@ -105,9 +113,29 @@ void Simplex::Compute()
 			{
 				actual_fitness = fitness.GetFitness(seg, coeff);
 				fitnesses.push_back(actual_fitness);// leze tam minus 
+				actual_fitness = fitness.GetFitness(seg, coeff);
+				cout << actual_fitness << endl;
 
 			}
-			db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
+		
+			if (seg->segmentNumber == 2)
+			{
+				double cus;
+				cus = 2;
+			}
+			if (seg->segmentNumber == 24)
+			{
+				double cus;
+				cus = 2;
+			}
+			if (seg->segmentNumber == 25)
+			{
+				double cus;
+				cus = 2;
+			}
+
+			//22
+  			db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
 			cout << "Segment counted = " << seg->segmentNumber << endl;
 		}
 }//	

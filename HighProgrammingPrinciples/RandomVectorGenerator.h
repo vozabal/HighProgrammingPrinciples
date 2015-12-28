@@ -12,6 +12,7 @@ public:
 	RandomVectorGenerator();
 	~RandomVectorGenerator();
 	vector<vector<double>> GenarateMatrix(); // returns a matrix of generated parameters
+	vector<double> GenerateVector();
 
 private:
 	const int ROWS = 6;		//count of the rows - dimension

@@ -37,6 +37,22 @@ double RandomVectorGenerator::FRand(double fMin, double fMax)
 	return fMin + f * (fMax - fMin);
 }
 
+vector<double> RandomVectorGenerator::GenerateVector()
+{
+	vector<double> vect(ROWS);
+
+	for (int i = 0; i < ROWS; i++)
+	{
+		vect[i] = FRand(intervalLoader.parameters.p_min, intervalLoader.parameters.p_max);
+		vect[i] = FRand(intervalLoader.parameters.cg_min, intervalLoader.parameters.cg_max);
+		vect[i] = FRand(intervalLoader.parameters.c_min, intervalLoader.parameters.c_max);;
+		vect[i] = FRand(intervalLoader.parameters.dt_min, intervalLoader.parameters.dt_max);;
+		vect[i] = FRand(intervalLoader.parameters.h_min, intervalLoader.parameters.h_max);;
+		vect[i] = FRand(intervalLoader.parameters.k_min, intervalLoader.parameters.k_max);;
+	}
+	return vect;
+}
+
 
 /*
 vector<vector<double>> genarateMatrix(int rows, int columns)

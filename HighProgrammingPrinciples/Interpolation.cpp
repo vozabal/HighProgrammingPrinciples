@@ -60,12 +60,12 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 
 						if (segment->segmentNumber == 10 && actual->id == 9437)
 						{
-							cout << "===========================" << fixed << endl;
+/*							cout << "===========================" << fixed << endl;
 							cout << "Previous id = " << previous->id << endl;
 							cout << "time = " << previous->measuredate << endl;
 							cout << "Actual id = " << actual->id << endl;
 							cout << "time = " << actual->measuredate << endl;
-							cout << "Output time" << time;
+							cout << "Output time" << time;*/
 						}
 						
 						return InterpolatePoint(previous->ist, actual->ist, previous->measuredate, actual->measuredate, time);

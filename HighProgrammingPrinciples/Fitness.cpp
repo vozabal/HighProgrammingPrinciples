@@ -37,7 +37,7 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejs
 		}
 	}
 
-	if (relativeErrors.size() != 0)
+	if (relativeErrors.size() > 1)
 	{
 		for each (double item in relativeErrors)
 		{
@@ -49,7 +49,7 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients) //nejs
 		{
 			standard_deviation += pow(item - relative_errors_averrage, 2);
 		}
-		standard_deviation = sqrt(standard_deviation / relativeErrors.size());
+		standard_deviation = sqrt(standard_deviation / (relativeErrors.size() - 1)); // MInus 1??
 
 		result = relative_errors_averrage + standard_deviation;
 	}
