@@ -15,30 +15,51 @@ void Simplex::Compute()
 	vector<double> xg, xr, xc, xe, xk;
 	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;
 	double actual_fitness;
-	int regenerate_count = 10000;
+	int regenerate_count = 1000;
 	int generated_tries = 0;
 		
 		for each (Segment* seg in segments) //segmenty
 		{
-			coefficients = randVectGener.GenarateMatrix();
 			fitnesses.clear();
+			coefficients = randVectGener.GenarateMatrix();
 
-			for each (vector<double> coeff in coefficients)
+			//coefficients[6] = randVectGener.GenerateVector();
+
+			/*for each (vector<double> coeff in coefficients)
 			{				
 				actual_fitness = fitness.GetFitness(seg, coeff);
-				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count)
+				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count) // 
 				{
 					coeff = randVectGener.GenerateVector();
 					actual_fitness = fitness.GetFitness(seg, coeff);
 					generated_tries++;
 				}
 				fitnesses.push_back(actual_fitness);// leze tam minus 
-			}						
+			}
+			*/
+			for (size_t i = 0; i < coefficients.size(); i++)
+			{
+				actual_fitness = fitness.GetFitness(seg, coefficients[i]);
+				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count) // 
+				{
+					if (i == 6) {
+						double d =0;
+						d++;
+					}
+					coefficients[i] = randVectGener.GenerateVector();
+					actual_fitness = fitness.GetFitness(seg, coefficients[i]);
+					generated_tries++;
+				}
+				fitnesses.push_back(actual_fitness);// leze tam minus 
+			}
+
+
+			GetComparismIndexes(fitnesses);
 
 			for (size_t i = 0; i < ITERATION_NUMBER; i++)
 			{			
 				// Relfection
-				GetComparismIndexes(fitnesses);
+				
 				xg = GetCentroid(MAX_FITNESS_INDEX);
 				xr = GetReflection(xg, MAX_FITNESS_INDEX);// pada
 
@@ -46,8 +67,9 @@ void Simplex::Compute()
 
 				if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX])
 				{
-					coefficients[MAX2_FITNESS_INDEX].swap(xr);
-					fitnesses[MAX2_FITNESS_INDEX] = xr_fitness;					
+					coefficients[MAX_FITNESS_INDEX].swap(xr);
+					fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
+					GetComparismIndexes(fitnesses);
 				}
 				else
 				{
@@ -61,7 +83,7 @@ void Simplex::Compute()
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xc);
 							fitnesses[MAX_FITNESS_INDEX] = xc_fitness;
-							
+							GetComparismIndexes(fitnesses);							
 						}
 						else
 						{
@@ -83,6 +105,7 @@ void Simplex::Compute()
 								actual_fitness = fitness.GetFitness(seg, coeff);
 								fitnesses.push_back(actual_fitness);
 							}
+							GetComparismIndexes(fitnesses);
 						}
 					}
 					else
@@ -95,12 +118,14 @@ void Simplex::Compute()
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xe);
 							fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
+							GetComparismIndexes(fitnesses);
 							
 						}
 						else
 						{
 							coefficients[MAX_FITNESS_INDEX].swap(xr);
 							fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
+							GetComparismIndexes(fitnesses);
 						}
 					}
 				}
@@ -111,30 +136,15 @@ void Simplex::Compute()
 			fitnesses.clear();
 			for each (vector<double> coeff in coefficients)
 			{
-				actual_fitness = fitness.GetFitness(seg, coeff);
-				fitnesses.push_back(actual_fitness);// leze tam minus 
-				actual_fitness = fitness.GetFitness(seg, coeff);
 				cout << actual_fitness << endl;
+			}
 
-			}
-		
-			if (seg->segmentNumber == 2)
-			{
-				double cus;
-				cus = 2;
-			}
-			if (seg->segmentNumber == 24)
-			{
-				double cus;
-				cus = 2;
-			}
 			if (seg->segmentNumber == 25)
 			{
 				double cus;
 				cus = 2;
 			}
 
-			//22
   			db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
 			cout << "Segment counted = " << seg->segmentNumber << endl;
 		}
@@ -160,10 +170,16 @@ vector<double> Simplex::GetCentroid(int max_position)
 		}
 	}
 	// Deleni poctem scitanych vektoru
-	for each (double item in xg)
+	/*for each (double item in xg)
 	{
-		item /= coefficients.size() - 1;
+		item /= coefficients.size() - 1; // n= coeff size -1
 	}
+	*/
+	for (size_t i = 0; i < xg.size(); i++)
+	{
+		xg[i] /= coefficients.size() - 1; // n= coeff size -1
+	}
+
 	return xg;
 }
 
