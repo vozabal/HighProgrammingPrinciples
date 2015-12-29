@@ -21,7 +21,7 @@ public:
 protected:
 private:
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5; // Koeficienty Simplex algoritmu
-	const int ITERATION_NUMBER = 1000;				// Iterace po ktere algoritmus skonci
+	const int ITERATION_NUMBER = 100;				// Iterace po ktere algoritmus skonci
 
 	//indexes of compared coefficients
 	int MAX_FITNESS_INDEX;
@@ -44,5 +44,8 @@ private:
 	vector<double> GetReflection(vector<double> xg, int max_position);
 	vector<double> GetContraction(vector<double> xg, int max_position);
 	vector<double> GetExpansion(vector<double> xg, vector<double> xr);
+
+	bool ValidFitnessesCount(vector<double> fitnesses);
+	vector<double> GetAllPointsCentroid();
 
 };

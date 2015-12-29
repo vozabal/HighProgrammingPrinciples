@@ -115,18 +115,18 @@
 		rc = sqlite3_open("Resources\\direcnet.sqlite", &db);
 		if (rc)
 		{
-			cerr << "Error opening SQLite3 database:" << sqlite3_errmsg;
+			//cerr << "Error opening SQLite3 database:" << sqlite3_errmsg;
 		}
 		else
 		{
-			cout << "The database has been opened succesfully" << endl;
+			//cout << "The database has been opened succesfully" << endl;
 		}
 	}
 
 	void Database::Close_database()
 	{
 		sqlite3_close(db);
-		cout << "The database has been closed succesfully" << endl;
+		//cout << "The database has been closed succesfully" << endl;
 	}
 
 	void Database::Get_missing_ist()

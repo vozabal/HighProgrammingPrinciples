@@ -17,6 +17,9 @@ void Simplex::Compute()
 	double actual_fitness;
 	int regenerate_count = 1000;
 	int generated_tries = 0;
+	vector<double> stop_actual_centroid;
+	vector<double> stop_previous_centroid;
+
 		
 		for each (Segment* seg in segments) //segmenty
 		{
@@ -40,32 +43,45 @@ void Simplex::Compute()
 			for (size_t i = 0; i < coefficients.size(); i++)
 			{
 				actual_fitness = fitness.GetFitness(seg, coefficients[i]);
-				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count) // 
+			
+				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count) // Generates new coefficients until the fitness is generated
 				{
-					if (i == 6) {
-						double d =0;
+					if (seg->segmentNumber == 25) {
+						double d = 0;
 						d++;
 					}
+
 					coefficients[i] = randVectGener.GenerateVector();
 					actual_fitness = fitness.GetFitness(seg, coefficients[i]);
 					generated_tries++;
 				}
+				generated_tries = 0;
 				fitnesses.push_back(actual_fitness);// leze tam minus 
 			}
-
-
 			GetComparismIndexes(fitnesses);
 
 			for (size_t i = 0; i < ITERATION_NUMBER; i++)
-			{			
+			{	
+				if (ValidFitnessesCount(fitnesses) != true)
+				{
+					break;
+				}
+
 				// Relfection
 				
 				xg = GetCentroid(MAX_FITNESS_INDEX);
-				xr = GetReflection(xg, MAX_FITNESS_INDEX);// pada
+				xr = GetReflection(xg, MAX_FITNESS_INDEX);// pada //zkontrolovat centroid // kdyz se nemeni stop
+
+				stop_actual_centroid = GetAllPointsCentroid();
+				if (stop_actual_centroid == stop_previous_centroid)
+				{
+					break;
+				}
+
 
 				xr_fitness = fitness.GetFitness(seg, xr);
 
-				if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX])
+				if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX]) // stop jen min hodnota fitness
 				{
 					coefficients[MAX_FITNESS_INDEX].swap(xr);
 					fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
@@ -87,6 +103,10 @@ void Simplex::Compute()
 						}
 						else
 						{
+							if (seg->segmentNumber == 25) {
+								double d = 0;
+								d++;
+							}
 							//Contraction allong all dimensions toward X[1]
 							for (size_t i = 0; i < coefficients.size(); i++)
 							{
@@ -129,21 +149,20 @@ void Simplex::Compute()
 						}
 					}
 				}
+				stop_previous_centroid = stop_actual_centroid;
 			}
 			//moznost vylepsit - pocitani koeficientu pouze pro jeden vektor a pak prohodit (vlozit na prislusne misto v stromu rozhodovani)
 			
-			//pocitani fitness
-			fitnesses.clear();
-			for each (vector<double> coeff in coefficients)
+			//tisk fitness
+			/*for each (double item in fitnesses)
 			{
-				cout << actual_fitness << endl;
+				cout << item << endl;
 			}
+			*/
 
-			if (seg->segmentNumber == 25)
-			{
-				double cus;
-				cus = 2;
-			}
+			cout << fitnesses[MIN_FITNESS_INDEX] << endl;
+
+			
 
   			db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
 			cout << "Segment counted = " << seg->segmentNumber << endl;
@@ -151,6 +170,26 @@ void Simplex::Compute()
 }//	
 //zkontrolovat
 
+
+bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
+{
+	bool valid_count = true;
+	int count =  0;
+
+	for each (double item in fitnesses)
+	{
+		if (item == DBL_MAX)
+		{
+			count++;
+		}
+	}
+	if (count == fitnesses.size() - 1)
+	{
+		valid_count = false;
+	}
+
+	return valid_count;
+}
 
 // Vytvori xg, ze vsech vektoru, krome vektoru s maximalni fitness.
 vector<double> Simplex::GetCentroid(int max_position)
@@ -178,6 +217,30 @@ vector<double> Simplex::GetCentroid(int max_position)
 	for (size_t i = 0; i < xg.size(); i++)
 	{
 		xg[i] /= coefficients.size() - 1; // n= coeff size -1
+	}
+
+	return xg;
+}
+
+
+vector<double> Simplex::GetAllPointsCentroid()
+{
+	// Inicializace centroidu
+	vector<double> xg = { 0, 0, 0, 0, 0, 0 };
+
+	// Scitani vektoru (krome vektoru n+1)
+	for (size_t i = 0; i < coefficients.size(); i++)
+	{
+		{
+			for (size_t j = 0; j < xg.size(); j++)
+			{
+				xg[j] += coefficients[i][j];
+			}
+		}
+	}
+	for (size_t i = 0; i < xg.size(); i++)
+	{
+		xg[i] /= coefficients.size(); // n= coeff size -1
 	}
 
 	return xg;
