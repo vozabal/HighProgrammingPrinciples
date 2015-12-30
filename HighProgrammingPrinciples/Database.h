@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include "Segment.h"
 #include "MeasuredValue.h"
+#include "Difuse2Param.h"
 using namespace std;
 
 class Database
@@ -25,6 +26,7 @@ class Database
 
 		vector<Segment*> GetSegments();
 
+		void PushResults(vector<Difuse2Param*> difuse2Params);
 		void PushCoefficients(vector<double> coefficients, int segment_id);
 		double QDateTime2RatTime(const QDateTime *qdt);
 		double GetTimeFromDB(const QString time);

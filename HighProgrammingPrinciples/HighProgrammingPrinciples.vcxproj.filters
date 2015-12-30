@@ -57,6 +57,9 @@
     <ClCompile Include="Fitness.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Difuse2Param.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\sqlite3.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Simplex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Difuse2Param.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

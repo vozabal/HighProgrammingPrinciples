@@ -10,6 +10,7 @@
 #include "Database.h"
 #include "IntervalLoader.h"
 #include "RandomVectorGenerator.h"
+#include "Difuse2Param.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ public:
 
 private:
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5;	// Constants for the operations of the algorithm
-	const int ITERATION_NUMBER = 10000;	// The maximum algorithm iterations count
+	const int ITERATION_NUMBER = 1000;	// The maximum algorithm iterations count
 	const int GENERATION_VECTOR_COUNT = 1000; // Start generation attempts of coefficients which don't have a valid fitness.
 
 	// Indexes of compared coefficients
@@ -35,6 +36,7 @@ private:
 	vector<vector<double>> coefficients;
 	vector<Segment*> segments;
 	Fitness fitness;
+	vector<Difuse2Param*> difuse2params;
 	
 	// Vectors for the operations
 	vector<double> fitnesses;

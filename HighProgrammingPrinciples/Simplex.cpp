@@ -15,9 +15,11 @@ void Simplex::Compute()
 	vector<double> xg, xr, xc, xe, xk;	// Centroid, reflection, contraction, expansion and dimensional contraction
 	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;	// Centroid, relfection, expansion and dimensional contraction fitnesses
 	double actual_fitness;	// Just generated fitness
-	int generated_tries_counter = 0;	// Counter of attempts to generate a vector of coefficients with a countable fitness
+	int generated_tries_counter = 0;	//A Counter of attempts to generate a vector of coefficients with a countable fitness
 	vector<double> stop_actual_centroid;	// Centroid for the actual iteration to compare with the previous one
 	vector<double> stop_previous_centroid;	// Centroid for the previous iteration to compare with the actual one
+	Difuse2Param *difuse2param;	// Output of one computed segment by the algorithm
+	
 
 	for each (Segment* seg in segments) // Segments
 	{
@@ -124,9 +126,16 @@ void Simplex::Compute()
 			stop_previous_centroid = stop_actual_centroid;
 		}
 		cout << fitnesses[MIN_FITNESS_INDEX] << endl;
-		db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
+		//db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
+
+		difuse2param = new Difuse2Param(); // vycistit pamet
+		difuse2param->coefficients = coefficients[MIN_FITNESS_INDEX];
+		difuse2param->segment_id = seg->segmentNumber;
+		difuse2params.push_back(difuse2param);
+
 		cout << "Segment counted = " << seg->segmentNumber << endl;
 	}
+	db.PushResults(difuse2params);
 }
 
 bool Simplex::ValidFitnessesCount(vector<double> fitnesses)

@@ -11,6 +11,14 @@
 
 	}
 
+	void Database::PushResults(vector<Difuse2Param*> difuse2Params)
+	{
+		for each (Difuse2Param *item in difuse2Params)
+		{
+			PushCoefficients(item->coefficients, item->segment_id);
+		}
+	}
+
 	void Database::PushCoefficients(vector<double> coefficients, int segment_id)
 	{
 		stmt = NULL;
