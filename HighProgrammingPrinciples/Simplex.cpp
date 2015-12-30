@@ -11,170 +11,128 @@ Simplex::~Simplex()
 
 void Simplex::Compute()
 {
-	vector<double> fitnesses;
-	vector<double> xg, xr, xc, xe, xk;
-	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;
-	double actual_fitness;
-	int regenerate_count = 1000;
-	int generated_tries = 0;
-	vector<double> stop_actual_centroid;
-	vector<double> stop_previous_centroid;
+	vector<double> fitnesses;	// Vector of fitnesses
+	vector<double> xg, xr, xc, xe, xk;	// Centroid, reflection, contraction, expansion and dimensional contraction
+	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;	// Centroid, relfection, expansion and dimensional contraction fitnesses
+	double actual_fitness;	// Just generated fitness
+	int generated_tries_counter = 0;	// Counter of attempts to generate a vector of coefficients with a countable fitness
+	vector<double> stop_actual_centroid;	// Centroid for the actual iteration to compare with the previous one
+	vector<double> stop_previous_centroid;	// Centroid for the previous iteration to compare with the actual one
 
-		
-		for each (Segment* seg in segments) //segmenty
+	for each (Segment* seg in segments) // Segments
+	{
+		fitnesses.clear();	// Initialization of the fitnesses values
+		coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
+
+		for (size_t i = 0; i < coefficients.size(); i++) // Iterrations 
 		{
-			fitnesses.clear();
-			coefficients = randVectGener.GenarateMatrix();
+			actual_fitness = fitness.GetFitness(seg, coefficients[i]);	// Computation of the fitness for the vector of coefficient
 
-			//coefficients[6] = randVectGener.GenerateVector();
-
-			/*for each (vector<double> coeff in coefficients)
-			{				
-				actual_fitness = fitness.GetFitness(seg, coeff);
-				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count) // 
-				{
-					coeff = randVectGener.GenerateVector();
-					actual_fitness = fitness.GetFitness(seg, coeff);
-					generated_tries++;
-				}
-				fitnesses.push_back(actual_fitness);// leze tam minus 
-			}
-			*/
-			for (size_t i = 0; i < coefficients.size(); i++)
+			// Generates new coefficients until the fitness is generated
+			while (actual_fitness == DBL_MAX && generated_tries_counter < GENERATION_VECTOR_COUNT) 
 			{
+				coefficients[i] = randVectGener.GenerateVector();
 				actual_fitness = fitness.GetFitness(seg, coefficients[i]);
-			
-				while (actual_fitness == DBL_MAX && generated_tries < regenerate_count) // Generates new coefficients until the fitness is generated
-				{
-					if (seg->segmentNumber == 25) {
-						double d = 0;
-						d++;
-					}
-
-					coefficients[i] = randVectGener.GenerateVector();
-					actual_fitness = fitness.GetFitness(seg, coefficients[i]);
-					generated_tries++;
-				}
-				generated_tries = 0;
-				fitnesses.push_back(actual_fitness);// leze tam minus 
+				generated_tries_counter++;
 			}
-			GetComparismIndexes(fitnesses);
+			generated_tries_counter = 0;
+			fitnesses.push_back(actual_fitness);
+		}
+		GetComparismIndexes(fitnesses);	// Compares the particular vectors of the coefficients
 
-			for (size_t i = 0; i < ITERATION_NUMBER; i++)
-			{	
-				if (ValidFitnessesCount(fitnesses) != true)
+		for (size_t i = 0; i < ITERATION_NUMBER; i++)
+		{
+			//	Stop conditions
+			stop_actual_centroid = GetAllPointsCentroid();
+			if (stop_actual_centroid == stop_previous_centroid) break;	// It's stopped when the centroid of all vectors is not changing.
+			if (ValidFitnessesCount(fitnesses) != true)	break;	// It's stopped when the fitnesses have just one valid fitness.
+
+			//	Relfection				
+			xg = GetCentroid(MAX_FITNESS_INDEX);
+			xr = GetReflection(xg, MAX_FITNESS_INDEX);
+
+			xr_fitness = fitness.GetFitness(seg, xr);
+
+			if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX])
+			{
+				coefficients[MAX_FITNESS_INDEX].swap(xr);
+				fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
+				GetComparismIndexes(fitnesses);
+			}
+			else
+			{
+				if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness)
 				{
-					break;
-				}
+					// Contraction
+					xc = GetContraction(xg, MAX2_FITNESS_INDEX);
+					xc_fitness = fitness.GetFitness(seg, xc);
 
-				// Relfection
-				
-				xg = GetCentroid(MAX_FITNESS_INDEX);
-				xr = GetReflection(xg, MAX_FITNESS_INDEX);// pada //zkontrolovat centroid // kdyz se nemeni stop
-
-				stop_actual_centroid = GetAllPointsCentroid();
-				if (stop_actual_centroid == stop_previous_centroid)
-				{
-					break;
-				}
-
-
-				xr_fitness = fitness.GetFitness(seg, xr);
-
-				if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX]) // stop jen min hodnota fitness
-				{
-					coefficients[MAX_FITNESS_INDEX].swap(xr);
-					fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
-					GetComparismIndexes(fitnesses);
-				}
-				else
-				{
-					if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness)
+					if (xc_fitness < fitnesses[MAX_FITNESS_INDEX])
 					{
-						// Contraction
-						xc = GetContraction(xg, MAX2_FITNESS_INDEX);
-						xc_fitness = fitness.GetFitness(seg, xc);
-
-						if (xc_fitness < fitnesses[MAX_FITNESS_INDEX])
-						{
-							coefficients[MAX_FITNESS_INDEX].swap(xc);
-							fitnesses[MAX_FITNESS_INDEX] = xc_fitness;
-							GetComparismIndexes(fitnesses);							
-						}
-						else
-						{
-							if (seg->segmentNumber == 25) {
-								double d = 0;
-								d++;
-							}
-							//Contraction allong all dimensions toward X[1]
-							for (size_t i = 0; i < coefficients.size(); i++)
-							{
-								if (i != MIN_FITNESS_INDEX)
-								{
-									for (size_t j = 0; j < coefficients[i].size(); j++)
-									{
-										coefficients[i][j] = H * (coefficients[i][j] - coefficients[MIN_FITNESS_INDEX][j]) + coefficients[MIN_FITNESS_INDEX][j];
-									}								
-								}
-							}
-							// Update fitnesses
-							fitnesses.clear();
-							for each (vector<double> coeff in coefficients)
-							{
-								actual_fitness = fitness.GetFitness(seg, coeff);
-								fitnesses.push_back(actual_fitness);
-							}
-							GetComparismIndexes(fitnesses);
-						}
+						coefficients[MAX_FITNESS_INDEX].swap(xc);
+						fitnesses[MAX_FITNESS_INDEX] = xc_fitness;
+						GetComparismIndexes(fitnesses);
 					}
 					else
 					{
-						// Expansion
-						xe = GetExpansion(xg, xr);
-						xe_fitness = fitness.GetFitness(seg, xe);
-
-						if (xe_fitness < xr_fitness)
-						{
-							coefficients[MAX_FITNESS_INDEX].swap(xe);
-							fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
-							GetComparismIndexes(fitnesses);
-							
+						if (seg->segmentNumber == 25) {
+							double d = 0;
+							d++;
 						}
-						else
+						//Contraction allong all dimensions toward X[1]
+						for (size_t i = 0; i < coefficients.size(); i++)
 						{
-							coefficients[MAX_FITNESS_INDEX].swap(xr);
-							fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
-							GetComparismIndexes(fitnesses);
+							if (i != MIN_FITNESS_INDEX)
+							{
+								for (size_t j = 0; j < coefficients[i].size(); j++)
+								{
+									coefficients[i][j] = H * (coefficients[i][j] - coefficients[MIN_FITNESS_INDEX][j]) + coefficients[MIN_FITNESS_INDEX][j];
+								}
+							}
 						}
+						// Update fitnesses
+						fitnesses.clear();
+						for each (vector<double> coeff in coefficients)
+						{
+							actual_fitness = fitness.GetFitness(seg, coeff);
+							fitnesses.push_back(actual_fitness);
+						}
+						GetComparismIndexes(fitnesses);
 					}
 				}
-				stop_previous_centroid = stop_actual_centroid;
+				else
+				{
+					// Expansion
+					xe = GetExpansion(xg, xr);
+					xe_fitness = fitness.GetFitness(seg, xe);
+
+					if (xe_fitness < xr_fitness)
+					{
+						coefficients[MAX_FITNESS_INDEX].swap(xe);
+						fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
+						GetComparismIndexes(fitnesses);
+
+					}
+					else
+					{
+						coefficients[MAX_FITNESS_INDEX].swap(xr);
+						fitnesses[MAX_FITNESS_INDEX] = xr_fitness;
+						GetComparismIndexes(fitnesses);
+					}
+				}
 			}
-			//moznost vylepsit - pocitani koeficientu pouze pro jeden vektor a pak prohodit (vlozit na prislusne misto v stromu rozhodovani)
-			
-			//tisk fitness
-			/*for each (double item in fitnesses)
-			{
-				cout << item << endl;
-			}
-			*/
-
-			cout << fitnesses[MIN_FITNESS_INDEX] << endl;
-
-			
-
-  			db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
-			cout << "Segment counted = " << seg->segmentNumber << endl;
+			stop_previous_centroid = stop_actual_centroid;
 		}
-}//	
-//zkontrolovat
-
+		cout << fitnesses[MIN_FITNESS_INDEX] << endl;
+		db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
+		cout << "Segment counted = " << seg->segmentNumber << endl;
+	}
+}
 
 bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 {
 	bool valid_count = true;
-	int count =  0;
+	int count = 0;
 
 	for each (double item in fitnesses)
 	{
@@ -191,13 +149,13 @@ bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 	return valid_count;
 }
 
-// Vytvori xg, ze vsech vektoru, krome vektoru s maximalni fitness.
+// Creates xg from all the vectors apart from the one of the max fitness.
 vector<double> Simplex::GetCentroid(int max_position)
 {
-	// Inicializace centroidu
+	// Inicialization of the centroid
 	vector<double> xg = { 0, 0, 0, 0, 0, 0 };
 
-	// Scitani vektoru (krome vektoru n+1)
+	// Summation of the vectors
 	for (size_t i = 0; i < coefficients.size(); i++)
 	{
 		if (i != max_position)
@@ -208,15 +166,9 @@ vector<double> Simplex::GetCentroid(int max_position)
 			}
 		}
 	}
-	// Deleni poctem scitanych vektoru
-	/*for each (double item in xg)
-	{
-		item /= coefficients.size() - 1; // n= coeff size -1
-	}
-	*/
 	for (size_t i = 0; i < xg.size(); i++)
 	{
-		xg[i] /= coefficients.size() - 1; // n= coeff size -1
+		xg[i] /= coefficients.size() - 1; // n = coeff size -1
 	}
 
 	return xg;
@@ -292,13 +244,13 @@ void Simplex::GetComparismIndexes(vector<double> fitnesses)
 			max = i;
 		}
 	}
-		
+
 	for (int i = 0; i < fitnesses.size(); ++i){
 		if (fitnesses[i]>fitnesses[max] && i != max){
 			max2 = i;
 		}
 	}
 	MIN_FITNESS_INDEX = min;
-	MAX2_FITNESS_INDEX= max2;
+	MAX2_FITNESS_INDEX = max2;
 	MAX_FITNESS_INDEX = max;
 }
