@@ -21,7 +21,7 @@ class Database
 		sqlite3_stmt *stmt;  /* OUT: Statement handle */
 		const char *pzTail;     /* OUT: Pointer to unused portion of zSql */
 
-		Database();
+		Database(string file);
 		~Database();
 
 		vector<Segment*> GetSegments();
@@ -39,6 +39,7 @@ class Database
 	private:
 		void Open_database();
 		void Close_database();
+		string file;
 
 };
 

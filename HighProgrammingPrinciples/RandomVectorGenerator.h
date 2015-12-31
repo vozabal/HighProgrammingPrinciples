@@ -13,12 +13,14 @@ public:
 	~RandomVectorGenerator();
 	vector<vector<double>> GenarateMatrix(); // returns a matrix of generated parameters
 	vector<double> GenerateVector();
+	void Initializate(Parameters boundaries);
 
 private:
 	const int ROWS = 6;		//count of the rows - dimension
 	const int COLUMNS = 7;	//count of the columns - number of peaks
 
-	IntervalLoader intervalLoader;	//loads the boundaries of new generated parameters
+	Parameters boundaries;
+	//loads the boundaries of new generated parameters
 
 	double FRand(double fMin, double fMax);	// returns generated value in the interval.
 

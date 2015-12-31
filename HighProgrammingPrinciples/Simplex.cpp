@@ -1,15 +1,16 @@
 #include "Simplex.h"
 
-Simplex::Simplex()
+Simplex::Simplex(vector<Segment*> segments, Parameters boundaries)
 {
-	segments = db.GetSegments();
+	this->randVectGener.Initializate(boundaries);
+	this->segments = segments;
 }
 
 Simplex::~Simplex()
 {
 }
 
-void Simplex::Compute()
+vector<Difuse2Param*> Simplex::Compute()
 {
 	vector<double> fitnesses;	// Vector of fitnesses
 	vector<double> xg, xr, xc, xe, xk;	// Centroid, reflection, contraction, expansion and dimensional contraction
@@ -24,6 +25,7 @@ void Simplex::Compute()
 	for each (Segment* seg in segments) // Segments
 	{
 		fitnesses.clear();	// Initialization of the fitnesses values
+		
 		coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
 
 		for (size_t i = 0; i < coefficients.size(); i++) // Iterrations 
@@ -135,7 +137,7 @@ void Simplex::Compute()
 
 		cout << "Segment counted = " << seg->segmentNumber << endl;
 	}
-	db.PushResults(difuse2params);
+	return difuse2params;
 }
 
 bool Simplex::ValidFitnessesCount(vector<double> fitnesses)

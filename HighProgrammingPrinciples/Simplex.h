@@ -17,9 +17,9 @@ using namespace std;
 class Simplex
 {
 public:
-	Simplex();
+	Simplex(vector<Segment*> segments, Parameters boundaries);
 	~Simplex();
-	void Compute();
+	vector<Difuse2Param*> Compute();
 
 private:
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5;	// Constants for the operations of the algorithm
@@ -31,7 +31,6 @@ private:
 	int MAX2_FITNESS_INDEX;
 	int MIN_FITNESS_INDEX;
 
-	Database db;
 	RandomVectorGenerator randVectGener;
 	vector<vector<double>> coefficients;
 	vector<Segment*> segments;

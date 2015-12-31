@@ -1,9 +1,9 @@
 
 #include "Database.h"
 
-	Database::Database()
+	Database::Database(string file)
 	{
-			
+		this->file = file;
 	}
 
 	Database::~Database()
@@ -119,15 +119,10 @@
 	void Database::Open_database()
 	{
 		int rc;
-
-		rc = sqlite3_open("Resources\\direcnet.sqlite", &db);
+		rc = sqlite3_open(file.c_str(), &db); 
 		if (rc)
 		{
-			//cerr << "Error opening SQLite3 database:" << sqlite3_errmsg;
-		}
-		else
-		{
-			//cout << "The database has been opened succesfully" << endl;
+			cerr << "Error opening SQLite3 database:" << sqlite3_errmsg;
 		}
 	}
 

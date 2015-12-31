@@ -1,8 +1,8 @@
 #include "IntervalLoader.h"
 
-IntervalLoader::IntervalLoader()
+IntervalLoader::IntervalLoader(string file)
 {
-	loadValues();
+	this->file = file;
 }
 
 
@@ -11,12 +11,12 @@ IntervalLoader::~IntervalLoader()
 	
 }
 
-Parameters IntervalLoader::loadValues()
+Parameters IntervalLoader::LoadValues()
 {
 	FILE *fr;
 	char buffer[20];
 
-	fr = fopen("Resources\\bounds.ini", "r");
+	fr = fopen(file.c_str(), "r");
 	while (fgets(buffer, sizeof(buffer), fr) != NULL) {
 		fputs(buffer, stdout);
 		AssignValues(buffer);

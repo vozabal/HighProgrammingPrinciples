@@ -9,9 +9,9 @@ using namespace std;
 class IntervalLoader
 {
 public:
-	IntervalLoader();
+	IntervalLoader(string file);
 	~IntervalLoader();
-	Parameters parameters;
+	Parameters LoadValues();
 	
 private:
 	// Patterns of finding values
@@ -29,6 +29,8 @@ private:
 	const string K_MAX = "kmax=";
 
 	void AssignValues(string entry);
-	Parameters loadValues();
+	Parameters parameters;
+	
+	string file;
 };
 

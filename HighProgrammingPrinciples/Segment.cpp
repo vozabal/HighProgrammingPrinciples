@@ -7,4 +7,8 @@ Segment::Segment(int segmentNumber)
 
 Segment::~Segment()
 {
+	for each (MeasuredValue *item in measuredValues)
+	{
+		delete(item);
+	}
 }
