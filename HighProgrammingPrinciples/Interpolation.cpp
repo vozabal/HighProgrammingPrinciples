@@ -1,6 +1,5 @@
 #include "Interpolation.h"
 
-	
 Interpolation::Interpolation()
 {
 }
@@ -8,7 +7,7 @@ Interpolation::Interpolation()
 Interpolation::~Interpolation()
 {
 }
-// Retruns -1 when the start point of segment doesn't have the value.
+
 double Interpolation::getInterpolatedValue(Segment *segment, double time)
 {
 	double START_TIME = segment->measuredValues.front()->measuredate;
@@ -16,13 +15,11 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 
 	MeasuredValue *previous = NULL;
 	MeasuredValue *actual = NULL;
-	
 
 	double result_ist;
-	
 
-	if (time < START_TIME)	DBL_MAX;	//SPECIAl
-	else if (time > END_TIME) DBL_MAX; //SPECIAl
+	if (time < START_TIME)	DBL_MAX;
+	else if (time > END_TIME) DBL_MAX;
 	else
 	{
 		for (int i = 0; i < segment->measuredValues.size(); i++)
@@ -57,22 +54,11 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 							ahoj = 1;
 						}
 
-
-						if (segment->segmentNumber == 10 && actual->id == 9437)
-						{
-/*							cout << "===========================" << fixed << endl;
-							cout << "Previous id = " << previous->id << endl;
-							cout << "time = " << previous->measuredate << endl;
-							cout << "Actual id = " << actual->id << endl;
-							cout << "time = " << actual->measuredate << endl;
-							cout << "Output time" << time;*/
-						}
-						
 						return InterpolatePoint(previous->ist, actual->ist, previous->measuredate, actual->measuredate, time);
-					}						
-				}					
+					}
+				}
 			}
-		}			
+		}
 	}
 	return DBL_MAX;
 }

@@ -8,7 +8,7 @@ IntervalLoader::IntervalLoader(string file)
 
 IntervalLoader::~IntervalLoader()
 {
-	
+
 }
 
 Parameters IntervalLoader::LoadValues()

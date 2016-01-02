@@ -1,6 +1,4 @@
 #include "Functions.h"
-#include <float.h>
-
 
 Functions::Functions()
 {
@@ -12,7 +10,7 @@ Functions::~Functions()
 }
 
 
-void Functions::SetUpAttributes(Segment *segment,vector<double> coefficients)
+void Functions::SetUpAttributes(Segment *segment, vector<double> coefficients)
 {
 	this->p = coefficients[0];
 	this->cg = coefficients[1];
@@ -42,7 +40,7 @@ double Functions::Phi(double t)
 		{
 			result = t + dt + k * (it - ith) / h;
 		}
-	}	
+	}
 
 	return result;
 }
@@ -50,7 +48,7 @@ double Functions::Phi(double t)
 double Functions::I(double argument)
 {
 	double result = interpolation.getInterpolatedValue(segment, argument);
-	
+
 	return result;
 }
 
@@ -87,7 +85,7 @@ double Functions::Gama()
 {
 	double result;
 	double phi = Phi(t);
-	
+
 
 	if (phi == DBL_MAX)
 	{

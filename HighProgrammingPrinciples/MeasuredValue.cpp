@@ -6,7 +6,5 @@ MeasuredValue::MeasuredValue()
 }
 MeasuredValue::~MeasuredValue()
 {
-	
+
 }
-
-

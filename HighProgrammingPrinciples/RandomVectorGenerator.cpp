@@ -1,11 +1,9 @@
-//Vygeneruje nahodne hodnoty kazdemu z vektoru na zaklade intervalu, ktere jsou poskytnuty tridou IntervalLoader.
-
 #include "RandomVectorGenerator.h"
 
 
 RandomVectorGenerator::RandomVectorGenerator()
 {
-	
+
 }
 
 RandomVectorGenerator::~RandomVectorGenerator()
@@ -34,7 +32,6 @@ vector<vector<double>> RandomVectorGenerator::GenarateMatrix()
 	return matrix;
 }
 
-		//TODO: zjisti seed
 double RandomVectorGenerator::FRand(double fMin, double fMax)
 {
 	double f = (double)rand() / RAND_MAX;
@@ -56,20 +53,3 @@ vector<double> RandomVectorGenerator::GenerateVector()
 	}
 	return vect;
 }
-
-
-/*
-vector<vector<double>> genarateMatrix(int rows, int columns)
-{
-vector<vector<double> > matrix(rows, vector<double>(columns));
-
-for (int i = 0; i < rows; i++)
-{
-for (int j = 0; j < columns; j++)
-{
-matrix[i][j] = j;
-}
-}
-return matrix;
-}
-*/

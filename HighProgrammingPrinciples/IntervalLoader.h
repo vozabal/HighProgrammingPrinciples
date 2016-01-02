@@ -1,8 +1,14 @@
+/*
+============================================================================
+Name        : IntervalLoader.h
+Author      : Miroslav Vozabal
+Description : Provides a loader of the algorithm initalization. Gets the boundaries of the algorithm parameters.
+============================================================================
+*/
 #pragma once
 #include <string>
-#include "Parameters.h"
 #include <stdio.h>
-#include <string>
+#include "Parameters.h"
 
 using namespace std;
 
@@ -11,8 +17,9 @@ class IntervalLoader
 public:
 	IntervalLoader(string file);
 	~IntervalLoader();
-	Parameters LoadValues();
-	
+
+	Parameters LoadValues();	// Reads the file and saves the data into the Parameter property.
+
 private:
 	// Patterns of finding values
 	const string P_MIN = "pmin=";
@@ -28,9 +35,10 @@ private:
 	const string K_MIN = "kmin=";
 	const string K_MAX = "kmax=";
 
-	void AssignValues(string entry);
 	Parameters parameters;
-	
-	string file;
+	string file;	// The path and the name of the file.
+
+	// Assigns values found in the string into the parameters property.
+	void AssignValues(string entry);
 };
 

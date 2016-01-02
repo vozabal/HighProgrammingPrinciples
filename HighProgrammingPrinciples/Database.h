@@ -1,45 +1,43 @@
+/*
+============================================================================
+Name        : Database.h
+Author      : Miroslav Vozabal
+Description : Provides a connection to the database. Provides to get data from it and to push results into.
+============================================================================
+*/
 #pragma once
 
-#include <iostream>
 #include <sqlite3.h>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <QDateTime>
 #include "Segment.h"
-#include "MeasuredValue.h"
 #include "Difuse2Param.h"
+
 using namespace std;
 
 class Database
 {
-	public:
-		//Prepare statement
-		sqlite3 *db;            /* Database handle */
-		const char *query;       /* SQL statement, UTF-8 encoded */
-		int nByte;              /* Maximum length of zSql in bytes. */
-		sqlite3_stmt *stmt;  /* OUT: Statement handle */
-		const char *pzTail;     /* OUT: Pointer to unused portion of zSql */
+public:
+	Database(string file);	// arg - path to the sql-lite database
+	~Database();
+	vector<Segment*> GetSegments(); // Vector with loaded segments
+	void PushResults(vector<Difuse2Param*> difuse2Params);	//Pushes all results into the database	
 
-		Database(string file);
-		~Database();
+private:
+	// Prepare statement
+	sqlite3 *db;	/* Database handle */
+	const char *query;	/* SQL statement, UTF-8 encoded */
+	int nByte;	/* Maximum length of zSql in bytes. */
+	sqlite3_stmt *stmt;	/* OUT: Statement handle */
+	const char *pzTail;	/* OUT: Pointer to unused portion of zSql */
 
-		vector<Segment*> GetSegments();
-
-		void PushResults(vector<Difuse2Param*> difuse2Params);
-		void PushCoefficients(vector<double> coefficients, int segment_id);
-		double QDateTime2RatTime(const QDateTime *qdt);
-		double GetTimeFromDB(const QString time);
-
-		void Print_query_results(); // k nicemu
-		sqlite3_stmt *GetNextResult(); // k nicemu
-		void Get_missing_ist(); // K nicemu
-		void SetUpStatement(); // K nicemu
-
-	private:
-		void Open_database();
-		void Close_database();
-		string file;
-
+	double QDateTime2RatTime(const QDateTime *qdt);	// Converts QDateTime to a double value
+	double GetTimeFromDB(const QString time);	// Gets the double time from the database
+	void PushCoefficients(vector<double> coefficients, int segment_id);		// Pushes one result into the database
+	void Open_database();	//	Opens the database
+	void Close_database();	// Closes the database
+	string file;	// Name of the file and its path
 };
 

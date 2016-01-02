@@ -1,27 +1,33 @@
+/*
+============================================================================
+Name        : RandomVectorGenerator.h
+Author      : Miroslav Vozabal
+Description : Generates random values of every vector which range is determined by the boudaries provides by the IntervalLoader
+============================================================================
+*/
 #pragma once
+
 #include <string>
 #include <vector>
 #include "IntervalLoader.h"
 
 using namespace std;
 
-// Generates a matrix of random parameters determined by boundaries parameters of intervalLoader
 class RandomVectorGenerator
 {
 public:
 	RandomVectorGenerator();
 	~RandomVectorGenerator();
-	vector<vector<double>> GenarateMatrix(); // returns a matrix of generated parameters
-	vector<double> GenerateVector();
-	void Initializate(Parameters boundaries);
+
+	vector<vector<double>> GenarateMatrix(); // Returns a matrix of generated coefficients
+	vector<double> GenerateVector();	// Returns a vector of generated coefficients
+	void Initializate(Parameters boundaries);	// Initializates the boudaries of generated numbers
 
 private:
-	const int ROWS = 6;		//count of the rows - dimension
-	const int COLUMNS = 7;	//count of the columns - number of peaks
+	const int ROWS = 6;		// Count of the rows - dimension
+	const int COLUMNS = 7;	// Count of the columns - number of peaks
+	Parameters boundaries;	// Boundaries of generated numbers
 
-	Parameters boundaries;
-	//loads the boundaries of new generated parameters
-
-	double FRand(double fMin, double fMax);	// returns generated value in the interval.
+	double FRand(double fMin, double fMax);	// Returns a generated value in the interval.
 
 };

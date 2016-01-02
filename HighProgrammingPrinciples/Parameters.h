@@ -1,4 +1,13 @@
+/*
+============================================================================
+Name        : Paremeters.h
+Author      : Miroslav Vozabal
+Description : Represents a class which preserves the boundaries of the alogorithm loaded from a text file.
+============================================================================
+*/
+
 #pragma once
+
 class Parameters
 {
 public:
@@ -19,6 +28,6 @@ public:
 	double k_max;
 
 private:
-	
+
 };
 

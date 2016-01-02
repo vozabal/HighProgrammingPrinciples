@@ -1,3 +1,10 @@
+/*
+============================================================================
+Name        : Segment.h
+Author      : Miroslav Vozabal
+Description : Represents a segment which collects all its measuredvalues from the database.
+============================================================================
+*/
 #pragma once
 
 #include <vector>
@@ -13,9 +20,6 @@ public:
 
 	int segmentNumber;
 	vector<MeasuredValue*> measuredValues;
-	
-private:
-	
 };
 
 

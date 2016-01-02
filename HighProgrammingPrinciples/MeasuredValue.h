@@ -1,3 +1,11 @@
+/*
+============================================================================
+Name        : MeasuredValue.h
+Author      : Miroslav Vozabal
+Description : Represents a row of measuredvalue from the database.
+============================================================================
+*/
+
 #pragma once
 #include <string>
 
@@ -13,8 +21,5 @@ public:
 	double measuredate;
 	double blood;
 	double ist;
-
-private:
-	
 };
 

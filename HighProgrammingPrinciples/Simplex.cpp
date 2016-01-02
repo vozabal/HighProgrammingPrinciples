@@ -20,12 +20,10 @@ vector<Difuse2Param*> Simplex::Compute()
 	vector<double> stop_actual_centroid;	// Centroid for the actual iteration to compare with the previous one
 	vector<double> stop_previous_centroid;	// Centroid for the previous iteration to compare with the actual one
 	Difuse2Param *difuse2param;	// Output of one computed segment by the algorithm
-	
 
 	for each (Segment* seg in segments) // Segments
 	{
-		fitnesses.clear();	// Initialization of the fitnesses values
-		
+		fitnesses.clear();	// Initialization of the fitnesses values		
 		coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
 
 		for (size_t i = 0; i < coefficients.size(); i++) // Iterrations 
@@ -33,7 +31,7 @@ vector<Difuse2Param*> Simplex::Compute()
 			actual_fitness = fitness.GetFitness(seg, coefficients[i]);	// Computation of the fitness for the vector of coefficient
 
 			// Generates new coefficients until the fitness is generated
-			while (actual_fitness == DBL_MAX && generated_tries_counter < GENERATION_VECTOR_COUNT) 
+			while (actual_fitness == DBL_MAX && generated_tries_counter < GENERATION_VECTOR_COUNT)
 			{
 				coefficients[i] = randVectGener.GenerateVector();
 				actual_fitness = fitness.GetFitness(seg, coefficients[i]);
@@ -79,10 +77,6 @@ vector<Difuse2Param*> Simplex::Compute()
 					}
 					else
 					{
-						if (seg->segmentNumber == 25) {
-							double d = 0;
-							d++;
-						}
 						//Contraction allong all dimensions toward X[1]
 						for (size_t i = 0; i < coefficients.size(); i++)
 						{
@@ -115,7 +109,6 @@ vector<Difuse2Param*> Simplex::Compute()
 						coefficients[MAX_FITNESS_INDEX].swap(xe);
 						fitnesses[MAX_FITNESS_INDEX] = xe_fitness;
 						GetComparismIndexes(fitnesses);
-
 					}
 					else
 					{
@@ -127,14 +120,12 @@ vector<Difuse2Param*> Simplex::Compute()
 			}
 			stop_previous_centroid = stop_actual_centroid;
 		}
-		cout << fitnesses[MIN_FITNESS_INDEX] << endl;
-		//db.PushCoefficients(coefficients[MIN_FITNESS_INDEX], seg->segmentNumber);
-
-		difuse2param = new Difuse2Param(); // vycistit pamet
+		difuse2param = new Difuse2Param();
 		difuse2param->coefficients = coefficients[MIN_FITNESS_INDEX];
 		difuse2param->segment_id = seg->segmentNumber;
 		difuse2params.push_back(difuse2param);
 
+		cout << fitnesses[MIN_FITNESS_INDEX] << endl;
 		cout << "Segment counted = " << seg->segmentNumber << endl;
 	}
 	return difuse2params;
@@ -160,7 +151,7 @@ bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 	return valid_count;
 }
 
-// Creates xg from all the vectors apart from the one of the max fitness.
+
 vector<double> Simplex::GetCentroid(int max_position)
 {
 	// Inicialization of the centroid
@@ -185,13 +176,12 @@ vector<double> Simplex::GetCentroid(int max_position)
 	return xg;
 }
 
-
 vector<double> Simplex::GetAllPointsCentroid()
 {
-	// Inicializace centroidu
+	// Initialization of the centroid
 	vector<double> xg = { 0, 0, 0, 0, 0, 0 };
 
-	// Scitani vektoru (krome vektoru n+1)
+	// Summation of the vectors apart from vector(n+1)
 	for (size_t i = 0; i < coefficients.size(); i++)
 	{
 		{
