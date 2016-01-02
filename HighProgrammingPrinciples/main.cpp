@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 	Manager manager(argv[1], argv[2]);
-	// change
 
 	return a.exec();
 }
