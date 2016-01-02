@@ -9,6 +9,7 @@ Description : Counts a fitness which is used like the exit criteria of the algor
 
 #include "Functions.h"
 #include "Segment.h"
+#include <cmath>
 
 class Fitness
 {

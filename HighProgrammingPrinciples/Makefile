@@ -26,7 +26,7 @@ Functions.o: Functions.cpp Functions.h
 Fitness.o: Fitness.cpp Fitness.h
 	$(CC) $(CFLAGS) -c Fitness.cpp
 
-Parameters.o: Parameters.cpp Parameters.h spline.h
+Parameters.o: Parameters.cpp Parameters.h
 	$(CC) $(CFLAGS) -c Parameters.cpp
 
 IntervalLoader.o: IntervalLoader.cpp IntervalLoader.h

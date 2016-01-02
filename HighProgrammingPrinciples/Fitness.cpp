@@ -24,15 +24,15 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients)
 	functions.SetUpAttributes(segment, coefficients);	// Sets up a new segment and coefficients for Functions
 
 	// Computation of relative errors
-	for each (MeasuredValue *item in segment->measuredValues)
+	for (size_t i = 0; i < segment->measuredValues.size(); i++)
 	{
-		if (item->blood != 0)
+		if (segment->measuredValues[i]->blood != 0)
 		{
-			theory_blood = functions.Blood(item->measuredate);
+			theory_blood = functions.Blood(segment->measuredValues[i]->measuredate);
 			if (theory_blood != DBL_MAX)
 			{
-				theory_blood = functions.Blood(item->measuredate);	// Computing the equation
-				relative_error = abs(item->blood - theory_blood) / item->blood;
+				theory_blood = functions.Blood(segment->measuredValues[i]->measuredate);	// Computing the equation
+				relative_error = std::abs(segment->measuredValues[i]->blood - theory_blood) / segment->measuredValues[i]->blood;
 				relativeErrors.push_back(relative_error);
 			}
 		}
@@ -41,16 +41,16 @@ double Fitness::GetFitness(Segment *segment, vector<double> coefficients)
 	if (relativeErrors.size() > 1)	// If there is not just one relative error in the set.
 	{
 		// Computation of ther relative errors average
-		for each (double item in relativeErrors)
+		for (size_t i = 0; i < relativeErrors.size(); i++)
 		{
-			relative_errors_averrage += item;
+			relative_errors_averrage += relativeErrors[i];
 		}
 		relative_errors_averrage /= relativeErrors.size();
 
 		// Computation of the standard deviation
-		for each (double item in relativeErrors)
+		for (size_t i = 0; i < relativeErrors.size(); i++)
 		{
-			standard_deviation += pow(item - relative_errors_averrage, 2);
+			standard_deviation += pow(relativeErrors[i] - relative_errors_averrage, 2);
 		}
 		standard_deviation = sqrt(standard_deviation / (relativeErrors.size() - 1));
 
