@@ -61,6 +61,9 @@
     <ClCompile Include="RandomVectorGenerator.cpp">
       <Filter>Application</Filter>
     </ClCompile>
+    <ClCompile Include="Segment.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h">

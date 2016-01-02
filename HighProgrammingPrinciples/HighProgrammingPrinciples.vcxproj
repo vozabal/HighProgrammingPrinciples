@@ -92,6 +92,7 @@
     <ClCompile Include="MeasuredValue.cpp" />
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
+    <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Simplex.cpp" />
   </ItemGroup>
   <ItemGroup>
