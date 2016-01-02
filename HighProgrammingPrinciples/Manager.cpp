@@ -21,13 +21,13 @@ Manager::~Manager()
 
 void Manager::FreeAllocatedMemory(vector<Segment*> segments, vector<Difuse2Param*> difuse2params)
 {
-	for each (Segment *item in segments)
+	for (size_t i = 0; i < segments.size(); i++)
 	{
-		delete(item);
+		delete(segments[i]);
 	}
-
-	for each (Difuse2Param *item in difuse2params)
+	
+	for (size_t i = 0; i < difuse2params.size(); i++)
 	{
-		delete(item);
+		delete(difuse2params[i]);
 	}
 }

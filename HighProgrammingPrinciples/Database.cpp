@@ -15,9 +15,9 @@ void Database::PushResults(vector<Difuse2Param*> difuse2Params)
 {
 	Open_database();
 
-	for each (Difuse2Param *item in difuse2Params)
+	for (size_t i = 0; i < difuse2Params.size(); i++)
 	{
-		PushCoefficients(item->coefficients, item->segment_id);
+		PushCoefficients(difuse2Params[i]->coefficients, difuse2Params[i]->segment_id);
 	}
 
 	Close_database();
