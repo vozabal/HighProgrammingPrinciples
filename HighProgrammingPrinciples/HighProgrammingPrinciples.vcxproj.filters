@@ -14,96 +14,67 @@
     <Filter Include="Application">
       <UniqueIdentifier>{efd7262f-517a-4211-9dc6-e9bb6e0044fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data">
-      <UniqueIdentifier>{28a2f287-cbf4-4f4e-8ecd-9b32c3e5f2c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Heads">
+    <Filter Include="Heads">
       <UniqueIdentifier>{c305fa8c-3ad6-4630-9728-5a011f0241ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data\Heads">
-      <UniqueIdentifier>{cd56e290-b3a8-4bbf-923d-0da08f3481ae}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Database.cpp">
-      <Filter>Data</Filter>
-    </ClCompile>
-    <ClCompile Include="IntervalLoader.cpp">
-      <Filter>Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Simplex.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Difuse2Param.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Fitness.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Interpolation.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Manager.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="MeasuredValue.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Parameters.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomVectorGenerator.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Segment.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
+    <ClCompile Include="Simplex.cpp" />
+    <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Difuse2Param.cpp" />
+    <ClCompile Include="Fitness.cpp" />
+    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="Interpolation.cpp" />
+    <ClCompile Include="IntervalLoader.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="MeasuredValue.cpp" />
+    <ClCompile Include="Parameters.cpp" />
+    <ClCompile Include="RandomVectorGenerator.cpp" />
+    <ClCompile Include="Segment.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Database.h">
-      <Filter>Data\Heads</Filter>
-    </ClInclude>
-    <ClInclude Include="IntervalLoader.h">
-      <Filter>Data\Heads</Filter>
-    </ClInclude>
     <ClInclude Include="Simplex.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Difuse2Param.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Fitness.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Interpolation.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Manager.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="MeasuredValue.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Parameters.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="RandomVectorGenerator.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Segment.h">
-      <Filter>Application\Heads</Filter>
+      <Filter>Heads</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Resources\sqlite3.h">
-      <Filter>Data\Heads</Filter>
+      <Filter>Heads</Filter>
+    </ClInclude>
+    <ClInclude Include="Database.h">
+      <Filter>Heads</Filter>
+    </ClInclude>
+    <ClInclude Include="IntervalLoader.h">
+      <Filter>Heads</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

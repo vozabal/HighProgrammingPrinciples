@@ -1,7 +1,4 @@
-#include <QtCore/QCoreApplication>
-#include <vld.h>
-#include <iostream>
-#include "Manager.h"
+#include "Main.h"
 
 using namespace std;
 
