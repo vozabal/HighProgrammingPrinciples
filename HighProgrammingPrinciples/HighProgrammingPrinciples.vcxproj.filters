@@ -105,5 +105,8 @@
     <ClInclude Include="Resources\sqlite3.h">
       <Filter>Data\Heads</Filter>
     </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Application\Heads</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ Description : Provides the lienar interpolation for data which is missing.
 #pragma once
 
 #include <iostream>
+#include <float.h>
 #include "Segment.h"
 
 using namespace std;
