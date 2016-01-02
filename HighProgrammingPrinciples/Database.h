@@ -11,7 +11,6 @@ Description : Provides a connection to the database. Provides to get data from i
 #include <iostream>
 #include <vector>
 #include <string>
-#include <QDateTime>
 #include "Segment.h"
 #include "Difuse2Param.h"
 
@@ -33,8 +32,6 @@ private:
 	sqlite3_stmt *stmt;	/* OUT: Statement handle */
 	const char *pzTail;	/* OUT: Pointer to unused portion of zSql */
 
-	double QDateTime2RatTime(const QDateTime *qdt);	// Converts QDateTime to a double value
-	double GetTimeFromDB(const QString time);	// Gets the double time from the database
 	void PushCoefficients(vector<double> coefficients, int segment_id);		// Pushes one result into the database
 	void Open_database();	//	Opens the database
 	void Close_database();	// Closes the database

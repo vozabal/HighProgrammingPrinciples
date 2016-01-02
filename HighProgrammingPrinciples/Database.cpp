@@ -54,7 +54,7 @@ vector<Segment*> Database::GetSegments()
 
 	//Represents values of the row
 	int actual_id = 0;
-	string actual_measuredat = "";
+	double actual_measuredat = 0;
 	double actual_blood = 0;
 	double actual_ist = 0;
 	double actual_segment_number_number = 0;
@@ -63,25 +63,24 @@ vector<Segment*> Database::GetSegments()
 	vector<Segment*> segments;
 
 	Open_database();
-	query = "SELECT * FROM measuredvalue";
+	query = "SELECT id, julianday(measuredat)-julianday('1900-01-01'), blood, ist, segmentid FROM measuredvalue";
 	sqlite3_prepare_v2(db, query, -1, &stmt, &pzTail);
 
 	while (sqlite3_step(stmt) == SQLITE_ROW)
 	{
-		actual_measuredat = "";
 		actual_blood = sqlite3_column_double(stmt, blood_position);
 
 		MeasuredValue *p_measuredValue = new MeasuredValue();
 
 		actual_id = sqlite3_column_int(stmt, id_position);
 		actual_ist = sqlite3_column_double(stmt, ist_position);
-		actual_measuredat.append((char *)sqlite3_column_text(stmt, measuredat_position));
+		actual_measuredat = sqlite3_column_double(stmt, measuredat_position);
 		new_segment_number = sqlite3_column_double(stmt, segment_position);
 
 		p_measuredValue->id = actual_id;
 		p_measuredValue->ist = actual_ist;
 		p_measuredValue->blood = actual_blood;
-		p_measuredValue->measuredate = GetTimeFromDB(QString::fromStdString(actual_measuredat));
+		p_measuredValue->measuredate = actual_measuredat;
 
 		if (segments.size() == 0)
 		{
@@ -123,22 +122,4 @@ void Database::Open_database()
 void Database::Close_database()
 {
 	sqlite3_close(db);
-}
-
-double Database::QDateTime2RatTime(const QDateTime *qdt) {
-	const qint64 diffFrom1970To1900 = 2209161600000;
-	const double MSecsPerDay = 24.0*60.0*60.0*1000.0;
-	const double InvMSecsPerDay = 1.0 / MSecsPerDay;
-
-	qint64 diff = qdt->toMSecsSinceEpoch() + diffFrom1970To1900;
-
-	return ((double)diff)*InvMSecsPerDay;
-}
-
-double Database::GetTimeFromDB(const QString time)
-{
-	QDateTime q_time = QDateTime::fromString(time, Qt::ISODate);
-	double d_time = QDateTime2RatTime(&q_time);
-
-	return d_time;
 }

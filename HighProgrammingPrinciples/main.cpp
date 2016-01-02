@@ -2,8 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-	QCoreApplication a(argc, argv);
 	Manager manager(argv[1], argv[2]);
-	//s
-	return a.exec();
+
+	return 0;
 }
