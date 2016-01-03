@@ -10,6 +10,9 @@ Description : Provides the logic of the application. Prepares preconditions for 
 #include "Simplex.h"
 #include "IntervalLoader.h"
 #include "Database.h"
+#include "Segment.h"
+#include "Parameters.h"
+#include "Difuse2Param.h"
 
 class Manager
 {
