@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Difuse2Param.cpp" />
+    <ClCompile Include="EntranceParameters.cpp" />
     <ClCompile Include="Fitness.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
@@ -98,6 +99,7 @@
   <ItemGroup>
     <ClInclude Include="Database.h" />
     <ClInclude Include="Difuse2Param.h" />
+    <ClInclude Include="EntranceParameters.h" />
     <ClInclude Include="Fitness.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Interpolation.h" />

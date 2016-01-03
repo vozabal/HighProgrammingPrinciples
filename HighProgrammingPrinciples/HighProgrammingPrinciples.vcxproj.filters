@@ -29,6 +29,9 @@
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="EntranceParameters.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simplex.h">
@@ -72,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="IntervalLoader.h">
       <Filter>Heads</Filter>
+    </ClInclude>
+    <ClInclude Include="EntranceParameters.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

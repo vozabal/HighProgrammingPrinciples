@@ -115,7 +115,7 @@ void Database::Open_database()
 	rc = sqlite3_open(file.c_str(), &db);
 	if (rc != SQLITE_OK)
 	{
-		cerr << "Error opening SQLite3 database:" << sqlite3_errmsg(db);
+		cerr << "Error opening SQLite3 database! Check the path of the database" << sqlite3_errmsg(db) << endl;
 	}
 }
 
