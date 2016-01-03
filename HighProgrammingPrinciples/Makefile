@@ -3,7 +3,7 @@ OBJECTS = MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parame
 CFLAGS = -std=c++11 -Wall -I /usr/local/intel/include -I /usr/include/qt4 -L /usr/local/intel/lib/intel64/gcc4.4 -O4 -Xlinker -rpath -Xlinker /usr/local/intel/lib/intel64/gcc4.4
 
 LIBS = -lQtCore -lsqlite3 -ltbb
-CC = mpic++
+CC = g++-4.7
 
 all: sp 
 
@@ -41,7 +41,7 @@ Difuse2Param.o: Difuse2Param.cpp Difuse2Param.h
 Database.o: Database.cpp Database.h
 	$(CC) $(CFLAGS) -c -Wno-write-strings Database.cpp
 	
-Database.o: Simplex.cpp Simplex.h
+Simplex.o: Simplex.cpp Simplex.h
 	$(CC) $(CFLAGS) -c Simplex.cpp
 
 Manager.o: Manager.cpp Manager.h

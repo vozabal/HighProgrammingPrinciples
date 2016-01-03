@@ -24,13 +24,13 @@ public:
 
 private:
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5;	// Constants for the operations of the algorithm
-	const int ITERATION_NUMBER = 1000;	// The maximum algorithm iterations count
-	const int GENERATION_VECTOR_COUNT = 1000; // Start generation attempts of coefficients which don't have a valid fitness.
+	const unsigned int ITERATION_NUMBER = 1000;	// The maximum algorithm iterations count
+	const unsigned int GENERATION_VECTOR_COUNT = 1000; // Start generation attempts of coefficients which don't have a valid fitness.
 
 	// Indexes of compared coefficients
-	int MAX_FITNESS_INDEX;
-	int MAX2_FITNESS_INDEX;
-	int MIN_FITNESS_INDEX;
+	unsigned int MAX_FITNESS_INDEX;
+	unsigned int MAX2_FITNESS_INDEX;
+	unsigned int MIN_FITNESS_INDEX;
 
 	RandomVectorGenerator randVectGener;
 	vector<vector<double>> coefficients;
@@ -44,7 +44,7 @@ private:
 	vector<double> centroid;
 
 	// The operations which return results in vectors
-	vector<double> GetCentroid(int max_position);
+	vector<double> GetCentroid(unsigned int max_position);
 	vector<double> GetReflection(vector<double> xg, int max_position);
 	vector<double> GetContraction(vector<double> xg, int max_position);
 	vector<double> GetExpansion(vector<double> xg, vector<double> xr);

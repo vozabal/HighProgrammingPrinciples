@@ -14,9 +14,9 @@ vector<Difuse2Param*> Simplex::Compute()
 {
 	vector<double> fitnesses;	// Vector of fitnesses
 	vector<double> xg, xr, xc, xe, xk;	// Centroid, reflection, contraction, expansion and dimensional contraction
-	double xg_fitness, xr_fitness, xc_fitness, xe_fitness;	// Centroid, relfection, expansion and dimensional contraction fitnesses
+	double xr_fitness, xc_fitness, xe_fitness;	// Relfection, expansion and dimensional contraction fitnesses
 	double actual_fitness;	// Just generated fitness
-	int generated_tries_counter = 0;	//A Counter of attempts to generate a vector of coefficients with a countable fitness
+	unsigned int generated_tries_counter = 0;	//A Counter of attempts to generate a vector of coefficients with a countable fitness
 	vector<double> stop_actual_centroid;	// Centroid for the actual iteration to compare with the previous one
 	vector<double> stop_previous_centroid;	// Centroid for the previous iteration to compare with the actual one
 	Difuse2Param *difuse2param;	// Output of one computed segment by the algorithm
@@ -134,7 +134,7 @@ vector<Difuse2Param*> Simplex::Compute()
 bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 {
 	bool valid_count = true;
-	int count = 0;
+	unsigned int count = 0;
 		
 	for (size_t i = 0; i < fitnesses.size(); i++)
 	{
@@ -152,7 +152,7 @@ bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 }
 
 
-vector<double> Simplex::GetCentroid(int max_position)
+vector<double> Simplex::GetCentroid(unsigned int max_position)
 {
 	// Inicialization of the centroid
 	vector<double> xg = { 0, 0, 0, 0, 0, 0 };
@@ -235,9 +235,9 @@ vector<double> Simplex::GetReflection(vector<double> xg, int max_position)
 
 void Simplex::GetComparismIndexes(vector<double> fitnesses)
 {
-	int min = 0, max2 = 0, max = 0; // min, second min, max of fitnesses.
+	unsigned int min = 0, max2 = 0, max = 0; // min, second min, max of fitnesses.
 
-	for (int i = 0; i < fitnesses.size(); ++i){
+	for (size_t i = 0; i < fitnesses.size(); ++i){
 		if (fitnesses[i]<fitnesses[min]){
 			min = i;
 		}
@@ -246,7 +246,7 @@ void Simplex::GetComparismIndexes(vector<double> fitnesses)
 		}
 	}
 
-	for (int i = 0; i < fitnesses.size(); ++i){
+	for (size_t i = 0; i < fitnesses.size(); ++i){
 		if (fitnesses[i]>fitnesses[max] && i != max){
 			max2 = i;
 		}

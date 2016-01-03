@@ -18,11 +18,17 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 
 	double result_ist;
 
-	if (time < START_TIME)	DBL_MAX;
-	else if (time > END_TIME) DBL_MAX;
+	if (time < START_TIME)
+	{
+		return DBL_MAX;
+	}
+	else if (time > END_TIME)
+	{
+		return DBL_MAX;
+	}
 	else
 	{
-		for (int i = 0; i < segment->measuredValues.size(); i++)
+		for (size_t i = 0; i < segment->measuredValues.size(); i++)
 		{
 			actual = segment->measuredValues[i];
 			// if the actual time is bigger than the output time
@@ -48,12 +54,6 @@ double Interpolation::getInterpolatedValue(Segment *segment, double time)
 					}
 					else
 					{
-						if (actual->id == 9437)
-						{
-							double ahoj;
-							ahoj = 1;
-						}
-
 						return InterpolatePoint(previous->ist, actual->ist, previous->measuredate, actual->measuredate, time);
 					}
 				}
