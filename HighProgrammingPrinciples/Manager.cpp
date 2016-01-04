@@ -4,11 +4,11 @@
 Manager::Manager(string db_path, string boundaries_path)
 {
 #ifdef _WIN32
-	db_path = "Resources//direcnet.sqlite";
-	boundaries_path = "Resources//bounds.ini";
-#else
 	db_path = "Resources\\direcnet.sqlite";
 	boundaries_path = "Resources\\bounds.ini";
+#else
+	db_path = "Resources//direcnet.sqlite";
+	boundaries_path = "Resources//bounds.ini";
 #endif
 
 	IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
