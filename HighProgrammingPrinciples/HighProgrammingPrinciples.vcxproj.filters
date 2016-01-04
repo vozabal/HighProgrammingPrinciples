@@ -32,9 +32,7 @@
     <ClCompile Include="EntranceParameters.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="OutputTable.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
+    <ClCompile Include="OutputTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simplex.h">
@@ -82,9 +80,7 @@
     <ClInclude Include="EntranceParameters.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="OutputTable.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
+    <ClInclude Include="OutputTable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
