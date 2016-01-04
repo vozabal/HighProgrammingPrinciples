@@ -2,6 +2,7 @@
 
 int main(int argc, char *argv[])
 {
+	/*
 	if (ParseArgs(argc, argv) == false)
 	{
 		return -1;
@@ -13,6 +14,12 @@ int main(int argc, char *argv[])
 
 		return 0;
 	}
+	*/
+
+	PrintUsage();
+	Manager manager(argv[1], argv[2]);
+
+	return 0;
 	
 }
 
@@ -48,5 +55,5 @@ void PrintUsage()
 		<< "OPTIONS:\n"
 		<< "    -o <outfile>   Saves generated coeficients into a text file <outfile>.\n"
 		<< "    -p             Prints result to the terminal as well as to the output file.\n\n"
-		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016" << std::endl;
-}
+		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016" << std::endl << std::endl;
+	}

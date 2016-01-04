@@ -18,7 +18,7 @@ Manager::Manager(string db_path, string boundaries_path)
 	vector<Segment*> segments = db.GetSegments();	// Loads the segments
 	Simplex simplex(segments, boundaries);	// Initializates the simplex
 	vector<Difuse2Param*> difuse2params = simplex.Compute();	// Computes the coefficients
-	OutputTable outTable(difuse2params);
+	OutputTable outTable(difuse2params);	// Initializates the table
 
 	outTable.ConsolePrint();	// Prints the results to the console
 	outTable.FilePrint("out.txt");	// Prints the results to the file
