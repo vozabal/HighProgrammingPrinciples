@@ -11,6 +11,7 @@ Description : Provides the logic of the application. Prepares preconditions for 
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cfloat>
 #include "Difuse2Param.h"
 
 using namespace std;

@@ -13,6 +13,7 @@ Description : Provides the logic of the application. Prepares preconditions for 
 #include "Segment.h"
 #include "Parameters.h"
 #include "Difuse2Param.h"
+#include "OutputTable.h"
 
 class Manager
 {
