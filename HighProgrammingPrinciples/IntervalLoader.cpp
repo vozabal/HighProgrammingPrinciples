@@ -18,7 +18,6 @@ Parameters IntervalLoader::LoadValues()
 
 	fr = fopen(file.c_str(), "r");
 	while (fgets(buffer, sizeof(buffer), fr) != NULL) {
-		fputs(buffer, stdout);
 		AssignValues(buffer);
 	}
 	fclose(fr);

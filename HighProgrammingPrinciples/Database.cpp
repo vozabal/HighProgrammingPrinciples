@@ -17,13 +17,13 @@ void Database::PushResults(vector<Difuse2Param*> difuse2Params)
 
 	for (size_t i = 0; i < difuse2Params.size(); i++)
 	{
-		PushCoefficients(difuse2Params[i]->coefficients, difuse2Params[i]->segment_id);
+		PushCoefficients(difuse2Params[i]->coefficients, difuse2Params[i]->s, difuse2Params[i]->segment_id);
 	}
 
 	Close_database();
 }
 
-void Database::PushCoefficients(vector<double> coefficients, int segment_id)
+void Database::PushCoefficients(vector<double> coefficients, double s, int segment_id)
 {
 	stmt = NULL;
 
@@ -36,7 +36,7 @@ void Database::PushCoefficients(vector<double> coefficients, int segment_id)
 	sqlite3_bind_double(stmt, 4, coefficients[3]);
 	sqlite3_bind_double(stmt, 5, coefficients[4]);
 	sqlite3_bind_double(stmt, 6, coefficients[5]);
-	sqlite3_bind_double(stmt, 7, 1);
+	sqlite3_bind_double(stmt, 7, s);
 	sqlite3_bind_double(stmt, 8, segment_id);
 
 	sqlite3_step(stmt);

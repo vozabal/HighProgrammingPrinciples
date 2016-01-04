@@ -95,6 +95,7 @@
     <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Simplex.cpp" />
+    <ClCompile Include="OutputTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Resources\sqlite3.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="Simplex.h" />
+    <ClInclude Include="OutputTable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />

@@ -32,7 +32,7 @@ private:
 	sqlite3_stmt *stmt;	/* OUT: Statement handle */
 	const char *pzTail;	/* OUT: Pointer to unused portion of zSql */
 
-	void PushCoefficients(vector<double> coefficients, int segment_id);		// Pushes one result into the database
+	void PushCoefficients(vector<double> coefficients, double s, int segment_id);		// Pushes one result into the database
 	void Open_database();	//	Opens the database
 	void Close_database();	// Closes the database
 	string file;	// Name of the file and its path

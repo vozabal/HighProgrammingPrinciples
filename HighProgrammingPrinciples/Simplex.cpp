@@ -123,10 +123,8 @@ vector<Difuse2Param*> Simplex::Compute()
 		difuse2param = new Difuse2Param();
 		difuse2param->coefficients = coefficients[MIN_FITNESS_INDEX];
 		difuse2param->segment_id = segments[k]->segmentNumber;
-		difuse2params.push_back(difuse2param);
-
-		std::cout << fitnesses[MIN_FITNESS_INDEX] << endl;
-		std::cout << "Segment counted = " << segments[k]->segmentNumber << endl;
+		difuse2param->fitness = fitnesses[MIN_FITNESS_INDEX];
+		difuse2params.push_back(difuse2param);		
 	}
 	return difuse2params;
 }
