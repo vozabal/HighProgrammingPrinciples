@@ -3,7 +3,7 @@ OBJECTS = MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parame
 CFLAGS = -std=c++11 -Wall -I /usr/local/intel/include -I /usr/include/qt4 -L /usr/local/intel/lib/intel64/gcc4.4 -O4 -Xlinker -rpath -Xlinker /usr/local/intel/lib/intel64/gcc4.4
 
 LIBS = -lQtCore -lsqlite3 -ltbb
-CC = g++-4.7
+CC = mpic++
 
 all: sp 
 
