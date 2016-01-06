@@ -21,7 +21,7 @@ public:
 	Simplex(vector<Segment*> segments, Parameters boundaries);	// Passes the segments and the boundaries for generated coefficients of the algormithm
 	~Simplex();
 	vector<Difuse2Param*> Compute();
-
+	Difuse2Param* ComputeSegment(unsigned int segment_index);	// Computes the algorithm for one segment
 private:
 
 	//addded 
@@ -64,6 +64,5 @@ private:
 
 	void GetComparismIndexes(vector<double> fitnesses);	// Founds the max, max2 and min fitness indexes int a vector of fitnesses	
 	bool ValidFitnessesCount(vector<double> fitnesses);	// Checks if there are at least 2 values in the vector of fitnesses	
-	vector<double> GetAllPointsCentroid();	// Counts and returns the centroid of every coefficients vectors - THE ALGORITHM EXIT CRITERIA 
-	Difuse2Param* ComputeSegment(unsigned int segment_id);	// Computes the algorithm for one segment
+	vector<double> GetAllPointsCentroid();	// Counts and returns the centroid of every coefficients vectors - THE ALGORITHM EXIT CRITERIA 	
 };

@@ -33,6 +33,9 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="OutputTable.cpp" />
+    <ClCompile Include="MPIManager.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simplex.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="OutputTable.h">
       <Filter>Heads</Filter>
+    </ClInclude>
+    <ClInclude Include="MPIManager.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

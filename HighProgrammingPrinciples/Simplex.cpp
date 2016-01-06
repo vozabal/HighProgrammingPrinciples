@@ -19,20 +19,20 @@ vector<Difuse2Param*> Simplex::Compute()
 	return difuse2params;
 }
 
-Difuse2Param* Simplex::ComputeSegment(unsigned int segment_id)
+Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 {
 	fitnesses.clear();	// Initialization of the fitnesses values		
 	coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
 
 	for (size_t i = 0; i < coefficients.size(); i++) // Iterrations 
 	{
-		actual_fitness = fitness.GetFitness(segments[segment_id], coefficients[i]);	// Computation of the fitness for the vector of coefficient
+		actual_fitness = fitness.GetFitness(segments[segment_index], coefficients[i]);	// Computation of the fitness for the vector of coefficient
 
 		// Generates new coefficients until the fitness is generated
 		while (actual_fitness == DBL_MAX && generated_tries_counter < GENERATION_VECTOR_COUNT)
 		{
 			coefficients[i] = randVectGener.GenerateVector();
-			actual_fitness = fitness.GetFitness(segments[segment_id], coefficients[i]);
+			actual_fitness = fitness.GetFitness(segments[segment_index], coefficients[i]);
 			generated_tries_counter++;
 		}
 		generated_tries_counter = 0;
@@ -51,7 +51,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_id)
 		xg = GetCentroid(MAX_FITNESS_INDEX);
 		xr = GetReflection(xg, MAX_FITNESS_INDEX);
 
-		xr_fitness = fitness.GetFitness(segments[segment_id], xr);
+		xr_fitness = fitness.GetFitness(segments[segment_index], xr);
 
 		if (fitnesses[MIN_FITNESS_INDEX] < xr_fitness && xr_fitness < fitnesses[MAX2_FITNESS_INDEX])
 		{
@@ -65,7 +65,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_id)
 			{
 				// Contraction
 				xc = GetContraction(xg, MAX2_FITNESS_INDEX);
-				xc_fitness = fitness.GetFitness(segments[segment_id], xc);
+				xc_fitness = fitness.GetFitness(segments[segment_index], xc);
 
 				if (xc_fitness < fitnesses[MAX_FITNESS_INDEX])
 				{
@@ -90,7 +90,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_id)
 					fitnesses.clear();
 					for (size_t i = 0; i < coefficients.size(); i++)
 					{
-						actual_fitness = fitness.GetFitness(segments[segment_id], coefficients[i]);
+						actual_fitness = fitness.GetFitness(segments[segment_index], coefficients[i]);
 						fitnesses.push_back(actual_fitness);
 					}
 					GetComparismIndexes(fitnesses);
@@ -100,7 +100,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_id)
 			{
 				// Expansion
 				xe = GetExpansion(xg, xr);
-				xe_fitness = fitness.GetFitness(segments[segment_id], xe);
+				xe_fitness = fitness.GetFitness(segments[segment_index], xe);
 
 				if (xe_fitness < xr_fitness)
 				{
@@ -120,7 +120,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_id)
 	}
 	difuse2param = new Difuse2Param();
 	difuse2param->coefficients = coefficients[MIN_FITNESS_INDEX];
-	difuse2param->segment_id = segments[segment_id]->segmentNumber;
+	difuse2param->segment_id = segments[segment_index]->segmentNumber;
 	difuse2param->fitness = fitnesses[MIN_FITNESS_INDEX];
 
 

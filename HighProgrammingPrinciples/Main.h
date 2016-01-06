@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include "Manager.h"
+#include "MPIManager.h"
+#include <mpi.h>
 
 using namespace std;
 

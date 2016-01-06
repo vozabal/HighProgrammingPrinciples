@@ -1,4 +1,4 @@
-OBJECTS = MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parameters.o IntervalLoader.o RandomVectorGenerator.o Difuse2Param.o Database.o Simplex.o Manager.o Main.o OutputTable.o
+OBJECTS = MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parameters.o IntervalLoader.o RandomVectorGenerator.o Difuse2Param.o Database.o Simplex.o MPIManager.o Main.o OutputTable.o
 
 CFLAGS = -std=c++11 -Wall -I /usr/local/intel/include -I /usr/include/qt4 -L /usr/local/intel/lib/intel64/gcc4.4 -O4 -Xlinker -rpath -Xlinker /usr/local/intel/lib/intel64/gcc4.4
 
@@ -7,7 +7,7 @@ CC = mpic++
 
 all: sp 
 
-sp: MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parameters.o IntervalLoader.o RandomVectorGenerator.o Difuse2Param.o Database.o Simplex.o Manager.o Main.o OutputTable.o
+sp: MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parameters.o IntervalLoader.o RandomVectorGenerator.o Difuse2Param.o Database.o Simplex.o MPIManager.o Main.o OutputTable.o
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@ 
 	rm -f *.o
 	
@@ -44,8 +44,8 @@ Database.o: Database.cpp Database.h
 Simplex.o: Simplex.cpp Simplex.h
 	$(CC) $(CFLAGS) -c Simplex.cpp
 
-Manager.o: Manager.cpp Manager.h
-	$(CC) $(CFLAGS) -c Manager.cpp
+MPIManager.o: MPIManager.cpp MPIManager.h
+	$(CC) $(CFLAGS) -c MPIManager.cpp
 	
 Main.o: Main.cpp Main.h
 	$(CC) $(CFLAGS) -c Main.cpp

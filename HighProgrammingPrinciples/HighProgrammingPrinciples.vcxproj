@@ -91,6 +91,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MeasuredValue.cpp" />
+    <ClCompile Include="MPIManager.cpp" />
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Segment.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="MeasuredValue.h" />
+    <ClInclude Include="MPIManager.h" />
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="RandomVectorGenerator.h" />
     <ClInclude Include="Resources\sqlite3.h" />
