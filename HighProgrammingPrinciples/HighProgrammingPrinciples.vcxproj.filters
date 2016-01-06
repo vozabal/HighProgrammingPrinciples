@@ -89,6 +89,9 @@
     <ClInclude Include="MPIManager.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="SegmentResult.h">
+      <Filter>Heads</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />

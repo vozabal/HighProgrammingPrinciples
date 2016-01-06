@@ -19,9 +19,9 @@ int main(int argc, char *argv[])
 	MPI_Init(&argc, &argv);
 	//PrintUsage();
 	MPIManager manager(argv[1], argv[2]);
-	int rank = manager.rank;
+	//int rank = manager.rank;
 	MPI_Finalize();
-	printf("Run process no. %i\n", rank);
+	//printf("Run process no. %i\n", rank);
 
 	return 0;
 	

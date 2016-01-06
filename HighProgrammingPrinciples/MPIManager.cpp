@@ -2,18 +2,17 @@
 
 MPIManager::MPIManager(string db_path, string boundaries_path) 
 {
-
+	//cout << "====MPI MANAGER====" << endl;
 	db_path = "Resources//direcnet.sqlite";
 	boundaries_path = "Resources//bounds.ini";
 
 	IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
-	cout << "====MPI MANAGER====" << endl;
 	Database db(db_path);	// Creates the db layer
 	Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
 	vector<Segment*> segments = db.GetSegments();	// Loads the segments
 	Simplex simplex(segments, boundaries);	// Initializates the simplex
 	//ector<Difuse2Param*> difuse2params = simplex.Compute();	// Computes the coefficients
-	OutputTable outTable(difuse2params);	// Initializates the table
+	OutputTable outTable;	// Initializates the table
 	
 	this->intervalLoader = &intervalLoader;
 	this->db = &db;
@@ -33,16 +32,16 @@ MPIManager::MPIManager(string db_path, string boundaries_path)
 
 	if (rank == 0) 
 	{
-		cout << "Manager" << endl;
+		//cout << "Manager" << endl;
 		farmerManager();
 	}
 	else 
 	{
-		cout << "Worker" << endl;
+		//cout << "Worker" << endl;
 		workerManager();
 	}
 	
-	cout << "KONEC MPI MANAGERA" << endl;
+	//cout << "KONEC MPI MANAGERA" << endl;
 }
 
 MPIManager::~MPIManager() 
@@ -94,17 +93,13 @@ void MPIManager::farmerManager()
 			break;
 		}
 	}
-
-	PrintResults();
+	outTable->Inicializate(results, segmentIndex);
+	outTable->ConsolePrint();
 	//delete[] farmerRes;
 	//delete[] results;
-	cout << "Konec Farmera" << endl;
+	//cout << "Konec Farmera" << endl;
 }
 
-Difuse2Param MPIManager::ChangeResultFormat()
-{
-	results
-}
 
 void MPIManager::PrintResults()
 {
@@ -155,7 +150,7 @@ void MPIManager::workerManager()
 		woker_result->k = difuse2param->coefficients[5];
 	}
 	delete woker_result;
-	cout << "Konec workera" << endl;
+	//cout << "Konec workera" << endl;
 }
 
 void MPIManager::createDatatype() 

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "MPIManager.h"
-#include <mpi.h>
+//#include <mpi.h>
 
 using namespace std;
 

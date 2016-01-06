@@ -114,6 +114,7 @@
     <ClInclude Include="RandomVectorGenerator.h" />
     <ClInclude Include="Resources\sqlite3.h" />
     <ClInclude Include="Segment.h" />
+    <ClInclude Include="SegmentResult.h" />
     <ClInclude Include="Simplex.h" />
     <ClInclude Include="OutputTable.h" />
   </ItemGroup>

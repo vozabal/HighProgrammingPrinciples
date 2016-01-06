@@ -1,14 +1,20 @@
 #include "OutputTable.h"
 
 
-OutputTable::OutputTable(vector<Difuse2Param*> params)
+OutputTable::OutputTable()
 {
-	this->params = params;
+	
 }
 
 
 OutputTable::~OutputTable()
 {
+}
+
+void OutputTable::Inicializate(SegmentResult *segmentResults, unsigned int segmentResultsSize)
+{
+	this->segmentResults = segmentResults;
+	this->segmentResultsSize = segmentResultsSize;
 }
 
 
@@ -36,31 +42,34 @@ void OutputTable::PrintBorder()
 void OutputTable::PrintRows(int row)
 {
 	cout << setfill(' ') << setw(1) << "|";//	Prints the left border of the row	
-	cout << setw(FIRST_COLUMN) << right << params[row]->segment_id << setw(1) << "|";
+	cout << setw(FIRST_COLUMN) << right << segmentResults[row].segmentid << setw(1) << "|";
 
-	if (params[row]->fitness != DBL_MAX)	// Checking if there is DBL_MAX -> the fitness wasn't found -> The computation failed
+	if (segmentResults[row].fitness != DBL_MAX)	// Checking if there is DBL_MAX -> the fitness wasn't found -> The computation failed
 	{
-		cout << setw(COLUMN_WIDTH) << right << params[row]->fitness << setw(1) << "|";	//	Prints the fitness
+		cout << setw(COLUMN_WIDTH) << right << segmentResults[row].fitness << setw(1) << "|";	//	Prints the fitness
 	}
 	else
 	{
-		cout << setw(COLUMN_WIDTH) << right << "FAILED" << setw(1) << "|";
-	}
-	for (size_t i = 0; i < params[row]->coefficients.size(); i++)	// Prints found coefficients
-	{
-		cout << setw(COLUMN_WIDTH) << right << params[row]->coefficients[i] << setw(1) << "|";	//	The computation failed
-	}
+		cout << setw(COLUMN_WIDTH) << right << "FAILED" << setw(1) << "|";	//	The computation failed
+	}	
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].p << setw(1) << "|";	
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].c << setw(1) << "|";
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].c << setw(1) << "|";
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].dt << setw(1) << "|";
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].h << setw(1) << "|";
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].k << setw(1) << "|";
 
-	cout << setw(LAST_COLUMN) << right << params[row]->s << setw(1) << "|";	// Prints the default s coefficient
+	cout << setw(LAST_COLUMN) << right << segmentResults[row].s << setw(1) << "|";	// Prints the default s coefficient
 	cout << endl;	// Prints a new line
 }
+
 
 void OutputTable::ConsolePrint()
 {
 	PrintBorder();
 	PrintHead();
 	PrintBorder();
-	for (size_t i = 0; i < params.size(); i++)
+	for (size_t i = 0; i < segmentResultsSize; i++)
 	{
 		PrintRows(i);
 		PrintBorder();

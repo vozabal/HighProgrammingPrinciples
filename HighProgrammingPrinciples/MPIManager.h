@@ -12,6 +12,7 @@
 #include "OutputTable.h"
 #include <vector>
 #include <string>
+#include "SegmentResult.h"
 
 using namespace std;
 
@@ -25,12 +26,6 @@ private:
 	Simplex *simplex;
 	vector<Difuse2Param*> difuse2params;
 	OutputTable *outTable;
-
-	struct SegmentResult {
-		int segmentid, s;
-		double fitness, p, cg, c, dt, h, k;
-	};
-
 	
 	int nproc;	// pocet procesu pouzivajicich MPI
 	unsigned int segmentIndex;
@@ -49,5 +44,5 @@ public:
 	void farmerSend(MPI_Status st);
 	void farmerReceiveResults(MPI_Status st, SegmentResult *segmentResult);
 	void PrintResults();
-	Difuse2Param MPIManager::ChangeResultFormat();
+	vector<Difuse2Param*> ChangeResultFormat();
 };

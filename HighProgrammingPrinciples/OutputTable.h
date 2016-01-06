@@ -13,16 +13,18 @@ Description : Provides the logic of the application. Prepares preconditions for 
 #include <vector>
 #include <cfloat>
 #include "Difuse2Param.h"
+#include "SegmentResult.h"
 
 using namespace std;
 
 class OutputTable
 {
 public:
-	OutputTable(vector<Difuse2Param*> params);
+	OutputTable();
 	~OutputTable();	
 	void ConsolePrint();	// Prints the table to the console
 	void FilePrint(string file);	// Prints the table into the file.
+	void Inicializate(SegmentResult *segmentResults, unsigned int segmentResultsSize);
 
 private:
 	const unsigned int COLUMNS = 9;	// The number of the standard columns
@@ -33,6 +35,7 @@ private:
 	void PrintHead();	//	Prints the table head
 	void PrintBorder();	//	Prints horizontal borders of cells
 	void PrintRows(int row);	// Prints rows
-	vector<Difuse2Param*> params;	// The input of the table
+	SegmentResult *segmentResults;	// The input of the table
+	unsigned int segmentResultsSize;	// Size of the results
 };
 
