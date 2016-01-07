@@ -78,7 +78,7 @@ void OutputTable::ConsolePrint()
 
 void OutputTable::FilePrint(string file)
 {
-	std::ofstream out("out.txt");	//	Opens the file
+	std::ofstream out(file);	//	Opens the file
 	std::streambuf *coutbuf = std::cout.rdbuf(); //	Saves the old buf
 	std::cout.rdbuf(out.rdbuf());	//	Redirects std::cout to file
 

@@ -8,6 +8,7 @@ Description : Provides a loader of the algorithm initalization. Gets the boundar
 #pragma once
 #include <string>
 #include <stdio.h>
+#include <stdexcept>
 #include "Parameters.h"
 
 using namespace std;

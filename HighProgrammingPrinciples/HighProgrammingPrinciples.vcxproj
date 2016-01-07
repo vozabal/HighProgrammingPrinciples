@@ -83,12 +83,11 @@
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Difuse2Param.cpp" />
-    <ClCompile Include="EntranceParameters.cpp" />
     <ClCompile Include="Fitness.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="IntervalLoader.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MeasuredValue.cpp" />
     <ClCompile Include="MPIManager.cpp" />
@@ -101,7 +100,6 @@
   <ItemGroup>
     <ClInclude Include="Database.h" />
     <ClInclude Include="Difuse2Param.h" />
-    <ClInclude Include="EntranceParameters.h" />
     <ClInclude Include="Fitness.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Interpolation.h" />

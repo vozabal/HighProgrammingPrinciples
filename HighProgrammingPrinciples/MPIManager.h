@@ -2,7 +2,9 @@
 
 #include <mpi.h>
 #include <stdio.h>
+#include <vector>
 #include <iostream>
+#include <string>
 #include "Simplex.h"
 #include "IntervalLoader.h"
 #include "Database.h"
@@ -10,8 +12,6 @@
 #include "Parameters.h"
 #include "Difuse2Param.h"
 #include "OutputTable.h"
-#include <vector>
-#include <string>
 #include "SegmentResult.h"
 
 using namespace std;
@@ -19,24 +19,20 @@ using namespace std;
 class MPIManager {
 
 private:
-	IntervalLoader *intervalLoader;
-	Database *db;
-	Parameters *boundaries;
 	vector<Segment*> segments;
 	Simplex *simplex;
-	vector<Difuse2Param*> difuse2params;
 	OutputTable *outTable;
-	
+	SegmentResult *results;	
 	int nproc;	// pocet procesu pouzivajicich MPI
 	unsigned int segmentIndex;
-	unsigned int countOfReceived;
-		
+	unsigned int countOfReceived;		
 	MPI_Datatype result_type;	// Loaded frome createdatatype
-	SegmentResult *results;	// 
+
+	string output_file;
 
 public:
 	int rank;	// identifikacni cislo
-	MPIManager(string db_path, string boundaries_path);
+	MPIManager(string db_path, string boundaries_path, string output_file);
 	~MPIManager();
 	void farmerManager();
 	void workerManager();

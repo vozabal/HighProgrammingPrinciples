@@ -1,29 +1,26 @@
 #include "MPIManager.h"
 
-MPIManager::MPIManager(string db_path, string boundaries_path) 
+MPIManager::MPIManager(string db_path, string boundaries_path, string output_file)
 {
 	//cout << "====MPI MANAGER====" << endl;
-	db_path = "Resources//direcnet.sqlite";
-	boundaries_path = "Resources//bounds.ini";
+	//db_path = "Resources//direcnet.sqlite";
+	//boundaries_path = "Resources//bounds.ini";
 
 	IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
 	Database db(db_path);	// Creates the db layer
 	Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
 	vector<Segment*> segments = db.GetSegments();	// Loads the segments
 	Simplex simplex(segments, boundaries);	// Initializates the simplex
-	//ector<Difuse2Param*> difuse2params = simplex.Compute();	// Computes the coefficients
 	OutputTable outTable;	// Initializates the table
 	
-	this->intervalLoader = &intervalLoader;
-	this->db = &db;
-	this->boundaries = &boundaries;
 	this->segments = segments;
 	this->simplex = &simplex;
 	this->outTable = &outTable;
+	this->output_file = output_file;
 	
-	//MPI_Init(&db_path, &boundaries_path);	//MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);	// prirazeno vlastni identifikacni cislo
 	MPI_Comm_size(MPI_COMM_WORLD, &nproc);	// prirazen pocet procesu v MPI aplikaci 	
+	//MPI_Init(&db_path, &boundaries_path);	//MPI_Init(&argc, &argv);
 	segmentIndex = 0;
 	countOfReceived = 0;
 
@@ -85,6 +82,10 @@ void MPIManager::farmerManager()
 	}
 	outTable->Inicializate(results, segmentIndex);
 	outTable->ConsolePrint();
+	if (!output_file.empty())
+	{
+		outTable->FilePrint(output_file);
+	}
 	delete[] results;
 	delete farmerRes;
 	//delete[] results;
@@ -166,5 +167,7 @@ void MPIManager::createDatatype()
 	MPI_Type_create_struct(2, blockcounts, offsets, oldtypes, &result_type);
 	MPI_Type_commit(&result_type);
 }
+
+
 
 

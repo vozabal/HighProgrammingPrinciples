@@ -23,17 +23,14 @@
     <ClCompile Include="Fitness.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MeasuredValue.cpp" />
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Segment.cpp" />
-    <ClCompile Include="EntranceParameters.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="OutputTable.cpp" />
-    <ClCompile Include="MPIManager.cpp">
+    <ClCompile Include="MPIManager.cpp" />
+    <ClCompile Include="Main.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,16 +77,13 @@
     <ClInclude Include="IntervalLoader.h">
       <Filter>Heads</Filter>
     </ClInclude>
-    <ClInclude Include="EntranceParameters.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="OutputTable.h">
       <Filter>Heads</Filter>
     </ClInclude>
-    <ClInclude Include="MPIManager.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="SegmentResult.h">
+      <Filter>Heads</Filter>
+    </ClInclude>
+    <ClInclude Include="MPIManager.h">
       <Filter>Heads</Filter>
     </ClInclude>
   </ItemGroup>

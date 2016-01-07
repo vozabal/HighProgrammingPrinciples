@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include "MPIManager.h"
-//#include <mpi.h>
+#include <ctime>
 
 using namespace std;
 
-void PrintUsage();
 bool ParseArgs(int argc, char *argv[]);
+void PrintUsage();
