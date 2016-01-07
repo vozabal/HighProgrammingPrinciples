@@ -7,6 +7,7 @@ Description : Provides a loader of the algorithm initalization. Gets the boundar
 */
 #pragma once
 #include <string>
+#include <iostream>
 #include <stdio.h>
 #include "Parameters.h"
 
@@ -34,11 +35,13 @@ private:
 	const string H_MAX = "hmax=";
 	const string K_MIN = "kmin=";
 	const string K_MAX = "kmax=";
+	const string ERROR = "Error of the boundaries file content! The structure is corrupted [==ERROR==]\n";
 
 	Parameters parameters;
 	string file;	// The path and the name of the file.
 
 	// Assigns values found in the string into the parameters property.
 	void AssignValues(string entry);
+	void CheckParameters();
 };
 

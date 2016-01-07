@@ -8,26 +8,25 @@ Description : Represents a class which preserves the boundaries of the alogorith
 
 #pragma once
 
+#include <cfloat>
+
 class Parameters
 {
 public:
 	Parameters();
 	~Parameters();
 
-	double p_min;
-	double p_max;
-	double cg_min;
-	double cg_max;
-	double c_min;
-	double c_max;
-	double dt_min;
-	double dt_max;
-	double h_min;
-	double h_max;
-	double k_min;
-	double k_max;
-
-private:
-
+	double p_min = DBL_MAX;
+	double p_max = DBL_MAX;
+	double cg_min = DBL_MAX;
+	double cg_max = DBL_MAX;
+	double c_min = DBL_MAX;
+	double c_max = DBL_MAX;
+	double dt_min = DBL_MAX;
+	double dt_max = DBL_MAX;
+	double h_min = DBL_MAX;
+	double h_max = DBL_MAX;
+	double k_min = DBL_MAX;
+	double k_max = DBL_MAX;
 };
 

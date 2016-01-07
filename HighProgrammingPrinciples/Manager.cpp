@@ -10,21 +10,29 @@ Manager::Manager(string db_path, string boundaries_path)
 	db_path = "Resources//direcnet.sqlite";
 	boundaries_path = "Resources//bounds.ini";
 #endif
-
-	IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
-	Database db(db_path);	// Creates the db layer
-
-	Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
-	vector<Segment*> segments = db.GetSegments();	// Loads the segments
-	Simplex simplex(segments, boundaries);	// Initializates the simplex
-	vector<Difuse2Param*> difuse2params = simplex.Compute();	// Computes the coefficients
-	OutputTable outTable(difuse2params);	// Initializates the table
-
-	outTable.ConsolePrint();	// Prints the results to the console
-	outTable.FilePrint("out.txt");	// Prints the results to the file
-	db.PushResults(difuse2params);	// Pushes the resulsts into the database
-
-	FreeAllocatedMemory(segments, difuse2params);	// Releases the allocated memory
+	try
+	{
+		clock_t begin = clock();
+		IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
+		Database db(db_path);	// Creates the db layer
+		Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
+		vector<Segment*> segments = db.GetSegments();	// Loads the segments
+		Simplex simplex(segments, boundaries);	// Initializates the simplex
+		vector<Difuse2Param*> difuse2params = simplex.Compute();	// Computes the coefficients
+		OutputTable outTable(difuse2params);	// Initializates the table
+		outTable.ConsolePrint();	// Prints the results to the console
+		outTable.FilePrint("out.txt");	// Prints the results to the file
+		db.PushResults(difuse2params);	// Pushes the resulsts into the database
+		FreeAllocatedMemory(segments, difuse2params);	// Releases the allocated memory
+		clock_t end = clock();
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		cout << "Elapsed time: " << elapsed_secs << endl;
+	}
+	catch (exception e)
+	{
+		cout << e.what();
+		return;
+	}
 }
 
 Manager::~Manager()

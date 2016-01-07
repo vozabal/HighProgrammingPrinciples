@@ -19,8 +19,7 @@ int main(int argc, char *argv[])
 	PrintUsage();
 	Manager manager(argv[1], argv[2]);
 
-	return 0;
-	
+	return 0;	
 }
 
 bool ParseArgs(int argc, char *argv[])
