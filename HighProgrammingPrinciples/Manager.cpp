@@ -12,7 +12,8 @@ Manager::Manager(string db_path, string boundaries_path)
 #endif
 	try
 	{
-		clock_t begin = clock();
+		clock_t begin = clock();	// The start computation time
+
 		IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
 		Database db(db_path);	// Creates the db layer
 		Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
@@ -24,13 +25,14 @@ Manager::Manager(string db_path, string boundaries_path)
 		outTable.FilePrint("out.txt");	// Prints the results to the file
 		db.PushResults(difuse2params);	// Pushes the resulsts into the database
 		FreeAllocatedMemory(segments, difuse2params);	// Releases the allocated memory
-		clock_t end = clock();
-		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+
+		clock_t end = clock();	// The end computation time
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;	// The computation time
 		cout << "Elapsed time: " << elapsed_secs << endl;
 	}
 	catch (exception e)
 	{
-		cout << e.what();
+		cout << e.what();	// Prints the message when an error occurs
 		return;
 	}
 }
