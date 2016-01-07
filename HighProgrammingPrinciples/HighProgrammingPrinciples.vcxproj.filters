@@ -79,6 +79,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile" />
+    <None Include="Makefile">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

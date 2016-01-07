@@ -9,6 +9,7 @@ Description : Provides a loader of the algorithm initalization. Gets the boundar
 #include <string>
 #include <iostream>
 #include <stdio.h>
+#include <stdexcept>
 #include "Parameters.h"
 
 using namespace std;
