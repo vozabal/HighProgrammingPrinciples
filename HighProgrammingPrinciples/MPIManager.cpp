@@ -19,7 +19,6 @@ MPIManager::MPIManager(string db_path, string boundaries_path)
 	this->boundaries = &boundaries;
 	this->segments = segments;
 	this->simplex = &simplex;
-	this->difuse2params = difuse2params;
 	this->outTable = &outTable;
 	
 	//MPI_Init(&db_path, &boundaries_path);	//MPI_Init(&argc, &argv);
@@ -46,19 +45,10 @@ MPIManager::MPIManager(string db_path, string boundaries_path)
 
 MPIManager::~MPIManager() 
 {
-	/*
-	delete[] results;
-
 	for (size_t i = 0; i < segments.size(); i++)
 	{
 		delete(segments[i]);
 	}
-
-	for (size_t i = 0; i < difuse2params.size(); i++)
-	{
-		delete(difuse2params[i]);
-	}
-	*/
 }
 
 void MPIManager::farmerManager() 
@@ -95,7 +85,8 @@ void MPIManager::farmerManager()
 	}
 	outTable->Inicializate(results, segmentIndex);
 	outTable->ConsolePrint();
-	//delete[] farmerRes;
+	delete[] results;
+	delete farmerRes;
 	//delete[] results;
 	//cout << "Konec Farmera" << endl;
 }
@@ -125,31 +116,33 @@ void MPIManager::farmerReceiveResults(MPI_Status st, SegmentResult *segmentResul
 
 void MPIManager::workerManager() 
 {
-	SegmentResult *woker_result = new SegmentResult();
-	woker_result->segmentid = -1;
+	SegmentResult woker_result;
+	woker_result.segmentid = -1;
 	int message = -1;
 	while (1) 
 	{
 		MPI_Status st;
-		MPI_Send(woker_result, 1, result_type, 0, 0, MPI_COMM_WORLD);
+		MPI_Send(&woker_result, 1, result_type, 0, 0, MPI_COMM_WORLD);
 		MPI_Recv(&message, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &st);
 		if (message == -1) 
 		{
 			break;
 		}
-
-		Difuse2Param *difuse2param = simplex->ComputeSegment(message);
-		woker_result->segmentid = difuse2param->segment_id;
-		woker_result->s = difuse2param->s;
-		woker_result->fitness = difuse2param->fitness;
-		woker_result->p = difuse2param->coefficients[0];
-		woker_result->cg = difuse2param->coefficients[1];
-		woker_result->c = difuse2param->coefficients[2];
-		woker_result->dt = difuse2param->coefficients[3];
-		woker_result->h = difuse2param->coefficients[4];
-		woker_result->k = difuse2param->coefficients[5];
+		else
+		{
+			Difuse2Param *difuse2param = simplex->ComputeSegment(message);	// An allocation of difuse2params in ComputeSegemnt
+			woker_result.segmentid = difuse2param->segment_id;
+			woker_result.s = difuse2param->s;
+			woker_result.fitness = difuse2param->fitness;
+			woker_result.p = difuse2param->coefficients[0];
+			woker_result.cg = difuse2param->coefficients[1];
+			woker_result.c = difuse2param->coefficients[2];
+			woker_result.dt = difuse2param->coefficients[3];
+			woker_result.h = difuse2param->coefficients[4];
+			woker_result.k = difuse2param->coefficients[5];
+			delete difuse2param;	// THe delete of difuse2params in ComputeSegemnt
+		}		
 	}
-	delete woker_result;
 	//cout << "Konec workera" << endl;
 }
 
