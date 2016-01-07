@@ -16,6 +16,7 @@ public:
 	Parameters();
 	~Parameters();
 
+	// The constants initialization - useful for checking errors
 	double p_min = DBL_MAX;
 	double p_max = DBL_MAX;
 	double cg_min = DBL_MAX;

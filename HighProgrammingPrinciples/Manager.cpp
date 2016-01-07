@@ -1,7 +1,7 @@
 #include "Manager.h"
 
 
-Manager::Manager(string db_path, string boundaries_path)
+Manager::Manager(string db_path, string boundaries_path, string output_file)
 {
 #ifdef _WIN32
 	db_path = "Resources\\direcnet.sqlite";
@@ -22,7 +22,7 @@ Manager::Manager(string db_path, string boundaries_path)
 		vector<Difuse2Param*> difuse2params = simplex.Compute();	// Computes the coefficients
 		OutputTable outTable(difuse2params);	// Initializates the table
 		outTable.ConsolePrint();	// Prints the results to the console
-		outTable.FilePrint("out.txt");	// Prints the results to the file
+		if (!output_file.empty()) outTable.FilePrint(output_file);	// Prints the results to the file
 		db.PushResults(difuse2params);	// Pushes the resulsts into the database
 		FreeAllocatedMemory(segments, difuse2params);	// Releases the allocated memory
 

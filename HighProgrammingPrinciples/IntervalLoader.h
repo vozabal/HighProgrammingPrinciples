@@ -39,9 +39,8 @@ private:
 
 	Parameters parameters;
 	string file;	// The path and the name of the file.
-
-	// Assigns values found in the string into the parameters property.
-	void AssignValues(string entry);
-	void CheckParameters();
+		
+	void AssignValues(string entry);	// Assigns values found in the string into the parameters property.
+	void CheckParameters();		// Checks if the parameters are correct. In case of an error an exception is thrown and catched in the manager.
 };
 

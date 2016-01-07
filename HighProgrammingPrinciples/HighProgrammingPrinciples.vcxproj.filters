@@ -23,13 +23,13 @@
     <ClCompile Include="Fitness.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MeasuredValue.cpp" />
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="OutputTable.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simplex.h">
