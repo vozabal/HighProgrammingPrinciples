@@ -24,8 +24,8 @@ public:
 
 private:
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5;	// Constants for the operations of the algorithm
-	const unsigned int ITERATION_NUMBER = 10;	// The maximum algorithm iterations count
-	const unsigned int GENERATION_VECTOR_COUNT = 10; // Start generation attempts of coefficients which don't have a valid fitness.
+	const unsigned int ITERATION_NUMBER = 10000;	// The maximum algorithm iterations count
+	const unsigned int GENERATION_VECTOR_COUNT = 1000; // Start generation attempts of coefficients which don't have a valid fitness.
 
 	// Indexes of compared coefficients
 	unsigned int MAX_FITNESS_INDEX;
