@@ -112,10 +112,10 @@ vector<Segment*> Database::GetSegments()
 void Database::Open_database()
 {
 	int rc;
-	rc = sqlite3_open(file.c_str(), &db);
+	rc = sqlite3_open_v2(file.c_str(), &db, SQLITE_OPEN_READWRITE, NULL);
 	if (rc != SQLITE_OK)
 	{
-		cerr << "Error opening SQLite3 database! Check the path of the database" << sqlite3_errmsg(db) << endl;
+		throw std::runtime_error("Error of opening SQLite3 database! Check the path of the database\n");
 	}
 }
 

@@ -11,6 +11,7 @@ Description : Provides a connection to the database. Provides to get data from i
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stdexcept>
 #include "Segment.h"
 #include "Difuse2Param.h"
 

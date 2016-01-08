@@ -2,42 +2,51 @@
 
 MPIManager::MPIManager(string db_path, string boundaries_path, string output_file)
 {
-	//cout << "====MPI MANAGER====" << endl;
 	//db_path = "Resources//direcnet.sqlite";
 	//boundaries_path = "Resources//bounds.ini";
-
-	IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
-	Database db(db_path);	// Creates the db layer
-	Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
-	vector<Segment*> segments = db.GetSegments();	// Loads the segments
-	Simplex simplex(segments, boundaries);	// Initializates the simplex
-	OutputTable outTable;	// Initializates the table
-	
-	this->segments = segments;
-	this->simplex = &simplex;
-	this->outTable = &outTable;
-	this->output_file = output_file;
-	
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);	// prirazeno vlastni identifikacni cislo
-	MPI_Comm_size(MPI_COMM_WORLD, &nproc);	// prirazen pocet procesu v MPI aplikaci 	
-	//MPI_Init(&db_path, &boundaries_path);	//MPI_Init(&argc, &argv);
-	segmentIndex = 0;
-	countOfReceived = 0;
-
-	createDatatype();
-
-	if (rank == 0) 
+		MPI_Comm_rank(MPI_COMM_WORLD, &rank);	// An identification number is assigned.
+		MPI_Comm_size(MPI_COMM_WORLD, &nproc);	// The processes count is assigned.
+	try
 	{
-		//cout << "Manager" << endl;
-		farmerManager();
-	}
-	else 
-	{
-		//cout << "Worker" << endl;
-		workerManager();
-	}
+		clock_t begin = clock();	// The start computation time
+		IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
+		Database db(db_path);	// Creates the db layer		
+		Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
+		vector<Segment*> segments = db.GetSegments();	// Loads the segments
+		Simplex simplex(segments, boundaries);	// Initializates the simplex
+		OutputTable outTable;	// Initializates the table
 	
-	//cout << "KONEC MPI MANAGERA" << endl;
+		this->segments = segments;
+		this->simplex = &simplex;
+		this->outTable = &outTable;
+		this->output_file = output_file;
+	
+		segmentIndex = 0;	// The initialization of the already processed index of the segments vector
+		countOfReceived = 0;	// The initialization of already computed received results of segments
+		CreateDatatype();	// Creates MPI datatype
+
+		if (rank == 0)	// The farmer branch
+		{
+			cout << "The computation has started. Please wait until it's finished..." << endl;
+			FarmerManager();
+			cout << "The computation succesfully finished." << endl;
+		}
+		else	// The workers' branch
+		{
+			WorkerManager();
+		}
+		MPI_Finalize();
+		clock_t end = clock();
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		if (rank == 0 ) cout << "Elapsed time: " << elapsed_secs << endl;
+	}
+	catch (runtime_error e)	// A case of an error
+	{
+		if (rank == 0) cout << e.what();	// Prints the message when an error occurs
+		MPI_Finalize();
+
+		return;
+	}
 }
 
 MPIManager::~MPIManager() 
@@ -48,10 +57,10 @@ MPIManager::~MPIManager()
 	}
 }
 
-void MPIManager::farmerManager() 
+void MPIManager::FarmerManager() 
 {
-	results = new SegmentResult[segments.size()];
-	SegmentResult *farmerRes = new SegmentResult();	// typ svazany s mpi typem
+	results = new SegmentResult[segments.size()];	// The result array
+	SegmentResult *farmerRes = new SegmentResult(); // The temporary buffer
 	while (true) 
 	{
 		MPI_Status st;
@@ -59,14 +68,14 @@ void MPIManager::farmerManager()
 
 		if (farmerRes->segmentid == -1) 
 		{
-			farmerSend(st);
+			FarmerSend(st);
 		}
 		else {
-			farmerReceiveResults(st, farmerRes);
+			FarmerReceiveResults(st, farmerRes);
 
 			if (segmentIndex < segments.size()) 
 			{
-				farmerSend(st);
+				FarmerSend(st);
 			}
 		}
 		if (countOfReceived >= segments.size()) // The end of the computation
@@ -81,15 +90,13 @@ void MPIManager::farmerManager()
 		}
 	}
 	outTable->Inicializate(results, segmentIndex);
-	outTable->ConsolePrint();
+	outTable->ConsolePrint();	// Prints the results
 	if (!output_file.empty())
 	{
-		outTable->FilePrint(output_file);
+		outTable->FilePrint(output_file);	// Prints the results
 	}
 	delete[] results;
 	delete farmerRes;
-	//delete[] results;
-	//cout << "Konec Farmera" << endl;
 }
 
 
@@ -101,21 +108,20 @@ void MPIManager::PrintResults()
 	}
 }
 
-void MPIManager::farmerSend(MPI_Status st)
+void MPIManager::FarmerSend(MPI_Status st)
 {
-	//int id = segments[segmentIndex]->segmentNumber;
 	int id = segmentIndex;
 	MPI_Send(&id, 1, MPI_INT, st.MPI_SOURCE, 0, MPI_COMM_WORLD);
 	segmentIndex++;
 }
 
-void MPIManager::farmerReceiveResults(MPI_Status st, SegmentResult *segmentResult)
+void MPIManager::FarmerReceiveResults(MPI_Status st, SegmentResult *segmentResult)
 {
 	results[countOfReceived] = *segmentResult;
 	countOfReceived++;
 }
 
-void MPIManager::workerManager() 
+void MPIManager::WorkerManager() 
 {
 	SegmentResult woker_result;
 	woker_result.segmentid = -1;
@@ -144,10 +150,9 @@ void MPIManager::workerManager()
 			delete difuse2param;	// THe delete of difuse2params in ComputeSegemnt
 		}		
 	}
-	//cout << "Konec workera" << endl;
 }
 
-void MPIManager::createDatatype() 
+void MPIManager::CreateDatatype() 
 {
 	// Initialization
 	MPI_Datatype oldtypes[2];

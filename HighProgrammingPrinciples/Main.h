@@ -6,5 +6,5 @@
 
 using namespace std;
 
-bool ParseArgs(int argc, char *argv[]);
-void PrintUsage();
+bool ParseArgs(int argc, char *argv[]);	// Parses the command line parameters
+void PrintUsage();	// Prints introduction information of the application

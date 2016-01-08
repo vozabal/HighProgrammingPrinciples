@@ -9,25 +9,15 @@ int main(int argc, char *argv[])
 		return -1;		
 	}
 	else
-	{
-		int rank;
-		clock_t begin = clock();
-		if (argc == 3)
+	{	
+		if (argc == 3) // If there are two parameters
 		{
 			MPIManager manager(argv[1], argv[2], "");
-			rank = manager.rank;
-		}
-		else
+		}		
+		else  // If there is the third parameter - an output file for the result
 		{
 			MPIManager manager(argv[1], argv[2], argv[3]);
-			rank = manager.rank;
 		}
-	
-		MPI_Finalize();
-		clock_t end = clock();
-		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-		cout << "Processs: " << rank << " Elapsed time: " << elapsed_secs << endl;
-
 		return 0;
 	}
 }
@@ -35,7 +25,7 @@ int main(int argc, char *argv[])
 bool ParseArgs(int argc, char *argv[])
 {
 	int rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);	// prirazeno vlastni identifikacni cislo
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);	// An identification number is assigned
 	if (argc == 1)
 	{
 		if (rank == 0)
@@ -91,7 +81,8 @@ void PrintUsage()
 		<< "OPTIONS:\n"
 		<< "    -o <outfile>   Saves generated coeficients into a text file <outfile>.\n"
 		<< "    -p             Prints result to the terminal as well as to the output file.\n\n"
-		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016" 
-		<< endl 
-		<< endl;
+		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016"
+		<< endl
+		<< endl;	
+
 }
