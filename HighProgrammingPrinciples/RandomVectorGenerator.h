@@ -24,6 +24,7 @@ public:
 	void Initializate(Parameters boundaries);	// Initializates the boudaries of generated numbers
 
 private:
+	const int SEED = 1;
 	const int ROWS = 6;		// Count of the rows - dimension
 	const int COLUMNS = 7;	// Count of the columns - number of peaks
 	Parameters boundaries;	// Boundaries of generated numbers

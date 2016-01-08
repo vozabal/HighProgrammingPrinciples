@@ -3,7 +3,7 @@
 
 RandomVectorGenerator::RandomVectorGenerator()
 {
-
+	srand(SEED);
 }
 
 RandomVectorGenerator::~RandomVectorGenerator()
