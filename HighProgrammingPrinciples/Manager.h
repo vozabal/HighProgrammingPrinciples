@@ -22,6 +22,8 @@ public:
 	~Manager();
 
 private:
-	void FreeAllocatedMemory(vector<Segment*> segments, vector<Difuse2Param*> difuse2params);	//	Releases the allocated memory of the application
+
+	vector<Segment*> segments;	// The entry data
+	vector<Difuse2Param*> difuse2params;	// The results	
 };
 

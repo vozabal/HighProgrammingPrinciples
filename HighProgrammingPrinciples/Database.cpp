@@ -115,7 +115,7 @@ void Database::Open_database()
 	rc = sqlite3_open_v2(file.c_str(), &db, SQLITE_OPEN_READWRITE, NULL);
 	if (rc != SQLITE_OK)
 	{		
-		throw std::runtime_error("Error of opening SQLite3 database! Check the path of the database\n");
+		throw std::runtime_error("Error of opening SQLite3 database! Check the path of the database [==ERROR==]\n");
 	}
 }
 
