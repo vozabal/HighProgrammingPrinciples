@@ -12,10 +12,9 @@ Simplex::~Simplex()
 
 vector<Difuse2Param*> Simplex::Compute()
 {
-	for (size_t k = 0; k < segments.size(); k++) // Segments
-	{
-		difuse2params.push_back(ComputeSegment(k));;
-	}
+	tbb::parallel_for<int>(0, segments.size(), [&](int i){
+		difuse2params.push_back(ComputeSegment(i));;
+	});
 	return difuse2params;
 }
 

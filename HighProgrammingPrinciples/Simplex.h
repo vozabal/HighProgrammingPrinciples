@@ -7,6 +7,7 @@ Description : Provides the computation of Simplex Optimization Algorithm (Nelder
 */
 #pragma once
 
+#include "tbb/tbb.h"
 #include <vector>
 #include "Fitness.h"
 #include "Segment.h"

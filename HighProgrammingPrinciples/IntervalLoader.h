@@ -36,7 +36,7 @@ private:
 	const string H_MAX = "hmax=";
 	const string K_MIN = "kmin=";
 	const string K_MAX = "kmax=";
-	const string ERROR = "Error of the boundaries file content! The structure is corrupted [==ERROR==]\n";
+	const string ERROR_MESSAGE = "Error of the boundaries file content! The structure is corrupted [==ERROR==]\n";
 
 	Parameters parameters;
 	string file;	// The path and the name of the file.

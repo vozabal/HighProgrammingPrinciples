@@ -13,18 +13,18 @@ IntervalLoader::~IntervalLoader()
 
 void IntervalLoader::CheckParameters()
 {
-	if (parameters.p_min == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.p_max == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.cg_min == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.cg_max == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.c_min == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.c_max == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.dt_min == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.dt_max == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.h_min == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.h_max == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.k_min == DBL_MAX) throw runtime_error(ERROR);
-	if (parameters.k_max == DBL_MAX) throw runtime_error(ERROR);
+	if (parameters.p_min == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.p_max == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.cg_min == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.cg_max == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.c_min == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.c_max == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.dt_min == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.dt_max == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.h_min == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.h_max == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.k_min == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
+	if (parameters.k_max == DBL_MAX) throw runtime_error(ERROR_MESSAGE);
 }
 
 Parameters IntervalLoader::LoadValues()
@@ -140,6 +140,6 @@ void IntervalLoader::AssignValues(string entry)
 	}
 	catch (invalid_argument e)
 	{
-		throw invalid_argument(ERROR);
+		throw invalid_argument(ERROR_MESSAGE);
 	}
 }
