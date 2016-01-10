@@ -13,6 +13,7 @@ Description : Provides the computation of Simplex Optimization Algorithm (Nelder
 #include "Segment.h"
 #include "RandomVectorGenerator.h"
 #include "Difuse2Param.h"
+#include <tbb/mutex.h>
 
 using namespace std;
 
@@ -65,4 +66,5 @@ private:
 	void GetComparismIndexes(vector<double> fitnesses);	// Founds the max, max2 and min fitness indexes int a vector of fitnesses	
 	bool ValidFitnessesCount(vector<double> fitnesses);	// Checks if there are at least 2 values in the vector of fitnesses	
 	vector<double> GetAllPointsCentroid();	// Counts and returns the centroid of every coefficients vectors - THE ALGORITHM EXIT CRITERIA 	
+	Parameters boundaries;
 };
