@@ -17,8 +17,10 @@ Manager::Manager(string db_path, string boundaries_path, string output_file)
 		IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
 		Database db(db_path);	// Creates the db layer
 		Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
+		RandomVectorGenerator randomVectorGenerator;
+		randomVectorGenerator.Initializate(boundaries);
 		segments = db.GetSegments();	// Loads the segments
-		Simplex simplex(segments, boundaries);	// Initializates the simplex
+		Simplex simplex(segments, &randomVectorGenerator);	// Initializates the simplex
 		difuse2params = simplex.Compute();	// Computes the coefficients
 		OutputTable outTable(difuse2params);	// Initializates the table
 		outTable.ConsolePrint();	// Prints the results to the console

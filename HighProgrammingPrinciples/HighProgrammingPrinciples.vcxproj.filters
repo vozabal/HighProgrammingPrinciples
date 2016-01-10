@@ -65,9 +65,6 @@
     <ClInclude Include="Main.h">
       <Filter>Heads</Filter>
     </ClInclude>
-    <ClInclude Include="Resources\sqlite3.h">
-      <Filter>Heads</Filter>
-    </ClInclude>
     <ClInclude Include="Database.h">
       <Filter>Heads</Filter>
     </ClInclude>
@@ -77,10 +74,18 @@
     <ClInclude Include="OutputTable.h">
       <Filter>Heads</Filter>
     </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>Heads</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile">
       <Filter>Generated Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="sqlite3.lib">
+      <Filter>Heads</Filter>
+    </Library>
   </ItemGroup>
 </Project>

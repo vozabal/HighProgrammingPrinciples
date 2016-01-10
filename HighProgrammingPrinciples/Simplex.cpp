@@ -1,8 +1,8 @@
 #include "Simplex.h"
 
-Simplex::Simplex(vector<Segment*> segments, Parameters boundaries)
+Simplex::Simplex(vector<Segment*> segments, RandomVectorGenerator *randomVectGener)
 {
-	this->randVectGener.Initializate(boundaries);
+	this->randVectGener = randomVectGener;
 	this->segments = segments;
 	this->boundaries = boundaries;
 }
@@ -16,26 +16,20 @@ vector<Difuse2Param*> Simplex::Compute()
 	
 	tbb::mutex accessMutex;
 	tbb::parallel_for<int>(0, segments.size(), [&](int i){
-		Simplex simplex(segments, boundaries);
+		Simplex simplex(segments, randVectGener);
 		Difuse2Param *result = simplex.ComputeSegment(i);
 		accessMutex.lock();     // Implements ANNOTATE_LOCK_ACQUIRE()
 		difuse2params.push_back(result);
 		accessMutex.unlock();   // Implements ANNOTATE_LOCK_RELEASE()
 	});
-	
-	/*
-	for (size_t i = 0; i < segments.size(); i++)
-	{
-		ComputeSegment(i);
-	}
-	*/
+
 	return difuse2params;
 }
 
 Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 {
 	fitnesses.clear();	// Initialization of the fitnesses values		
-	coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
+	coefficients = randVectGener->GenarateMatrix();	// Generation of all coefficients vectors
 
 	for (size_t i = 0; i < coefficients.size(); i++) // Iterrations 
 	{
@@ -44,7 +38,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 		// Generates new coefficients until the fitness is generated
 		while (actual_fitness == DBL_MAX && generated_tries_counter < GENERATION_VECTOR_COUNT)
 		{
-			coefficients[i] = randVectGener.GenerateVector();
+			coefficients[i] = randVectGener->GenerateVector();
 			actual_fitness = fitness.GetFitness(segments[segment_index], coefficients[i]);
 			generated_tries_counter++;
 		}

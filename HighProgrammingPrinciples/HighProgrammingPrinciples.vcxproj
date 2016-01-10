@@ -177,13 +177,16 @@
     <ClInclude Include="MeasuredValue.h" />
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="RandomVectorGenerator.h" />
-    <ClInclude Include="Resources\sqlite3.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="Simplex.h" />
     <ClInclude Include="OutputTable.h" />
+    <ClInclude Include="sqlite3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="sqlite3.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

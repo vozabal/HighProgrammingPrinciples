@@ -14,6 +14,7 @@ Description : Provides the logic of the application. Prepares preconditions for 
 #include "Parameters.h"
 #include "Difuse2Param.h"
 #include "OutputTable.h"
+#include "RandomVectorGenerator.h"
 
 class Manager
 {
