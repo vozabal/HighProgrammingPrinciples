@@ -84,8 +84,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="sqlite3.lib">
-      <Filter>Heads</Filter>
-    </Library>
+    <Library Include="sqlite3.lib" />
   </ItemGroup>
 </Project>

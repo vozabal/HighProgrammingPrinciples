@@ -186,7 +186,9 @@
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="sqlite3.lib" />
+    <Library Include="sqlite3.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

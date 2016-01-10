@@ -20,7 +20,7 @@ Manager::Manager(string db_path, string boundaries_path, string output_file)
 		RandomVectorGenerator randomVectorGenerator;
 		randomVectorGenerator.Initializate(boundaries);
 		segments = db.GetSegments();	// Loads the segments
-		Simplex simplex(segments, &randomVectorGenerator);	// Initializates the simplex
+		Simplex simplex(segments, boundaries);	// Initializates the simplex
 		difuse2params = simplex.Compute();	// Computes the coefficients
 		OutputTable outTable(difuse2params);	// Initializates the table
 		outTable.ConsolePrint();	// Prints the results to the console

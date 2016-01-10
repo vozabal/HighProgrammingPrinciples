@@ -20,12 +20,11 @@ using namespace std;
 class Simplex
 {
 public:
-	Simplex(vector<Segment*> segments, RandomVectorGenerator *randomVectGener);	// Passes the segments and the boundaries for generated coefficients of the algormithm
+	Simplex(vector<Segment*> segments, Parameters boundaries);	// Passes the segments and the boundaries for generated coefficients of the algormithm
 	~Simplex();
 	vector<Difuse2Param*> Compute();
 	Difuse2Param* ComputeSegment(unsigned int segment_index);	// Computes the algorithm for one segment
 private:
-
 	//addded 
 	vector<double> fitnesses;	// Vector of fitnesses
 	vector<double> xg, xr, xc, xe, xk;	// Centroid, reflection, contraction, expansion and dimensional contraction
@@ -47,7 +46,7 @@ private:
 	unsigned int MAX2_FITNESS_INDEX;
 	unsigned int MIN_FITNESS_INDEX;
 
-	RandomVectorGenerator *randVectGener;
+	RandomVectorGenerator randVectGener;
 	vector<vector<double>> coefficients;
 	vector<Segment*> segments;
 	Fitness fitness;
