@@ -15,7 +15,6 @@ vector<Difuse2Param*> Simplex::Compute()
 {	
 	tbb::mutex accessMutex;
 	tbb::parallel_for<int>(0, segments.size(), [&](int i){
-//		Simplex simplex(segments, randVectGener);
 		Simplex simplex(segments, boundaries);
 		Difuse2Param *result = simplex.ComputeSegment(i);
 		accessMutex.lock();     // Implements ANNOTATE_LOCK_ACQUIRE()

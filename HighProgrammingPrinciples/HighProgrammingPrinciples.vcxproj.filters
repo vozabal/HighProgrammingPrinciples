@@ -82,6 +82,7 @@
     <None Include="Makefile">
       <Filter>Generated Files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="sqlite3.lib" />
