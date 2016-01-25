@@ -42,14 +42,13 @@ vector<double> RandomVectorGenerator::GenerateVector()
 {
 	vector<double> vect(ROWS);
 
-	for (int i = 0; i < ROWS; i++)
-	{
-		vect[i] = FRand(boundaries.p_min, boundaries.p_max);
-		vect[i] = FRand(boundaries.cg_min, boundaries.cg_max);
-		vect[i] = FRand(boundaries.c_min, boundaries.c_max);;
-		vect[i] = FRand(boundaries.dt_min, boundaries.dt_max);;
-		vect[i] = FRand(boundaries.h_min, boundaries.h_max);;
-		vect[i] = FRand(boundaries.k_min, boundaries.k_max);;
-	}
+
+	vect[0] = FRand(boundaries.p_min, boundaries.p_max);
+	vect[1] = FRand(boundaries.cg_min, boundaries.cg_max);
+	vect[2] = FRand(boundaries.c_min, boundaries.c_max);;
+	vect[3] = FRand(boundaries.dt_min, boundaries.dt_max);;
+	vect[4] = FRand(boundaries.h_min, boundaries.h_max);;
+	vect[5] = FRand(boundaries.k_min, boundaries.k_max);;
+
 	return vect;
 }

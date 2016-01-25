@@ -52,13 +52,10 @@ bool ParseArgs(int argc, char *argv[])
 void PrintUsage()
 {
 	cout
-		<< "Usage: lls-solver <sql_database> <boundaries_file> [-o <outfile>] [-p]\n"
-		<< "       lls-solver -i <infile> [-p]\n\n"
-		<< "This program calculates parameters of a model given by extended matrix using the Least Linear Squares method.\n"
-		<< "The result (i.e. the vector of calculated parameters' values) is printed to an output file named \"result.txt\".\n\n"
-		<< "OPTIONS:\n"
-		<< "    -o <outfile>   Saves generated coeficients into a text file <outfile>.\n"
-		<< "    -p             Prints result to the terminal as well as to the output file.\n\n"
+		<< "Usage: lls-solver <sql_database> <boundaries_file> <output_file>\n"
+		<< "       lls-solver <sql_database> <boundaries_file>\n"
+		<< "This program calculates parameters of a glucose transport model by using medical measured database data and Simplex Optimization Algorithm created by Nelder and Mead.\n"
+		<< "The result (i.e. a table of calculated parameters and their fitnesses' values for particular segments) is printed to the OS console and to an output file named \"result.txt\".\n\n"
 		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016"
 		<< endl
 		<< endl;
