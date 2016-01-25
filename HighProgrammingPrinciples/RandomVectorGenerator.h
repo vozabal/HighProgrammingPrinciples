@@ -22,6 +22,7 @@ public:
 	vector<vector<double>> GenarateMatrix(); // Returns a matrix of generated coefficients
 	vector<double> GenerateVector();	// Returns a vector of generated coefficients
 	void Initializate(Parameters boundaries);	// Initializates the boudaries of generated numbers
+	void WatchBoundaries(vector<double>* coefficients);
 
 private:
 	const int SEED = 1;

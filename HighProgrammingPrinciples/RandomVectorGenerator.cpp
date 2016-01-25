@@ -52,3 +52,28 @@ vector<double> RandomVectorGenerator::GenerateVector()
 
 	return vect;
 }
+
+void RandomVectorGenerator::WatchBoundaries(vector<double>* coefficients)
+{
+	
+	if (coefficients->at(0) < boundaries.p_min)
+	{
+		coefficients->at(0) = boundaries.p_min;
+	}
+	if (coefficients->at(0) > boundaries.p_max) coefficients->at(0) = boundaries.p_max;
+
+	if (coefficients->at(1) < boundaries.cg_min) coefficients->at(1) = boundaries.cg_min;
+	if (coefficients->at(1) > boundaries.cg_max) coefficients->at(1) = boundaries.cg_max;
+
+	if (coefficients->at(2) < boundaries.c_min) coefficients->at(2) = boundaries.c_min;
+	if (coefficients->at(2) > boundaries.c_max) coefficients->at(2) = boundaries.c_max;
+
+	if (coefficients->at(3) < boundaries.dt_min) coefficients->at(3) = boundaries.dt_min;
+	if (coefficients->at(3) > boundaries.dt_max) coefficients->at(3) = boundaries.dt_max;
+
+	if (coefficients->at(4) < boundaries.h_min) coefficients->at(4) = boundaries.h_min;
+	if (coefficients->at(4) > boundaries.h_max) coefficients->at(4) = boundaries.h_max;
+
+	if (coefficients->at(5) < boundaries.k_min) coefficients->at(5) = boundaries.k_min;
+	if (coefficients->at(5) > boundaries.k_max) coefficients->at(5) = boundaries.k_max;
+}

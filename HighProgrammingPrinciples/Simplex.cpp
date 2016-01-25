@@ -84,6 +84,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 							{
 								coefficients[i][j] = H * (coefficients[i][j] - coefficients[MIN_FITNESS_INDEX][j]) + coefficients[MIN_FITNESS_INDEX][j];
 							}
+							randVectGener.WatchBoundaries(&coefficients[i]);
 						}
 					}
 					// Update fitnesses
@@ -203,6 +204,7 @@ vector<double> Simplex::GetExpansion(vector<double> xg, vector<double> xr)
 	{
 		xe[j] = B * (xr[j] - xg[j]) + xr[j];
 	}
+	randVectGener.WatchBoundaries(&xe);
 	return xe;
 }
 
@@ -214,6 +216,7 @@ vector<double> Simplex::GetContraction(vector<double> xg, int max_position)
 	{
 		xc[j] = G * (coefficients[max_position][j] - xg[j]) + xg[j];
 	}
+	randVectGener.WatchBoundaries(&xc);
 	return xc;
 }
 
@@ -226,6 +229,8 @@ vector<double> Simplex::GetReflection(vector<double> xg, int max_position)
 	{
 		xr[j] = A * (xg[j] - coefficients[max_position][j]) + xg[j];
 	}
+	randVectGener.WatchBoundaries(&xr);
+
 	return xr;
 }
 
