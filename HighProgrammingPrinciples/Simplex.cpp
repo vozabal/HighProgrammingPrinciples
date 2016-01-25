@@ -26,7 +26,10 @@ vector<Difuse2Param*> Simplex::Compute()
 Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 {
 	// Difference between two consecutive centroids.
-	double centroid_diff; //TODO
+	// Epsilon for termination condition.
+	const double EPSILON = epsilon_mul * std::numeric_limits<double>::epsilon();
+
+	double centroid_diff = 0; //TODO
 
 	fitnesses.clear();	// Initialization of the fitnesses values		
 	coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
@@ -51,8 +54,18 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 	{
 		//	Stop conditions
 		stop_actual_centroid = GetAllPointsCentroid();
+		if (i > 0)
+		{
+			centroid_diff = GetCentroidDifference(stop_actual_centroid, stop_previous_centroid);
+		}
+		else
+		{
+			centroid_diff = EPSILON;
+		}
 		//centroid_diff = (stop_actual_centroid - stop_previous_centroid).abs_sum() / 6;
-		//if (stop_actual_centroid == stop_previous_centroid) break;	// It's stopped when the centroid of all vectors is not changing.
+		if (centroid_diff < EPSILON) {
+		//	break;	// It's stopped when the centroid of all vectors is not changing.
+		}
 		if (ValidFitnessesCount(fitnesses) != true)	break;	// It's stopped when the fitnesses have just one valid fitness.
 
 		//	Relfection				
@@ -125,6 +138,8 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 				}
 			}
 		}
+		
+
 		stop_previous_centroid = stop_actual_centroid;
 	}
 	difuse2param = new Difuse2Param();
@@ -135,6 +150,8 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 
 	return difuse2param;
 }
+
+
 
 bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 {
@@ -179,6 +196,18 @@ vector<double> Simplex::GetCentroid(unsigned int max_position)
 	}
 
 	return xg;
+}
+
+double Simplex::GetCentroidDifference(vector<double> centroid1, vector<double> centroid2)
+{
+	double difference = 0;
+	for (size_t i = 0; i < centroid1.size(); i++)
+	{
+		difference += std::abs(centroid1[i] - centroid2[i]);
+	}
+	difference /= centroid1.size();
+
+	return difference;
 }
 
 vector<double> Simplex::GetAllPointsCentroid()

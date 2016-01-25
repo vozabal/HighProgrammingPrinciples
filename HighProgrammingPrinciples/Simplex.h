@@ -24,6 +24,9 @@ public:
 	Difuse2Param* ComputeSegment(unsigned int segment_index);	// Computes the algorithm for one segment
 private:
 
+	double epsilon_mul = 1e8;
+
+
 	//addded 
 	vector<double> fitnesses;	// Vector of fitnesses
 	vector<double> xg, xr, xc, xe, xk;	// Centroid, reflection, contraction, expansion and dimensional contraction
@@ -37,7 +40,7 @@ private:
 	//addded 
 
 	const double A = 1.0, B = 1.0, G = 0.5, H = 0.5;	// Constants for the operations of the algorithm
-	const unsigned int ITERATION_NUMBER = 500;	// The maximum algorithm iterations count
+	const unsigned int ITERATION_NUMBER = 1000;	// The maximum algorithm iterations count
 	const unsigned int GENERATION_VECTOR_COUNT = 50; // Start generation attempts of coefficients which don't have a valid fitness.
 
 	// Indexes of compared coefficients
@@ -64,4 +67,5 @@ private:
 	void GetComparismIndexes(vector<double> fitnesses);	// Founds the max, max2 and min fitness indexes int a vector of fitnesses	
 	bool ValidFitnessesCount(vector<double> fitnesses);	// Checks if there are at least 2 values in the vector of fitnesses	
 	vector<double> GetAllPointsCentroid();	// Counts and returns the centroid of every coefficients vectors - THE ALGORITHM EXIT CRITERIA 	
+	double GetCentroidDifference(vector<double> centroid1, vector<double> centroid2);
 };
