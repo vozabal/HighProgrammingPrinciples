@@ -14,13 +14,20 @@ vector<Difuse2Param*> Simplex::Compute()
 {
 	for (size_t k = 0; k < segments.size(); k++) // Segments
 	{
-		difuse2params.push_back(ComputeSegment(k));;
+	difuse2params.push_back(ComputeSegment(k));;
 	}
+	
+
+		//difuse2params.push_back(ComputeSegment(0));;
+
 	return difuse2params;
 }
 
 Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 {
+	// Difference between two consecutive centroids.
+	double centroid_diff; //TODO
+
 	fitnesses.clear();	// Initialization of the fitnesses values		
 	coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
 
@@ -44,7 +51,8 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 	{
 		//	Stop conditions
 		stop_actual_centroid = GetAllPointsCentroid();
-		if (stop_actual_centroid == stop_previous_centroid) break;	// It's stopped when the centroid of all vectors is not changing.
+		//centroid_diff = (stop_actual_centroid - stop_previous_centroid).abs_sum() / 6;
+		//if (stop_actual_centroid == stop_previous_centroid) break;	// It's stopped when the centroid of all vectors is not changing.
 		if (ValidFitnessesCount(fitnesses) != true)	break;	// It's stopped when the fitnesses have just one valid fitness.
 
 		//	Relfection				
