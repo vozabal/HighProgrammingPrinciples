@@ -53,8 +53,8 @@ void OutputTable::PrintRows(int row)
 		cout << setw(COLUMN_WIDTH) << right << "FAILED" << setw(1) << "|";	//	The computation failed
 	}	
 	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].p << setw(1) << "|";	
-	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].c << setw(1) << "|";
 	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].cg << setw(1) << "|";
+	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].c << setw(1) << "|";
 	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].dt << setw(1) << "|";
 	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].h << setw(1) << "|";
 	cout << setw(COLUMN_WIDTH) << right << segmentResults[row].k << setw(1) << "|";
