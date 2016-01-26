@@ -16,9 +16,7 @@ vector<Difuse2Param*> Simplex::Compute()
 	for (size_t k = 0; k < segments.size(); k++) // Segments
 	{
 		difuse2params.push_back(ComputeSegment(k));;
-	}
-
-	return difuse2params;
+	} 
 	return difuse2params;
 }
 
