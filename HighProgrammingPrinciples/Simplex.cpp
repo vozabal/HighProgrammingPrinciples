@@ -13,6 +13,7 @@ Simplex::~Simplex()
 
 vector<Difuse2Param*> Simplex::Compute()
 {	
+	
 	tbb::mutex accessMutex;
 	tbb::parallel_for<int>(0, segments.size(), [&](int i){
 		Simplex simplex(segments, boundaries);
@@ -27,6 +28,12 @@ vector<Difuse2Param*> Simplex::Compute()
 
 Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 {
+	// Difference between two consecutive centroids.
+	// Epsilon for termination condition.
+	const double EPSILON = epsilon_mul * numeric_limits<double>::epsilon();
+
+	double centroid_diff = 0; //TODO
+
 	fitnesses.clear();	// Initialization of the fitnesses values		
 	coefficients = randVectGener.GenarateMatrix();	// Generation of all coefficients vectors
 
@@ -50,7 +57,11 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 	{
 		//	Stop conditions
 		stop_actual_centroid = GetAllPointsCentroid();
-		if (stop_actual_centroid == stop_previous_centroid) break;	// It's stopped when the centroid of all vectors is not changing.
+
+		if (i > 0) centroid_diff = GetCentroidDifference(stop_actual_centroid, stop_previous_centroid);
+		else centroid_diff = EPSILON;
+
+		if (centroid_diff < EPSILON) break;	// It's stopped when the centroid of all vectors is minimaly changing.	
 		if (ValidFitnessesCount(fitnesses) != true)	break;	// It's stopped when the fitnesses have just one valid fitness.
 
 		//	Relfection				
@@ -90,6 +101,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 							{
 								coefficients[i][j] = H * (coefficients[i][j] - coefficients[MIN_FITNESS_INDEX][j]) + coefficients[MIN_FITNESS_INDEX][j];
 							}
+							randVectGener.WatchBoundaries(&coefficients[i]);
 						}
 					}
 					// Update fitnesses
@@ -122,6 +134,8 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 				}
 			}
 		}
+
+
 		stop_previous_centroid = stop_actual_centroid;
 	}
 	difuse2param = new Difuse2Param();
@@ -129,9 +143,10 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 	difuse2param->segment_id = segments[segment_index]->segmentNumber;
 	difuse2param->fitness = fitnesses[MIN_FITNESS_INDEX];
 
-
 	return difuse2param;
 }
+
+
 
 bool Simplex::ValidFitnessesCount(vector<double> fitnesses)
 {
@@ -178,6 +193,18 @@ vector<double> Simplex::GetCentroid(unsigned int max_position)
 	return xg;
 }
 
+double Simplex::GetCentroidDifference(vector<double> centroid1, vector<double> centroid2)
+{
+	double difference = 0;
+	for (size_t i = 0; i < centroid1.size(); i++)
+	{
+		difference += std::abs(centroid1[i] - centroid2[i]);
+	}
+	difference /= centroid1.size();
+
+	return difference;
+}
+
 vector<double> Simplex::GetAllPointsCentroid()
 {
 	// Initialization of the centroid
@@ -209,6 +236,7 @@ vector<double> Simplex::GetExpansion(vector<double> xg, vector<double> xr)
 	{
 		xe[j] = B * (xr[j] - xg[j]) + xr[j];
 	}
+	randVectGener.WatchBoundaries(&xe);
 	return xe;
 }
 
@@ -220,6 +248,7 @@ vector<double> Simplex::GetContraction(vector<double> xg, int max_position)
 	{
 		xc[j] = G * (coefficients[max_position][j] - xg[j]) + xg[j];
 	}
+	randVectGener.WatchBoundaries(&xc);
 	return xc;
 }
 
@@ -232,6 +261,8 @@ vector<double> Simplex::GetReflection(vector<double> xg, int max_position)
 	{
 		xr[j] = A * (xg[j] - coefficients[max_position][j]) + xg[j];
 	}
+	randVectGener.WatchBoundaries(&xr);
+
 	return xr;
 }
 
