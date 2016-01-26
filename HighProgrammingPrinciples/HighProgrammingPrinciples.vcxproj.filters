@@ -30,9 +30,7 @@
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="OutputTable.cpp" />
     <ClCompile Include="MPIManager.cpp" />
-    <ClCompile Include="Main.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simplex.h">
