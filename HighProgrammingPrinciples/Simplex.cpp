@@ -12,17 +12,13 @@ Simplex::~Simplex()
 }
 
 vector<Difuse2Param*> Simplex::Compute()
-{	
-	
-	tbb::mutex accessMutex;
-	tbb::parallel_for<int>(0, segments.size(), [&](int i){
-		Simplex simplex(segments, boundaries);
-		Difuse2Param *result = simplex.ComputeSegment(i);
-		accessMutex.lock();     // Implements ANNOTATE_LOCK_ACQUIRE()
-		difuse2params.push_back(result);
-		accessMutex.unlock();   // Implements ANNOTATE_LOCK_RELEASE()
-	});
+{		
+	for (size_t k = 0; k < segments.size(); k++) // Segments
+	{
+		difuse2params.push_back(ComputeSegment(k));;
+	}
 
+	return difuse2params;
 	return difuse2params;
 }
 
