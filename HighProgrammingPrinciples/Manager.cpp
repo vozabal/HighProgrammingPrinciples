@@ -24,9 +24,9 @@ Manager::Manager(string db_path, string boundaries_path, string output_file)
 		cout << "The computation succesfully finished." << endl;
 		cout << "Elapsed time: " << elapsed_secs << endl;
 	}
-	catch (exception e)
+	catch (runtime_error e)
 	{
-		cerr << e.what() << endl;	// Prints the message when an error occurs
+		cerr << e.what();	// Prints the message when an error occurs
 		return;
 	}
 }
