@@ -8,7 +8,7 @@ MPIManager::MPIManager(string db_path, string boundaries_path, string output_fil
 		MPI_Comm_size(MPI_COMM_WORLD, &nproc);	// The processes count is assigned.
 	try
 	{
-		double begin = MPI_Wtime(); 	// The start computation time
+		tbb::tick_count begin = tbb::tick_count::now();	// The start computation time
 		IntervalLoader intervalLoader(boundaries_path);	// Initializes the intervalLoader
 		Database db(db_path);	// Creates the db layer		
 		Parameters boundaries = intervalLoader.LoadValues();	//	Loads the algorithm boundaries
@@ -36,8 +36,8 @@ MPIManager::MPIManager(string db_path, string boundaries_path, string output_fil
 			WorkerManager();
 		}
 		MPI_Finalize();
-		double end = MPI_Wtime();
-		double elapsed_secs = end - begin;
+		tbb::tick_count end = tbb::tick_count::now();// The end computation time
+		double elapsed_secs = ((end - begin).seconds());	// The computation time
 		if (rank == 0 ) cout << "Elapsed time: " << elapsed_secs << endl;
 	}
 	catch (runtime_error e)	// A case of an error

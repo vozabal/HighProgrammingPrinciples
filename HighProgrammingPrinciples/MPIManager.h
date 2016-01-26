@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include "tbb/tbb.h"
 #include "Simplex.h"
 #include "IntervalLoader.h"
 #include "Database.h"
