@@ -3,7 +3,7 @@
 
 RandomVectorGenerator::RandomVectorGenerator()
 {
-
+	srand(SEED);
 }
 
 RandomVectorGenerator::~RandomVectorGenerator()
@@ -42,14 +42,35 @@ vector<double> RandomVectorGenerator::GenerateVector()
 {
 	vector<double> vect(ROWS);
 
-	for (int i = 0; i < ROWS; i++)
-	{
-		vect[i] = FRand(boundaries.p_min, boundaries.p_max);
-		vect[i] = FRand(boundaries.cg_min, boundaries.cg_max);
-		vect[i] = FRand(boundaries.c_min, boundaries.c_max);;
-		vect[i] = FRand(boundaries.dt_min, boundaries.dt_max);;
-		vect[i] = FRand(boundaries.h_min, boundaries.h_max);;
-		vect[i] = FRand(boundaries.k_min, boundaries.k_max);;
-	}
+
+	vect[0] = FRand(boundaries.p_min, boundaries.p_max);
+	vect[1] = FRand(boundaries.cg_min, boundaries.cg_max);
+	vect[2] = FRand(boundaries.c_min, boundaries.c_max);;
+	vect[3] = FRand(boundaries.dt_min, boundaries.dt_max);;
+	vect[4] = FRand(boundaries.h_min, boundaries.h_max);;
+	vect[5] = FRand(boundaries.k_min, boundaries.k_max);;
+
 	return vect;
+}
+
+void RandomVectorGenerator::WatchBoundaries(vector<double>* coefficients)
+{
+
+	if (coefficients->at(0) < boundaries.p_min)	coefficients->at(0) = boundaries.p_min;
+	if (coefficients->at(0) > boundaries.p_max) coefficients->at(0) = boundaries.p_max;
+
+	if (coefficients->at(1) < boundaries.cg_min) coefficients->at(1) = boundaries.cg_min;
+	if (coefficients->at(1) > boundaries.cg_max) coefficients->at(1) = boundaries.cg_max;
+
+	if (coefficients->at(2) < boundaries.c_min) coefficients->at(2) = boundaries.c_min;
+	if (coefficients->at(2) > boundaries.c_max) coefficients->at(2) = boundaries.c_max;
+
+	if (coefficients->at(3) < boundaries.dt_min) coefficients->at(3) = boundaries.dt_min;
+	if (coefficients->at(3) > boundaries.dt_max) coefficients->at(3) = boundaries.dt_max;
+
+	if (coefficients->at(4) < boundaries.h_min) coefficients->at(4) = boundaries.h_min;
+	if (coefficients->at(4) > boundaries.h_max) coefficients->at(4) = boundaries.h_max;
+
+	if (coefficients->at(5) < boundaries.k_min) coefficients->at(5) = boundaries.k_min;
+	if (coefficients->at(5) > boundaries.k_max) coefficients->at(5) = boundaries.k_max;
 }

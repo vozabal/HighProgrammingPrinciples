@@ -42,7 +42,7 @@ MPIManager::MPIManager(string db_path, string boundaries_path, string output_fil
 	}
 	catch (runtime_error e)	// A case of an error
 	{
-		if (rank == 0) cout << e.what();	// Prints the message when an error occurs
+		if (rank == 0) cerr << e.what();	// Prints the message when an error occurs
 		MPI_Finalize();
 
 		return;

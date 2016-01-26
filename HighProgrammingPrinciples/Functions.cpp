@@ -38,7 +38,7 @@ double Functions::Phi(double t)
 		}
 		else
 		{
-			result = t + dt + k * (it - ith) / h;
+			result = t + dt + k * ((it - ith) / h);
 		}
 	}
 
@@ -115,16 +115,16 @@ double Functions::Discriminant()
 	double gama = Gama();
 	double alfa = Alfa();
 
-	if (beta == DBL_MAX || gama == DBL_MAX || alfa == DBL_MAX) //suspicious
+	if (beta == DBL_MAX || gama == DBL_MAX || alfa == DBL_MAX)
 	{
 		result = DBL_MAX;
 	}
 	else
 	{
-		result = pow(beta, 2) - 4 * alfa * gama;
+		result = beta * beta - 4 * alfa * gama;
 		if (result < 0)
 		{
-			result = DBL_MAX;
+			result = 0;
 		}
 	}
 
@@ -145,11 +145,8 @@ double Functions::Blood(double t)
 	}
 	else
 	{
-		result = (-beta + sqrt(discriminant)) / 2 * alfa;
+		result = (-beta + sqrt(discriminant)) / (2 * alfa);
 	}
 
 	return result;
 }
-
-
-

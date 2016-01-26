@@ -5,9 +5,9 @@ CFLAGS = -std=c++11 -Wall -I /usr/local/intel/include -I /usr/include/qt4 -L /us
 LIBS = -lQtCore -lsqlite3 -ltbb
 CC = mpic++
 
-all: sp 
+all: Vozabal_PPR_Sem 
 
-sp: MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parameters.o IntervalLoader.o RandomVectorGenerator.o Difuse2Param.o Database.o Simplex.o MPIManager.o Main.o OutputTable.o
+Vozabal_PPR_Sem: MeasuredValue.o Segment.o Interpolation.o Functions.o Fitness.o Parameters.o IntervalLoader.o RandomVectorGenerator.o Difuse2Param.o Database.o Simplex.o MPIManager.o Main.o OutputTable.o
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@ 
 	rm -f *.o
 	
