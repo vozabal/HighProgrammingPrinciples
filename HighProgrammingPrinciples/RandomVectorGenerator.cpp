@@ -56,10 +56,7 @@ vector<double> RandomVectorGenerator::GenerateVector()
 void RandomVectorGenerator::WatchBoundaries(vector<double>* coefficients)
 {
 	
-	if (coefficients->at(0) < boundaries.p_min)
-	{
-		coefficients->at(0) = boundaries.p_min;
-	}
+	if (coefficients->at(0) < boundaries.p_min)	coefficients->at(0) = boundaries.p_min;
 	if (coefficients->at(0) > boundaries.p_max) coefficients->at(0) = boundaries.p_max;
 
 	if (coefficients->at(1) < boundaries.cg_min) coefficients->at(1) = boundaries.cg_min;

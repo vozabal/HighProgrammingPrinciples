@@ -14,11 +14,8 @@ vector<Difuse2Param*> Simplex::Compute()
 {
 	for (size_t k = 0; k < segments.size(); k++) // Segments
 	{
-	difuse2params.push_back(ComputeSegment(k));;
+		difuse2params.push_back(ComputeSegment(k));;
 	}
-	
-
-		//difuse2params.push_back(ComputeSegment(0));;
 
 	return difuse2params;
 }
@@ -27,7 +24,7 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 {
 	// Difference between two consecutive centroids.
 	// Epsilon for termination condition.
-	const double EPSILON = epsilon_mul * std::numeric_limits<double>::epsilon();
+	const double EPSILON = epsilon_mul * numeric_limits<double>::epsilon();
 
 	double centroid_diff = 0; //TODO
 
@@ -54,18 +51,11 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 	{
 		//	Stop conditions
 		stop_actual_centroid = GetAllPointsCentroid();
-		if (i > 0)
-		{
-			centroid_diff = GetCentroidDifference(stop_actual_centroid, stop_previous_centroid);
-		}
-		else
-		{
-			centroid_diff = EPSILON;
-		}
-		//centroid_diff = (stop_actual_centroid - stop_previous_centroid).abs_sum() / 6;
-		if (centroid_diff < EPSILON) {
-		//	break;	// It's stopped when the centroid of all vectors is not changing.
-		}
+
+		if (i > 0) centroid_diff = GetCentroidDifference(stop_actual_centroid, stop_previous_centroid);
+		else centroid_diff = EPSILON;	
+
+		if (centroid_diff < EPSILON) break;	// It's stopped when the centroid of all vectors is minimaly changing.	
 		if (ValidFitnessesCount(fitnesses) != true)	break;	// It's stopped when the fitnesses have just one valid fitness.
 
 		//	Relfection				
@@ -146,7 +136,6 @@ Difuse2Param* Simplex::ComputeSegment(unsigned int segment_index)
 	difuse2param->coefficients = coefficients[MIN_FITNESS_INDEX];
 	difuse2param->segment_id = segments[segment_index]->segmentNumber;
 	difuse2param->fitness = fitnesses[MIN_FITNESS_INDEX];
-
 
 	return difuse2param;
 }
