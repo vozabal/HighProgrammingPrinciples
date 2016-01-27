@@ -36,7 +36,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "There are no parameters! The application will start with the default parameters: [==MESSAGE==]\n"
 			<< "Database: " << db_path << endl
 			<< "Configuration file: " << boundaries_path << endl
-			<< "Threads count: " << "automatic" << endl
+			<< "Processes count: " << "automatic" << endl
 			<< "Outputfile: " << output_file << endl
 			<< endl;
 		return true;
@@ -46,7 +46,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "The second parameter is missing! Run the application with both parameters: [==ERROR==]" << endl
 			<< "Database: " << db_path << endl
 			<< "Configuration file: " << "none" << endl
-			<< "Threads count: " << "automatic" << endl
+			<< "Processes count: " << "automatic" << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return false;
@@ -56,7 +56,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Threads count: " << "automatic" << endl
+			<< "Processes count: " << "automatic" << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return true;
@@ -66,7 +66,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Threads count: " << argv[3] << endl
+			<< "Processes count: " << argv[3] << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return true;
@@ -76,7 +76,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Threads count: " << argv[3] << endl
+			<< "Processes count: " << argv[3] << endl
 			<< "Outputfile: " << argv[4] << endl
 			<< endl;
 		return true;
