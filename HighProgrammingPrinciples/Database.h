@@ -12,6 +12,7 @@ Description : Provides a connection to the database. Provides to get data from i
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include "SegmentResult.h"
 #include "Segment.h"
 #include "Difuse2Param.h"
 
@@ -23,7 +24,8 @@ public:
 	Database(string file);	// arg - path to the sql-lite database
 	~Database();
 	vector<Segment*> GetSegments(); // Vector with loaded segments
-	void PushResults(vector<Difuse2Param*> difuse2Params);	//Pushes all results into the database	
+	void PushResults(vector<Difuse2Param*> difuse2Params);	//Pushes all results into the database
+	void PushResults(SegmentResult *segmentResults, unsigned int segmentResultsSize);	//Pushes all results into the database
 
 private:
 	// Prepare statement
@@ -34,6 +36,7 @@ private:
 	const char *pzTail;	/* OUT: Pointer to unused portion of zSql */
 
 	void PushCoefficients(vector<double> coefficients, double s, int segment_id);		// Pushes one result into the database
+	void PushCoefficients(SegmentResult segmentResult);		// Pushes one result into the database
 	void Open_database();	//	Opens the database
 	void Close_database();	// Closes the database
 	string file;	// Name of the file and its path

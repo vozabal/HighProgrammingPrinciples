@@ -19,6 +19,7 @@ MPIManager::MPIManager(string db_path, string boundaries_path, string output_fil
 		this->segments = segments;
 		this->simplex = &simplex;
 		this->outTable = &outTable;
+		this->db = &db;
 		this->output_file = output_file;
 	
 		segmentIndex = 0;	// The initialization of the already processed index of the segments vector
@@ -90,10 +91,11 @@ void MPIManager::FarmerManager()
 		}
 	}
 	outTable->Inicializate(results, segmentIndex);
+	db->PushResults(results, segmentIndex);
 	outTable->ConsolePrint();	// Prints the results
 	if (!output_file.empty())
 	{
-		outTable->FilePrint(output_file);	// Prints the results
+		outTable->FilePrint(output_file);	// Prints the results		
 	}
 	delete[] results;
 	delete farmerRes;

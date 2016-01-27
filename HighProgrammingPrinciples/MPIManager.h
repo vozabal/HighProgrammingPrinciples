@@ -29,6 +29,7 @@ private:
 	Simplex *simplex;	// Computes the algorithm
 	OutputTable *outTable;	// Ouput in the result form of a table 
 	SegmentResult *results;		// A pointer to the array of results
+	Database *db;	// The database
 	string output_file;	// A name of the output file if it's entered	
 	int nproc;	// pocet procesu pouzivajicich MPI
 	unsigned int segmentIndex;	// The already processed index of the segments vector

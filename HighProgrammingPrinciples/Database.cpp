@@ -23,6 +23,18 @@ void Database::PushResults(vector<Difuse2Param*> difuse2Params)
 	Close_database();
 }
 
+void Database::PushResults(SegmentResult *segmentResults, unsigned int segmentResultsSize)
+{
+	Open_database();
+
+	for (size_t i = 0; i < segmentResultsSize; i++)
+	{
+		PushCoefficients(segmentResults[i]);
+	}
+
+	Close_database();
+}
+
 void Database::PushCoefficients(vector<double> coefficients, double s, int segment_id)
 {
 	stmt = NULL;
@@ -38,6 +50,26 @@ void Database::PushCoefficients(vector<double> coefficients, double s, int segme
 	sqlite3_bind_double(stmt, 6, coefficients[5]);
 	sqlite3_bind_double(stmt, 7, s);
 	sqlite3_bind_double(stmt, 8, segment_id);
+
+	sqlite3_step(stmt);
+	sqlite3_finalize(stmt);
+}
+
+void Database::PushCoefficients(SegmentResult segmentResult)
+{
+	stmt = NULL;
+
+	query = "INSERT INTO difuse2params (p, cg, c, dt, h, k, s, segmentid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	sqlite3_prepare_v2(db, query, -1, &stmt, 0);
+
+	sqlite3_bind_double(stmt, 1, segmentResult.p);
+	sqlite3_bind_double(stmt, 2, segmentResult.cg);
+	sqlite3_bind_double(stmt, 3, segmentResult.c);
+	sqlite3_bind_double(stmt, 4, segmentResult.dt);
+	sqlite3_bind_double(stmt, 5, segmentResult.h);
+	sqlite3_bind_double(stmt, 6, segmentResult.k);
+	sqlite3_bind_double(stmt, 7, segmentResult.s);
+	sqlite3_bind_double(stmt, 8, segmentResult.segmentid);
 
 	sqlite3_step(stmt);
 	sqlite3_finalize(stmt);
