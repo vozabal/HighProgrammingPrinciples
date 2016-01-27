@@ -79,10 +79,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile">
-      <Filter>Generated Files</Filter>
-    </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="sqlite3.lib" />

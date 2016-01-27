@@ -11,9 +11,17 @@ Simplex::~Simplex()
 {
 }
 
-vector<Difuse2Param*> Simplex::Compute()
+vector<Difuse2Param*> Simplex::Compute(unsigned int thread_mode, unsigned int* auto_thread_count)
 {	
-	
+	if (thread_mode > 0)
+	{
+		tbb::task_scheduler_init init(thread_mode);
+		*auto_thread_count = 0;
+	}
+	else
+	{
+		*auto_thread_count = tbb::task_scheduler_init::default_num_threads();
+	}
 	tbb::mutex accessMutex;
 	tbb::parallel_for<int>(0, segments.size(), [&](int i){
 		Simplex simplex(segments, boundaries);
@@ -22,6 +30,7 @@ vector<Difuse2Param*> Simplex::Compute()
 		difuse2params.push_back(result);
 		accessMutex.unlock();   // Implements ANNOTATE_LOCK_RELEASE()
 	});
+	
 
 	return difuse2params;
 }

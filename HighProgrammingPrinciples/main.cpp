@@ -11,15 +11,19 @@ int main(int argc, char *argv[])
 	{
 		if (argc == 1)
 		{
-			Manager manager(db_path, boundaries_path, output_file);	// DEFAULT VALUES when there are no parameters		
+			Manager manager(db_path, boundaries_path, 0, output_file);	// DEFAULT VALUES when there are no parameters		
 		}
 		else if (argc == 3)
 		{
-			Manager manager(argv[1], argv[2], "");	// When there are 2 arguments
+			Manager manager(argv[1], argv[2], 0, "");	// When there are 2 arguments
+		}
+		else if (argc == 4)
+		{
+			Manager manager(argv[1], argv[2], atoi(argv[3]), "");	// When there are 2 arguments
 		}
 		else
 		{
-			Manager manager(argv[1], argv[2], argv[3]);	// When there are 3 arguments
+			Manager manager(argv[1], argv[2], atoi(argv[3]), argv[4]);	// When there are 3 arguments
 		}
 	}
 	return 0;
@@ -32,6 +36,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "There are no parameters! The application will start with the default parameters: [==MESSAGE==]\n"
 			<< "Database: " << db_path << endl
 			<< "Configuration file: " << boundaries_path << endl
+			<< "Threads count: " << "automatic" << endl
 			<< "Outputfile: " << output_file << endl
 			<< endl;
 		return true;
@@ -41,6 +46,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "The second parameter is missing! Run the application with both parameters: [==ERROR==]" << endl
 			<< "Database: " << db_path << endl
 			<< "Configuration file: " << "none" << endl
+			<< "Threads count: " << "automatic" << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return false;
@@ -50,6 +56,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
+			<< "Threads count: " << "automatic" << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return true;
@@ -59,7 +66,18 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Outputfile: " << argv[3] << endl
+			<< "Threads count: " << argv[3] << endl
+			<< "Outputfile: " << "none" << endl
+			<< endl;
+		return true;
+	}
+	else if (argc == 5)
+	{
+		cout << "Configuration:\n"
+			<< "Database: " << argv[1] << endl
+			<< "Configuration file: " << argv[2] << endl
+			<< "Threads count: " << argv[3] << endl
+			<< "Outputfile: " << argv[4] << endl
 			<< endl;
 		return true;
 	}
