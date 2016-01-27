@@ -83,7 +83,7 @@ bool ParseArgs(int argc, char *argv[])
 	}
 	else
 	{
-		cout << "There are too many parameters! Run the application with 0 (default), 2 or 3 parameters [==ERROR==]" << endl;
+		cout << "There are too many parameters! Run the application with 0 (default), 3 or 4 parameters [==ERROR==]" << endl;
 		return false;
 	}
 }
@@ -93,15 +93,15 @@ void PrintUsage()
 	cout
 		<< "Usage: Vozabal_PPR_Sem\n"
 		<< "       Vozabal_PPR_Sem <sql_database> <boundaries_file>\n"
-		<< "       Vozabal_PPR_Sem <sql_database> <boundaries_file> <threads_cont>\n"
-		<< "       Vozabal_PPR_Sem <sql_database> <boundaries_file> <threads_cont> <output_file>\n"
+		<< "       Vozabal_PPR_Sem <sql_database> <boundaries_file> <processes_count>\n"
+		<< "       Vozabal_PPR_Sem <sql_database> <boundaries_file> <processes_count> <output_file>\n"
 		<< "This program calculates parameters of a glucose transport model by using medical measured database data\n"
 		<< "and Simplex Optimization Algorithm created by Nelder and Mead.\n"
-		<< "The result (i.e. a table of calculated parameters and their fitnesses' values for particular segments)\n"
+		<< "The result (i.e. a table of calculated parameters and their fitnesses values for particular segments)\n"
 		<< "is printed to the OS console and possibly to an output file named \"result.txt\". If it is launched\n"
-		<< "without set up parameters the default will be used.\n\n"
+		<< "without set up parameters the default will be used. For the tbb default number of processes use zero value.\n\n"
 		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016\n"
-		<< "---------------------------------------------------------------------------------------------------------"
+		<< "-----------------------------------------------------------------------------------------------------------"
 		<< endl
 		<< endl;
 }

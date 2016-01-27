@@ -11,13 +11,13 @@ Simplex::~Simplex()
 {
 }
 
-vector<Difuse2Param*> Simplex::Compute(unsigned int thread_mode, unsigned int* auto_thread_count)
+vector<Difuse2Param*> Simplex::Compute(unsigned int process_mode, unsigned int* auto_thread_count)
 {	
 	tbb::task_scheduler_init init(tbb::task_scheduler_init::deferred);
 
-	if (thread_mode > 0)
+	if (process_mode > 0)
 	{
-		init.initialize(thread_mode);
+		init.initialize(process_mode);
 		*auto_thread_count = 0;
 	}
 	else

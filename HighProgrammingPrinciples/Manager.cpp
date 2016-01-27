@@ -1,7 +1,7 @@
 #include "Manager.h"
 
 
-Manager::Manager(string db_path, string boundaries_path, unsigned int thread_mode ,string output_file)
+Manager::Manager(string db_path, string boundaries_path, unsigned int process_mode ,string output_file)
 {
 	try
 	{
@@ -15,7 +15,7 @@ Manager::Manager(string db_path, string boundaries_path, unsigned int thread_mod
 		segments = db.GetSegments();	// Loads the segments
 		Simplex simplex(segments, boundaries);	// Initializates the simplex
 		cout << "The computation has started. Please wait until it's finished..." << endl;
-		difuse2params = simplex.Compute(thread_mode, &auto_threads_count);	// Computes the coefficients
+		difuse2params = simplex.Compute(process_mode, &auto_threads_count);	// Computes the coefficients
 		OutputTable outTable(difuse2params);	// Initializates the table
 		outTable.ConsolePrint();	// Prints the results to the console
 		if (!output_file.empty()) outTable.FilePrint(output_file);	// Prints the results to the file

@@ -23,7 +23,7 @@ class Simplex
 public:
 	Simplex(vector<Segment*> segments, Parameters boundaries);	// Passes the segments and the boundaries for generated coefficients of the algormithm
 	~Simplex();
-	vector<Difuse2Param*> Compute(unsigned int thread_mode, unsigned int* auto_thread_count);
+	vector<Difuse2Param*> Compute(unsigned int process_mode, unsigned int* auto_thread_count);
 	Difuse2Param* ComputeSegment(unsigned int segment_index);	// Computes the algorithm for one segment
 private:
 
