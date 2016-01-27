@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-	PrintUsage();	// Prints the introduction information
+	PrintUsage();
 	if (ParseArgs(argc, argv) == false)
 	{
 		return -1;
