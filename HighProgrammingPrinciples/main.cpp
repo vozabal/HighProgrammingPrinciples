@@ -36,7 +36,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "There are no parameters! The application will start with the default parameters: [==MESSAGE==]\n"
 			<< "Database: " << db_path << endl
 			<< "Configuration file: " << boundaries_path << endl
-			<< "Processes count: " << "automatic" << endl
+			<< "Threads count: " << "automatic" << endl
 			<< "Outputfile: " << output_file << endl
 			<< endl;
 		return true;
@@ -46,7 +46,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "The second parameter is missing! Run the application with both parameters: [==ERROR==]" << endl
 			<< "Database: " << db_path << endl
 			<< "Configuration file: " << "none" << endl
-			<< "Processes count: " << "automatic" << endl
+			<< "Threads count: " << "automatic" << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return false;
@@ -56,7 +56,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Processes count: " << "automatic" << endl
+			<< "Threads count: " << "automatic" << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return true;
@@ -66,7 +66,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Processes count: " << argv[3] << endl
+			<< "Threads count: " << argv[3] << endl
 			<< "Outputfile: " << "none" << endl
 			<< endl;
 		return true;
@@ -76,7 +76,7 @@ bool ParseArgs(int argc, char *argv[])
 		cout << "Configuration:\n"
 			<< "Database: " << argv[1] << endl
 			<< "Configuration file: " << argv[2] << endl
-			<< "Processes count: " << argv[3] << endl
+			<< "Threads count: " << argv[3] << endl
 			<< "Outputfile: " << argv[4] << endl
 			<< endl;
 		return true;
@@ -99,7 +99,7 @@ void PrintUsage()
 		<< "and Simplex Optimization Algorithm created by Nelder and Mead.\n"
 		<< "The result (i.e. a table of calculated parameters and their fitnesses values for particular segments)\n"
 		<< "is printed to the OS console and possibly to an output file named \"result.txt\". If it is launched\n"
-		<< "without set up parameters the default will be used. For the tbb default number of processes use zero value.\n\n"
+		<< "without set up parameters the default will be used. For the tbb default number of threads use zero value.\n\n"
 		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016\n"
 		<< "-----------------------------------------------------------------------------------------------------------"
 		<< endl

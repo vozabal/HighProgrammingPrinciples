@@ -20,7 +20,7 @@ Description : Provides the logic of the application. Prepares preconditions for 
 class Manager
 {
 public:
-	Manager(string db_path, string boundaries_path, unsigned int process_mode, string output_file);	// Passes the arguments from the command line
+	Manager(string db_path, string boundaries_path, unsigned int threads_mode, string output_file);	// Passes the arguments from the command line
 	~Manager();
 
 private:
