@@ -17,9 +17,9 @@ Manager::Manager(string db_path, string boundaries_path, unsigned int threads_mo
 		cout << "The computation has started. Please wait until it's finished..." << endl;
 		difuse2params = simplex.Compute(threads_mode, &auto_threads_count);	// Computes the coefficients
 		OutputTable outTable(difuse2params);	// Initializates the table
+		db.PushResults(difuse2params);	// Pushes the resulsts into the database	
 		outTable.ConsolePrint();	// Prints the results to the console
 		if (!output_file.empty()) outTable.FilePrint(output_file);	// Prints the results to the file
-		db.PushResults(difuse2params);	// Pushes the resulsts into the database	
 
 		tbb::tick_count end = tbb::tick_count::now();// The end computation time		
 		double elapsed_secs = ((end - begin).seconds());	// The computation time
