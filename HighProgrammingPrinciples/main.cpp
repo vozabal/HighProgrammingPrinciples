@@ -104,7 +104,7 @@ void PrintUsage()
 		<< "and Simplex Optimization Algorithm created by Nelder and Mead.\n"
 		<< "The result (i.e. a table of calculated parameters and their fitnesses values for particular segments)\n"
 		<< "is printed to the OS console and possibly to an output file named \"result.txt\". If it is launched\n"
-		<< "without set up parameters the default will be used.\n\n"
+		<< "without set up parameters the default values will be used.\n\n"
 		<< "AUTHOR:  Miroslav Vozabal, University of West Bohemia, 2015/2016\n"
 		<< "---------------------------------------------------------------------------------------------------------"
 		<< endl

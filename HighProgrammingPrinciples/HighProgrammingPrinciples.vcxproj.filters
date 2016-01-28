@@ -23,7 +23,6 @@
     <ClCompile Include="Fitness.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Interpolation.cpp" />
-    <ClCompile Include="Manager.cpp" />
     <ClCompile Include="MeasuredValue.cpp" />
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="RandomVectorGenerator.cpp" />
@@ -46,9 +45,6 @@
       <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="Interpolation.h">
-      <Filter>Heads</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager.h">
       <Filter>Heads</Filter>
     </ClInclude>
     <ClInclude Include="MeasuredValue.h">
